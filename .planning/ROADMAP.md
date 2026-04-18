@@ -23,6 +23,12 @@
 
 **Exit:** a static build output can be opened locally and the core value ("lens + hosts + launch signal") lands in under 5 seconds of attention.
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Scaffold Hugo project, vendor arcaeon theme, install portraits, establish palette and typography foundation
+- [ ] 01-02-PLAN.md — Build Rewired homepage with Hero, Lens, Hosts, and Coming Soon sections wired to frontmatter copy with responsive CSS
+
 ---
 
 ## Phase 2: Ship — Email capture, deploy, shareable link
