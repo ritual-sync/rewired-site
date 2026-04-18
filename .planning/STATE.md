@@ -5,16 +5,16 @@
 See: `.planning/PROJECT.md` (updated 2026-04-18)
 
 **Core value:** A visitor lands, immediately gets the lens of the show, sees the two hosts, and drops their email so they don't miss the launch.
-**Current focus:** Phase 1 complete — ready for human verification pass, then Phase 2 (email capture + deploy)
+**Current focus:** Phase 2 in flight — email capture + deploy to rewired.show
 
 ## Current Phase
 
-**Phase 1: Build** — complete (both plans shipped)
+**Phase 2: Ship — Email capture, deploy, shareable link** — executing (2 plans, 8 tasks, 4 human checkpoints)
 
-- [x] Plan 01-01 — scaffold (Hugo + arcaeon + portraits + palette)
-- [x] Plan 01-02 — homepage composition (Hero / Lens / Hosts / Coming Soon)
+- [ ] Plan 02-01 — code changes (baseURL, OG meta, favicon, OG image, CNAME, Substack embed)
+- [ ] Plan 02-02 — deploy (GitHub Actions, repo, DNS, HTTPS, smoke test)
 
-Next: human verification pass on the built site (`hugo server`, visual check at mobile/tablet/desktop/wide widths), then `/gsd-plan-phase 2` or `/gsd-discuss-phase 2`.
+Phase 1 verified by Matt 2026-04-18 (verification not captured in docs at the time).
 
 ## Recent Activity
 
