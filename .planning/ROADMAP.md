@@ -26,8 +26,8 @@
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Scaffold Hugo project, vendor arcaeon theme, install portraits, establish palette and typography foundation
-- [ ] 01-02-PLAN.md — Build Rewired homepage with Hero, Lens, Hosts, and Coming Soon sections wired to frontmatter copy with responsive CSS
+- [x] 01-01-PLAN.md — Scaffold Hugo project, vendor arcaeon theme, install portraits, establish palette and typography foundation (completed 2026-04-18)
+- [x] 01-02-PLAN.md — Build Rewired homepage with Hero, Lens, Hosts, and Coming Soon sections wired to frontmatter copy with responsive CSS (completed 2026-04-18)
 
 ---
 

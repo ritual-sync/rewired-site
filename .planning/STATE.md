@@ -5,19 +5,24 @@
 See: `.planning/PROJECT.md` (updated 2026-04-18)
 
 **Core value:** A visitor lands, immediately gets the lens of the show, sees the two hosts, and drops their email so they don't miss the launch.
-**Current focus:** Phase 1 — Build (static site, content, portraits, palette)
+**Current focus:** Phase 1 complete — ready for human verification pass, then Phase 2 (email capture + deploy)
 
 ## Current Phase
 
-**Phase 1: Build** — not started
+**Phase 1: Build** — complete (both plans shipped)
 
-Next: `/gsd-discuss-phase 1` or `/gsd-plan-phase 1`
+- [x] Plan 01-01 — scaffold (Hugo + arcaeon + portraits + palette)
+- [x] Plan 01-02 — homepage composition (Hero / Lens / Hosts / Coming Soon)
+
+Next: human verification pass on the built site (`hugo server`, visual check at mobile/tablet/desktop/wide widths), then `/gsd-plan-phase 2` or `/gsd-discuss-phase 2`.
 
 ## Recent Activity
 
 - 2026-04-18 — Project initialized. PROJECT.md, REQUIREMENTS.md, ROADMAP.md, config.json written. Tight MVP scope, 2 phases, coarse granularity, YOLO mode, research skipped.
 - 2026-04-18 — Concept locked (Option A — warm-hearth MVP). Palette: RitualSync warm subset on Void Purple base. Portraits: Feral Architecture medium, dual hero placement.
 - 2026-04-18 — Jaye Anne portrait v3 tentatively locked at `~/Documents/Business-Brand/Feral-Architecture/portraits/2026-04-18-jaye-anne-headshot/final/jaye-anne-headshot.jpg`. GH Pages review live at https://mstine.github.io/rewired-portrait-review/ — Jaye Anne's final pick pending.
+- 2026-04-18 — Plan 01-01 executed. Hugo project scaffolded at /Users/falkensmage/RitualSync/rewired-site/. Arcaeon theme vendored read-only. Both portraits installed at `static/images/portraits/`. `rewired-overrides.css` wired with warm-core palette aliases + D-12 responsive/touch-target guardrails. Baseline `hugo --minify` exits 0.
+- 2026-04-18 — Plan 01-02 executed. Project-level `layouts/_default/baseof.html` + `layouts/index.html` shadow the theme. Four section partials (hero / lens / hosts / coming-soon) wired to `content/_index.md` frontmatter. Extended rewired-overrides.css with hero/lens/hosts/coming-soon rules, three responsive breakpoints (768/1024/1440), global :focus-visible Ion Glow ring. Built HTML renders all four sections in correct DOM order; all 5 canonical copy strings present; zero hex leaks in overrides CSS; theme directory untouched. Requirements ticked: SITE-03, HERO-01, HERO-02, CONT-01, CONT-02, CONT-03. Commits: 0038f9e, c700cdb, 08ed567. See `.planning/phases/01-build-static-site-content-portraits-palette/01-02-SUMMARY.md`.
 
 ## Assets & References
 
