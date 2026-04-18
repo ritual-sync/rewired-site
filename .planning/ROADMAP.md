@@ -46,6 +46,12 @@ Plans:
 
 **Exit:** a shareable URL that Matt can paste into a DM to Jaye Anne and to his existing network without cringe, and the first email signups start landing in Systeme.io.
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Apply code-side Phase 2 changes: production baseURL, OG/Twitter/canonical meta, favicon set, v1 OG image, CNAME, Systeme.io embed wired into coming-soon partial
+- [ ] 02-02-PLAN.md — Ship it live: GitHub Actions deploy workflow, create mstine/rewired-site repo + push, DNS records at registrar, enforce HTTPS, end-to-end smoke test across signup flow + link preview on 3 surfaces
+
 ---
 
 ## Coverage check
