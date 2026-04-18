@@ -1,0 +1,34 @@
+/* Rewired site overrides — layered on top of themes/arcaeon/assets/css/main.css */
+/* Per D-11: Rewired uses RitualSync warm-core subset of the ARCÆON palette on Void Purple base */
+/* Typography per D-04: INHERIT Cinzel (display) + Space Grotesk (body) from the theme — both already
+   satisfy "literary serif + clean geometric sans, adult not cute or corporate" and are preloaded by
+   themes/arcaeon/layouts/_default/baseof.html. No @font-face overrides here. */
+
+:root {
+  /* Rewired-specific semantic aliases — pin to warm-core per D-11 */
+  --rewired-bg:          var(--arcaeon-void-purple);
+  --rewired-bg-alt:      var(--arcaeon-deep-indigo);
+  --rewired-text:        var(--arcaeon-solar-white);
+  --rewired-heading:     var(--arcaeon-fusion-gold);   /* h1/h2 per D-05, D-11 */
+  --rewired-cta:         var(--arcaeon-ignition-orange); /* D-11: CTA bg */
+  --rewired-link-hover:  var(--arcaeon-plasma-pink);   /* D-11: link hover */
+  --rewired-accent-cyan: var(--arcaeon-ion-glow);      /* D-11: ONE accent — reserved for Plan 02 focus ring */
+  --rewired-divider:     var(--arcaeon-deep-indigo);
+
+  /* Responsive breakpoints per D-12 — use as media query values, not as CSS vars directly.
+     Base (<=480px), Tablet (>=768px), Desktop (>=1024px), Wide (>=1440px). */
+}
+
+/* D-12: mobile-first base styles, no horizontal scroll at any width */
+html, body { overflow-x: hidden; }
+
+/* D-12: touch targets >= 44x44px — applied to buttons and links in interactive regions */
+.rewired-cta, button.rewired-cta, a.rewired-cta {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Placeholder section rules — Plan 02 will extend these with Hero, Lens, Hosts, Coming Soon */
+.rewired-section {
+  padding: clamp(2rem, 6vw, 6rem) clamp(1rem, 4vw, 3rem);
+}
