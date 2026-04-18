@@ -59,6 +59,17 @@ html, body { overflow-x: hidden; }
   gap: clamp(1.5rem, 4vw, 3rem);
 }
 
+.rewired-hero__mark {
+  /* Primary brand mark — the R sigil. Sits above the wordmark, centered.
+     Source is 512×512 JPEG on Void Purple (matches the section bg, so the
+     JPEG sits flush with no visible box edge). */
+  display: block;
+  width: clamp(120px, 20vw, 200px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
 .rewired-hero__name {
   /* D-05: Fusion Gold, display weight, clamp 48-96px */
   font-family: 'Cinzel Variable', Georgia, 'Times New Roman', serif;
@@ -67,6 +78,31 @@ html, body { overflow-x: hidden; }
   font-size: clamp(3rem, 10vw, 6rem);
   line-height: 1;
   letter-spacing: 0.02em;
+}
+
+/* ============================================
+   CLOSING SIGIL — the ring as a colophon / wax-seal stamp at page close
+   ============================================ */
+
+.rewired-closing {
+  max-width: 48rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rewired-closing__sigil {
+  display: block;
+  width: clamp(100px, 14vw, 160px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
+.rewired-closing-section {
+  /* Lighter padding than the full sections above — this is punctuation,
+     not a main beat. */
+  padding-top: clamp(2rem, 5vw, 4rem);
+  padding-bottom: clamp(2rem, 5vw, 4rem);
 }
 
 .rewired-hero__portraits {
@@ -205,10 +241,10 @@ a.rewired-subscribe-btn {
   border-radius: 6px;
   background: var(--rewired-cta);
   color: var(--arcaeon-void-purple);
-  font-family: 'Cinzel Variable', Georgia, serif;
-  font-size: clamp(1rem, 1.75vw, 1.125rem);
+  font-family: 'Space Grotesk Variable', system-ui, -apple-system, sans-serif;
+  font-size: clamp(1.0625rem, 1.8vw, 1.1875rem);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   text-decoration: none;
   box-shadow: 0 4px 0 var(--arcaeon-void-purple);
   transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
