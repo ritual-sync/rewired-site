@@ -1,0 +1,27 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Rewired"
+theme = "arcaeon"
+
+[params]
+  author = "Matt Stine & Jaye Anne Beringer"
+  description = "A podcast about what happens when people leave rigid belief systems and start finding something alive."
+  showName = "Rewired"
+  tagline = "We left the systems. We're finding what's alive."
+  launchDate = "June 2026"
+
+[params.colors]
+  # ARCÆON palette — Radiant Core subset primary for Rewired (D-11)
+  voidPurple = "#1a0f2e"
+  deepIndigo = "#0a0f3c"
+  fusionGold = "#ffb347"
+  ignitionOrange = "#ff7a18"
+  plasmaPink = "#ff5fd2"
+  ionGlow = "#5be7ff"
+  solarWhite = "#fff4e6"
+  electricViolet = "#7a2cff"
+
+[caches]
+  [caches.getresource]
+    dir = ":cacheDir/:project"
+    maxAge = "1h"

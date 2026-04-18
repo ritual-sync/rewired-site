@@ -1,0 +1,737 @@
+/* ============================================
+   ARCAEON Design System — main.css
+   Single file per D-03: Tokens | Reset | Typography | Glow System | Layout | Components
+   ============================================ */
+
+/* ============================================
+   TOKENS — Palette Truth
+   Source: ARCAEON Color Palette System (SPEC.md)
+   WARNING: Electric Violet (#7a2cff) fails WCAG AA for body text
+   on both primary backgrounds. Decoration/glow only — NEVER body text.
+   ============================================ */
+
+:root {
+  /* Primary Identity */
+  --arcaeon-electric-violet: #7a2cff;
+  --arcaeon-neon-magenta: #ff3cac;
+  --arcaeon-plasma-pink: #ff5fd2;
+  --arcaeon-electric-blue: #2fd3ff;
+
+  /* Focal Energy (Radiant Core) */
+  --arcaeon-solar-white: #fff4e6;
+  --arcaeon-fusion-gold: #ffb347;
+  --arcaeon-ignition-orange: #ff7a18;
+
+  /* Cosmic Depth */
+  --arcaeon-deep-indigo: #0a0f3c;
+  --arcaeon-midnight-blue: #111a6b;
+  --arcaeon-void-purple: #1a0f2e;
+
+  /* Energy Accents */
+  --arcaeon-ion-glow: #5be7ff;
+}
+
+/* ============================================
+   TOKENS — Semantic Aliases
+   Usage-intent layer on top of palette truth (D-01)
+   ============================================ */
+
+:root {
+  --color-bg: var(--arcaeon-void-purple);
+  --color-bg-alt: var(--arcaeon-deep-indigo);
+  --color-bg-transition: var(--arcaeon-midnight-blue);
+  --color-text: var(--arcaeon-solar-white);
+  --color-text-accent: var(--arcaeon-ion-glow);
+  --color-accent: var(--arcaeon-electric-violet);
+  --color-accent-warm: var(--arcaeon-fusion-gold);
+  --color-hover: var(--arcaeon-neon-magenta);
+  --color-cta-start: var(--arcaeon-fusion-gold);
+  --color-cta-end: var(--arcaeon-ignition-orange);
+}
+
+/* ============================================
+   TOKENS — Triad Rule Section Overrides (D-02)
+   Each section gets scoped --section-purple, --section-blue, --section-warm
+   Convention: every section partial uses one of these classes
+   ============================================ */
+
+.section-void {
+  --section-purple: var(--arcaeon-void-purple);
+  --section-blue: var(--arcaeon-electric-blue);
+  --section-warm: var(--arcaeon-fusion-gold);
+  background: var(--section-purple);
+}
+
+.section-depth {
+  --section-purple: var(--arcaeon-deep-indigo);
+  --section-blue: var(--arcaeon-ion-glow);
+  --section-warm: var(--arcaeon-ignition-orange);
+  background: var(--section-purple);
+}
+
+/* ============================================
+   RESET
+   Minimal reset — box-sizing, margin, padding, smooth scroll
+   ============================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================
+   TYPOGRAPHY — Font Face Declarations
+   Self-hosted variable fonts via @fontsource-variable
+   font-display: swap prevents FOIT (D-05)
+   ============================================ */
+
+@font-face {
+  font-family: 'Cinzel Variable';
+  src: url('/fonts/cinzel-latin-wght-normal.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Grotesk Variable';
+  src: url('/fonts/space-grotesk-latin-wght-normal.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
+   TYPOGRAPHY — Type Scale (D-04, Minor Third 1.2 ratio)
+   Base: 1rem (16px)
+   Display treatment outside scale: clamp(2.5rem, 8vw, 4rem)
+   ============================================ */
+
+:root {
+  --font-display: 'Cinzel Variable', 'Times New Roman', serif;
+  --font-heading: 'Cinzel Variable', 'Times New Roman', serif;
+  --font-body: 'Space Grotesk Variable', system-ui, sans-serif;
+
+  /* Minor Third scale (D-04) */
+  --text-base: 1rem;
+  --text-h3: 1.44rem;
+  --text-h2: 1.728rem;
+  --text-h1: 2.074rem;
+  --text-display: clamp(2.5rem, 8vw, 4rem);
+
+  /* Cinzel weight progression (D-06) */
+  --weight-display: 800;
+  --weight-h1: 700;
+  --weight-h2: 600;
+  --weight-h3: 500;
+}
+
+/* ============================================
+   TYPOGRAPHY — Element Styles
+   Cinzel = headings (D-05), Space Grotesk = everything else
+   ============================================ */
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+h1 {
+  font-size: var(--text-h1);
+  font-weight: var(--weight-h1);
+}
+
+h2 {
+  font-size: var(--text-h2);
+  font-weight: var(--weight-h2);
+}
+
+h3 {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-h3);
+}
+
+.display-text {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: var(--weight-display);
+  line-height: 1.1;
+}
+
+a {
+  color: var(--color-text-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-hover);
+}
+
+/* ============================================
+   GLOW SYSTEM — Ambient Pulse (D-07, D-09, D-10)
+   Slow breathing radial glow for hero image / decorative elements
+   Color: Electric Violet (#7a2cff) per D-09
+   Timing: 5s ease-in-out cycle per D-10 (4-6s range)
+   GPU-composited: ::before + opacity + will-change (D-08)
+   ============================================ */
+
+.glow-ambient {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-ambient::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    circle,
+    var(--arcaeon-electric-violet) 0%,
+    transparent 70%
+  );
+  opacity: 0.4;
+  animation: ambient-pulse 5s ease-in-out infinite;
+  pointer-events: none;
+  will-change: opacity;
+  z-index: 0;
+}
+
+@keyframes ambient-pulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-ambient::before {
+    animation: none;
+    opacity: 0.3;
+  }
+}
+
+/* ============================================
+   GLOW SYSTEM — Interactive Glow (D-07)
+   Hover/focus state for links and social cards
+   Opacity transition on ::before pseudo-element
+   ============================================ */
+
+.glow-interactive {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-interactive::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: radial-gradient(
+    circle,
+    var(--arcaeon-electric-violet) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  will-change: opacity;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.glow-interactive:hover::before,
+.glow-interactive:focus-visible::before {
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-interactive::before {
+    transition: none;
+  }
+}
+
+/* ============================================
+   GLOW SYSTEM — Radiant Core CTA (D-07)
+   Fusion Gold (#ffb347) to Ignition Orange (#ff7a18) gradient
+   Warm glow on hover via ::before + opacity
+   ============================================ */
+
+.glow-radiant-core {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(
+    135deg,
+    var(--arcaeon-fusion-gold) 0%,
+    var(--arcaeon-ignition-orange) 100%
+  );
+  color: var(--arcaeon-void-purple);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.glow-radiant-core::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: radial-gradient(
+    circle,
+    var(--arcaeon-fusion-gold) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+  will-change: opacity;
+  z-index: 0;
+}
+
+.glow-radiant-core:hover::before,
+.glow-radiant-core:focus-visible::before {
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow-radiant-core::before {
+    transition: none;
+  }
+}
+
+/* ============================================
+   LAYOUT — Section Spacing + Responsive Foundation (THEME-05)
+   Mobile-first: 375px base, scales up
+   ============================================ */
+
+.section {
+  padding: 3rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-content {
+  max-width: 40rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Gradient transition between sections (D-11) */
+.section + .section::before {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-bg-transition) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Tablet breakpoint — 768px */
+@media (min-width: 48rem) {
+  .section {
+    padding: 4rem 2rem;
+  }
+
+  .section-content {
+    max-width: 48rem;
+  }
+}
+
+/* Desktop breakpoint — 1024px */
+@media (min-width: 64rem) {
+  .section {
+    padding: 5rem 2rem;
+  }
+
+  .section-content {
+    max-width: 56rem;
+  }
+}
+
+/* ============================================
+   COMPONENTS — Sigil Grammar (THEME-06, D-12)
+   CSS-only broken geometric circles and arc fragments
+   No SVG files — border-radius + partial borders + rotation
+   Placed at section boundaries, low opacity (~0.3)
+   ============================================ */
+
+.sigil-arc {
+  position: relative;
+}
+
+.sigil-arc::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid var(--arcaeon-electric-violet);
+  border-top-color: transparent;
+  border-right-color: transparent;
+  opacity: 0.3;
+  transform: rotate(-45deg);
+  pointer-events: none;
+}
+
+.sigil-arc-sm::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--arcaeon-neon-magenta);
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  opacity: 0.2;
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+/* Void-to-glow gradient decorative element */
+.sigil-gradient {
+  position: relative;
+}
+
+.sigil-gradient::after {
+  content: '';
+  position: absolute;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--arcaeon-electric-violet) 50%,
+    transparent 100%
+  );
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ============================================
+   HERO SECTION — Image + Logotype (Phase 2)
+   D-01: Image above, text below (stacked all viewports)
+   D-02: object-fit cover for mobile crop
+   D-03: .glow-ambient wraps image container
+   ============================================ */
+
+.hero-section {
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.hero-image-wrapper {
+  width: 100%;
+  max-height: 290px;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: 290px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-text {
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.hero-tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-h2);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+  margin-top: 0.75rem;
+  opacity: 0.85;
+}
+
+@media (min-width: 48rem) {
+  .hero-image-wrapper {
+    max-width: 800px;
+    max-height: none;
+    overflow: visible;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-image {
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+@media (min-width: 64rem) {
+  .hero-text {
+    padding-top: 2.5rem;
+  }
+}
+
+/* ============================================
+   IDENTITY + CTA SECTION (Phase 2)
+   D-09: Identity statement flows into CTA
+   D-10: .section-depth (Deep Indigo) background
+   D-12: Identity lives in this section, not hero
+   ============================================ */
+
+.identity-cta-content {
+  text-align: center;
+}
+
+.identity-statement {
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text);
+  max-width: 32rem;
+  margin: 0 auto 1.5rem;
+}
+
+.cta-description {
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+}
+
+.cta-button {
+  font-size: var(--text-base);
+  text-align: center;
+}
+
+/* ============================================
+   SOCIAL LINKS SECTION (Phase 2)
+   D-05: 2-col mobile → 3-col tablet → 4-col desktop
+   D-06: Inline SVG icons, currentColor
+   D-08: Ghost card style (border only, no fill)
+   ============================================ */
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 48rem) {
+  .social-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .social-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Ghost card — border only, no fill (D-08 discretion) */
+.social-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(122, 44, 255, 0.35);
+  border-radius: 8px;
+  min-height: 44px;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.social-card:hover,
+.social-card:focus-visible {
+  border-color: var(--arcaeon-electric-violet);
+  color: var(--arcaeon-ion-glow);
+}
+
+/* Z-index fix: content above .glow-interactive::before (z-index: 0) */
+.social-card__icon,
+.social-card__label {
+  position: relative;
+  z-index: 1;
+}
+
+.social-card__icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+}
+
+.social-card__label {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-card {
+    transition: none;
+  }
+}
+
+/* ============================================
+   FOOTER SECTION (Phase 2)
+   FOOT-01: "Stay feral, folks." exact copy
+   FOOT-02: Dynamic year + Digital Intuition LLC
+   FOOT-03: Lemniscate decorative mark
+   ============================================ */
+
+.footer-section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.footer-closing {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.footer-lemniscate {
+  font-size: 2rem;
+  color: var(--arcaeon-electric-violet);
+  opacity: 0.5;
+  margin-bottom: 0.75rem;
+}
+
+.footer-copyright {
+  font-size: 0.875rem;
+  color: var(--color-text);
+  opacity: 0.6;
+}
+
+/* ============================================
+   SIGIL BOUNDARY POSITIONING (Phase 2)
+   D-11: Sigils at section boundaries only
+   Phase 1 defined shapes, Phase 2 adds placement coordinates
+   ============================================ */
+
+.sigil-boundary-tr::after {
+  top: -20px;
+  right: 2rem;
+}
+
+.sigil-boundary-bl::after {
+  bottom: -20px;
+  left: 2rem;
+}
+
+/* ============================================
+   CURRENTLY SECTION (Phase 3)
+   D-04: compact card on .section-depth background
+   Ghost card — same visual language as social cards
+   Pseudo-element convention: ::before = glow, ::after = sigil
+   Currently card uses border-color transition (no pseudo-elements)
+   ============================================ */
+
+.currently-section {
+  /* inherits .section padding */
+}
+
+.currently-card {
+  max-width: 32rem;
+  margin-inline: auto;
+  border: 1px solid rgba(122, 44, 255, 0.35);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: border-color 0.25s ease;
+}
+
+.currently-card:hover {
+  border-color: var(--arcaeon-electric-violet);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .currently-card {
+    transition: none;
+  }
+}
+
+.currently-label {
+  font-family: var(--font-heading);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.currently-sublabel {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 400;
+  opacity: 0.7;
+  margin-bottom: 0.25rem;
+}
+
+.currently-post-link {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text-accent);
+  margin-bottom: 1rem;
+}
+
+.currently-focus {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  opacity: 0.85;
+  line-height: 1.6;
+}
