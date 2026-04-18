@@ -108,17 +108,24 @@ html, body { overflow-x: hidden; }
 }
 
 .rewired-hero__portraits {
+  /* Portraits always side-by-side (Matt left, Jaye Anne right) — including
+     mobile. Supersedes D-06's "stacked mobile" note: when they stay paired
+     the two-host identity reads instantly at any width. Flex children shrink
+     freely to share the container, capped per-portrait below. */
   display: flex;
-  flex-direction: column; /* mobile stack per D-06 — Matt above Jaye Anne */
-  gap: clamp(1rem, 3vw, 2rem);
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.75rem, 2.5vw, 2rem);
   width: 100%;
   max-width: 900px;
 }
 
 .rewired-hero__portrait {
   aspect-ratio: 1 / 1;
-  width: 100%;
-  max-width: 420px;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 380px;
   margin: 0 auto;
   border-radius: 12px;
   object-fit: cover;
@@ -277,18 +284,10 @@ a.rewired-subscribe-btn:active {
    ============================================ */
 
 @media (min-width: 768px) {
-  .rewired-hero__portraits {
-    flex-direction: row; /* D-06: side-by-side on desktop/tablet */
-    justify-content: center;
-    align-items: center;
-  }
-
-  .rewired-hero__portrait {
-    max-width: 380px;
-  }
-
+  /* Portraits layout now handled at base (row always). Tablet+ only bumps
+     the host-bios grid to two columns. */
   .rewired-hosts__grid {
-    grid-template-columns: 1fr 1fr; /* side-by-side host bios */
+    grid-template-columns: 1fr 1fr;
   }
 }
 
