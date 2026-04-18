@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ site.Params.description }}">
+
+  {{/* Font preload — fonts ship with the arcaeon theme at /fonts/ */}}
+  <link rel="preload" href="/fonts/cinzel-latin-wght-normal.woff2"
+        as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/space-grotesk-latin-wght-normal.woff2"
+        as="font" type="font/woff2" crossorigin>
+
+  {{/* Theme CSS (ARCÆON palette tokens + base typography + layout) */}}
+  {{ $themeCssOpts := dict "externals" (slice
+    "/fonts/cinzel-latin-wght-normal.woff2"
+    "/fonts/space-grotesk-latin-wght-normal.woff2"
+  ) }}
+  {{ $themeCss := resources.Get "css/main.css" | css.Build $themeCssOpts | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $themeCss.RelPermalink }}">
+
+  {{/* Rewired overrides — warm-core palette aliases + section styles */}}
+  {{ $rewiredCss := resources.Get "css/rewired-overrides.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $rewiredCss.RelPermalink }}">
+</head>
+<body class="rewired-body">
+  {{ block "main" . }}{{ end }}
+</body>
+</html>

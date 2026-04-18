@@ -28,7 +28,230 @@ html, body { overflow-x: hidden; }
   min-width: 44px;
 }
 
-/* Placeholder section rules — Plan 02 will extend these with Hero, Lens, Hosts, Coming Soon */
+/* ============================================
+   REWIRED SECTIONS — layout
+   ============================================ */
+
+.rewired-main {
+  display: flex;
+  flex-direction: column;
+}
+
 .rewired-section {
-  padding: clamp(2rem, 6vw, 6rem) clamp(1rem, 4vw, 3rem);
+  padding: clamp(3rem, 8vw, 7rem) clamp(1rem, 5vw, 4rem);
+  background: var(--rewired-bg);
+  color: var(--rewired-text);
+}
+
+.rewired-section--depth {
+  background: var(--rewired-bg-alt);
+}
+
+/* ============================================
+   HERO (D-05, D-06, D-07)
+   ============================================ */
+
+.rewired-hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.rewired-hero__name {
+  /* D-05: Fusion Gold, display weight, clamp 48-96px */
+  font-family: 'Cinzel Variable', Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  color: var(--rewired-heading);
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.rewired-hero__portraits {
+  display: flex;
+  flex-direction: column; /* mobile stack per D-06 — Matt above Jaye Anne */
+  gap: clamp(1rem, 3vw, 2rem);
+  width: 100%;
+  max-width: 900px;
+}
+
+.rewired-hero__portrait {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--rewired-bg-alt);
+}
+
+.rewired-hero__lens {
+  /* D-07: Solar White, display-scale body weight */
+  font-family: 'Space Grotesk Variable', system-ui, -apple-system, sans-serif;
+  color: var(--rewired-text);
+  font-size: clamp(1.125rem, 2.5vw, 1.625rem);
+  font-weight: 400;
+  max-width: 40ch;
+  line-height: 1.4;
+}
+
+/* ============================================
+   THE LENS (CONT-01)
+   ============================================ */
+
+.rewired-lens {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.rewired-lens__heading,
+.rewired-hosts__heading,
+.rewired-coming-soon__heading {
+  font-family: 'Cinzel Variable', Georgia, serif;
+  color: var(--rewired-heading);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  margin-bottom: clamp(1rem, 2vw, 1.75rem);
+  letter-spacing: 0.015em;
+}
+
+.rewired-lens__body {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.75vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--rewired-text);
+}
+
+/* ============================================
+   HOSTS (CONT-02)
+   ============================================ */
+
+.rewired-hosts {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.rewired-hosts__grid {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: stacked */
+  gap: clamp(2rem, 4vw, 3rem);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.rewired-host__name {
+  font-family: 'Cinzel Variable', Georgia, serif;
+  color: var(--rewired-heading);
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  margin-bottom: 0.5rem;
+}
+
+.rewired-host__bio {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--rewired-text);
+}
+
+.rewired-host__bio a {
+  color: var(--rewired-text);
+  text-decoration-color: var(--arcaeon-fusion-gold);
+  text-underline-offset: 0.2em;
+  transition: color 120ms ease;
+}
+
+.rewired-host__bio a:hover,
+.rewired-host__bio a:focus-visible {
+  color: var(--rewired-link-hover);
+}
+
+/* ============================================
+   COMING SOON (CONT-03)
+   ============================================ */
+
+.rewired-coming-soon {
+  max-width: 48rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rewired-coming-soon__body {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--rewired-text);
+}
+
+.rewired-coming-soon__email-placeholder {
+  /* Phase 2 wires the actual Systeme.io form here */
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  padding: 1rem 1.25rem;
+  border: 1px dashed var(--rewired-divider);
+  border-radius: 8px;
+  color: var(--rewired-text);
+  opacity: 0.7;
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 0.9375rem;
+}
+
+/* The ONE Ion Glow accent per D-11 — focus ring on the Phase 2 email input.
+   For Phase 1 placeholder, we apply it to the placeholder block's focus-within
+   so interactive focus already signals the correct cyan. */
+.rewired-coming-soon__email-placeholder:focus-within {
+  outline: 2px solid var(--rewired-accent-cyan);
+  outline-offset: 3px;
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS (D-12)
+   base <= 480px (mobile)   — default rules above
+   tablet >= 768px          — side-by-side portraits, hosts 2-col
+   desktop >= 1024px        — wider section max-widths
+   wide >= 1440px           — expanded hero breathing room
+   ============================================ */
+
+@media (min-width: 768px) {
+  .rewired-hero__portraits {
+    flex-direction: row; /* D-06: side-by-side on desktop/tablet */
+    justify-content: center;
+    align-items: center;
+  }
+
+  .rewired-hero__portrait {
+    max-width: 380px;
+  }
+
+  .rewired-hosts__grid {
+    grid-template-columns: 1fr 1fr; /* side-by-side host bios */
+  }
+}
+
+@media (min-width: 1024px) {
+  .rewired-hero__portrait {
+    max-width: 420px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .rewired-section {
+    padding-left: clamp(4rem, 10vw, 8rem);
+    padding-right: clamp(4rem, 10vw, 8rem);
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY (D-12)
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--rewired-accent-cyan);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
