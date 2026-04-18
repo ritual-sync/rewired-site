@@ -1,5 +1,9 @@
 {{/* Coming Soon — no fake urgency, clear signal (CONT-03, D-10)
-     Phase 2 wires the Substack subscribe iframe (CAPT-01, CAPT-02, D-04, D-05) */}}
+     Phase 2 wires the Substack subscribe CTA (CAPT-01, CAPT-02, D-04, D-05).
+     Styled button replaces the iframe: iframe contents are cross-origin and
+     can't be repainted from this page; Substack's embed already pops a new
+     tab on submit, so a Rewired-branded button hitting the same endpoint
+     loses nothing and gains full palette control. */}}
 <section class="rewired-section rewired-coming-soon-section section-depth">
   <div class="rewired-coming-soon">
     <h2 class="rewired-coming-soon__heading">{{ $.Params.comingSoonHeading | default "Coming Soon" }}</h2>
@@ -7,9 +11,17 @@
       <p class="rewired-coming-soon__body">{{ . }}</p>
     {{ end }}
 
-    {{/* Substack subscribe embed — publication: rewiredshow.substack.com (D-05, CAPT-02) */}}
-    <div class="rewired-coming-soon__email-placeholder" aria-label="Subscribe to Rewired on Substack" style="opacity: 1;">
-      <iframe src="https://rewiredshow.substack.com/embed" width="480" height="320" style="border: 1px solid #EEE; background: white" frameborder="0" scrolling="no"></iframe>
+    <div class="rewired-coming-soon__cta-wrapper">
+      <a class="rewired-cta rewired-subscribe-btn"
+         href="https://rewiredshow.substack.com/subscribe"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Subscribe to Rewired on Substack (opens in a new tab)">
+        Subscribe
+        <svg class="rewired-subscribe-btn__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+          <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>

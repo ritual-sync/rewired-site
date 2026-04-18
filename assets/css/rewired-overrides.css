@@ -183,24 +183,51 @@ html, body { overflow-x: hidden; }
   color: var(--rewired-text);
 }
 
-.rewired-coming-soon__email-placeholder {
-  /* Phase 2 wires the actual Systeme.io form here */
+/* Subscribe CTA — Rewired-branded replacement for Substack's cross-origin iframe.
+   Substack's publication theme (option 2) styles the destination page; this
+   button (option 1) styles the click. Palette: Ignition Orange per D-11
+   --rewired-cta; Void Purple text for AAA contrast; Fusion Gold on hover for
+   a palette-legal warm-to-warmer shift. Ion Glow keyboard-focus ring comes
+   from the global :focus-visible rule at the bottom of this file. */
+
+.rewired-coming-soon__cta-wrapper {
   margin-top: clamp(1.5rem, 3vw, 2.5rem);
-  padding: 1rem 1.25rem;
-  border: 1px dashed var(--rewired-divider);
-  border-radius: 8px;
-  color: var(--rewired-text);
-  opacity: 0.7;
-  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
-  font-size: 0.9375rem;
+  display: flex;
+  justify-content: center;
 }
 
-/* The ONE Ion Glow accent per D-11 — focus ring on the Phase 2 email input.
-   For Phase 1 placeholder, we apply it to the placeholder block's focus-within
-   so interactive focus already signals the correct cyan. */
-.rewired-coming-soon__email-placeholder:focus-within {
-  outline: 2px solid var(--rewired-accent-cyan);
-  outline-offset: 3px;
+a.rewired-subscribe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 6px;
+  background: var(--rewired-cta);
+  color: var(--arcaeon-void-purple);
+  font-family: 'Cinzel Variable', Georgia, serif;
+  font-size: clamp(1rem, 1.75vw, 1.125rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  box-shadow: 0 4px 0 var(--arcaeon-void-purple);
+  transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+a.rewired-subscribe-btn:hover,
+a.rewired-subscribe-btn:focus-visible {
+  background: var(--arcaeon-fusion-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--arcaeon-void-purple);
+}
+
+a.rewired-subscribe-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 0 var(--arcaeon-void-purple);
+}
+
+.rewired-subscribe-btn__icon {
+  flex-shrink: 0;
 }
 
 /* ============================================
