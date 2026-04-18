@@ -9,11 +9,11 @@ hosts:
   matt:
     name: "Matt Stine"
     portraitAlt: "Matt Stine — illustrated Feral Architecture plate, seated with a laptop and a tarot deck"
-    bio: "Enterprise systems architect by day, witch and Jungian co-conspirator by everything else. Writes at <a href=\"https://feralarchitecture.com\">Feral Architecture</a>. Lives in the seam between grep and The Morrigan."
+    bio: "In the world where grep and The Morrigan are equally real — chaos witch, archetypal tarotist, Jungian depth coach, enterprise systems architect. Writes at <a href=\"https://feralarchitecture.com\">Feral Architecture</a>. Co-founded RitualSync with Jaye Anne, makers of <a href=\"https://mytarotpulse.com\">TarotPulse</a>."
   jayeAnne:
     name: "Jaye Anne Beringer"
     portraitAlt: "Jaye Anne Beringer — illustrated Feral Architecture plate in matched lighting"
-    bio: "Energy Alchemy practitioner, RitualSync co-founder, and the reason most of the hard questions get asked in the first place. Rooted in curanderismo-derived embodied practice. Writes <a href=\"https://tarotpulse.com\">Tarot Pulse</a>."
+    bio: "Embodied Alchemy healer, somatic cycle-breaker, tarotist, and the reason most of the hard questions get asked in the first place. Works with nervous systems that have known too much and bodies told they were too sensitive. Co-founded RitualSync with Matt, makers of <a href=\"https://mytarotpulse.com\">TarotPulse</a>."
 comingSoonHeading: "Coming Soon"
 comingSoon: "First episodes drop June 2026. Leave your email so you don't miss it."
 ---
