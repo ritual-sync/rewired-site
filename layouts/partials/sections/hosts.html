@@ -1,1 +1,20 @@
-{{/* Stub — Task 3 replaces with the full Hosts partial */}}
+{{/* Hosts — 2-3 sentence bios for Matt and Jaye Anne (CONT-02, D-09) */}}
+<section class="rewired-section rewired-hosts-section section-void">
+  <div class="rewired-hosts">
+    <h2 class="rewired-hosts__heading">{{ $.Params.hostsHeading | default "Hosts" }}</h2>
+    <div class="rewired-hosts__grid">
+      {{ with $.Params.hosts.matt }}
+        <article class="rewired-host rewired-host--matt">
+          <h3 class="rewired-host__name">{{ .name }}</h3>
+          <p class="rewired-host__bio">{{ .bio | safeHTML }}</p>
+        </article>
+      {{ end }}
+      {{ with $.Params.hosts.jayeAnne }}
+        <article class="rewired-host rewired-host--jaye-anne">
+          <h3 class="rewired-host__name">{{ .name }}</h3>
+          <p class="rewired-host__bio">{{ .bio | safeHTML }}</p>
+        </article>
+      {{ end }}
+    </div>
+  </div>
+</section>

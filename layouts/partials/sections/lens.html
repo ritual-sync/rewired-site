@@ -1,1 +1,9 @@
-{{/* Stub — Task 3 replaces with the full Lens partial */}}
+{{/* The Lens — one short paragraph articulating the show's through-line (CONT-01, D-08) */}}
+<section class="rewired-section rewired-lens-section section-depth">
+  <div class="rewired-lens">
+    <h2 class="rewired-lens__heading">{{ $.Params.lensHeading | default "The Lens" }}</h2>
+    {{ with $.Params.lensParagraph }}
+      <p class="rewired-lens__body">{{ . }}</p>
+    {{ end }}
+  </div>
+</section>

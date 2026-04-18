@@ -1,1 +1,15 @@
-{{/* Stub — Task 3 replaces with the full Coming Soon partial */}}
+{{/* Coming Soon — no fake urgency, clear signal (CONT-03, D-10)
+     Phase 2 will replace the email-placeholder div with the Systeme.io form (CAPT-01) */}}
+<section class="rewired-section rewired-coming-soon-section section-depth">
+  <div class="rewired-coming-soon">
+    <h2 class="rewired-coming-soon__heading">{{ $.Params.comingSoonHeading | default "Coming Soon" }}</h2>
+    {{ with $.Params.comingSoon }}
+      <p class="rewired-coming-soon__body">{{ . }}</p>
+    {{ end }}
+
+    {{/* Placeholder for Phase 2 email capture (CAPT-01..04, DEPL-*) — do NOT wire in Phase 1 */}}
+    <div class="rewired-coming-soon__email-placeholder" aria-label="Email signup (coming soon)">
+      Email signup wired in Phase 2.
+    </div>
+  </div>
+</section>
