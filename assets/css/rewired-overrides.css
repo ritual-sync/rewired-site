@@ -62,12 +62,13 @@ html, body { overflow-x: hidden; }
 .rewired-hero__mark {
   /* Primary brand mark — the R sigil. Sits above the wordmark, centered.
      Source is 512×512 JPEG on Void Purple (matches the section bg, so the
-     JPEG sits flush with no visible box edge). */
+     JPEG sits flush with no visible box edge). Rounded to match portraits. */
   display: block;
   width: clamp(120px, 20vw, 200px);
   height: auto;
   aspect-ratio: 1 / 1;
   margin: 0 auto;
+  border-radius: 12px;
 }
 
 .rewired-hero__name {
@@ -96,6 +97,7 @@ html, body { overflow-x: hidden; }
   height: auto;
   aspect-ratio: 1 / 1;
   margin: 0 auto;
+  border-radius: 12px;
 }
 
 .rewired-closing-section {
