@@ -1,1 +1,29 @@
-{{/* Stub — Task 2 replaces with the full Hero partial */}}
+{{/* Rewired Hero — Show name + dual host portraits + one-line lens
+     D-05: "Rewired" in Fusion Gold, clamp 48-96px (CSS handles)
+     D-06: portraits side-by-side desktop (>=768px) / stacked mobile (Matt above Jaye Anne)
+     D-07: one-line lens below the portrait pair, centered, Solar White */}}
+
+<section class="rewired-section rewired-hero-section section-void">
+  <div class="rewired-hero">
+    <h1 class="rewired-hero__name">{{ $.Params.showName | default "Rewired" }}</h1>
+
+    <div class="rewired-hero__portraits">
+      <img class="rewired-hero__portrait rewired-hero__portrait--matt"
+           src="{{ "images/portraits/matt.jpg" | relURL }}"
+           alt="{{ $.Params.hosts.matt.portraitAlt | default "Matt Stine portrait" }}"
+           width="800" height="800"
+           loading="eager"
+           decoding="async">
+      <img class="rewired-hero__portrait rewired-hero__portrait--jaye-anne"
+           src="{{ "images/portraits/jaye-anne.jpg" | relURL }}"
+           alt="{{ $.Params.hosts.jayeAnne.portraitAlt | default "Jaye Anne Beringer portrait" }}"
+           width="800" height="800"
+           loading="eager"
+           decoding="async">
+    </div>
+
+    {{ with $.Params.heroLens }}
+      <p class="rewired-hero__lens">{{ . }}</p>
+    {{ end }}
+  </div>
+</section>
