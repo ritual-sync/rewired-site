@@ -27,10 +27,10 @@
 
 ### Email Capture
 
-- [ ] **CAPT-01**: Systeme.io form embedded or proxied into the page (whichever integration method is least fragile)
-- [ ] **CAPT-02**: Captured emails land in a Systeme.io list specifically for Rewired (not mixed with other RitualSync lists)
-- [ ] **CAPT-03**: Successful submission shows a clear confirmation state without leaving the page
-- [ ] **CAPT-04**: Submission failures show a recoverable error state (no silent failures)
+- [ ] **CAPT-01**: Substack subscribe form embedded into the page (iframe embed; custom-form-to-endpoint is a post-launch enhancement)
+- [ ] **CAPT-02**: Captured emails subscribe to the dedicated Rewired Substack publication (not mixed with other publications Matt owns on Substack)
+- [ ] **CAPT-03**: Successful submission shows Substack's confirmation state inside the iframe without redirecting or reloading the host page
+- [ ] **CAPT-04**: Submission failures (empty, malformed, duplicate) are handled recoverably inside the iframe — no silent failures
 
 ### Deployment
 

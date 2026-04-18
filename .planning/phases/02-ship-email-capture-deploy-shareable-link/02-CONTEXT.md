@@ -6,16 +6,15 @@
 <domain>
 ## Phase Boundary
 
-This phase takes Phase 1's locally-built static site and puts it on the public internet at `rewired.show` with working email capture wired to Systeme.io, automatic HTTPS, and correct link previews when the URL is shared. When Phase 2 closes, Matt can send the URL to Jaye Anne in iMessage and the first email signups start landing in a Rewired-specific Systeme.io list.
+This phase takes Phase 1's locally-built static site and puts it on the public internet at `rewired.show` with working email capture wired to **Substack** (the Rewired publication — also the future home for episode audio + RSS), automatic HTTPS, and correct link previews when the URL is shared. When Phase 2 closes, Matt can send the URL to Jaye Anne in iMessage and the first email signups start landing as subscribers to the Rewired Substack.
 
-**In scope:** Systeme.io form integration into the existing Coming Soon placeholder, GitHub Pages deployment pipeline, rewired.show DNS + CNAME wiring, HTTPS enforcement, Open Graph / Twitter Card metadata, favicon set, push-to-main auto-deploy.
+**In scope:** Substack subscribe-form embed into the existing Coming Soon placeholder, GitHub Pages deployment pipeline, rewired.show DNS + CNAME wiring, HTTPS enforcement, Open Graph / Twitter Card metadata, favicon set, push-to-main auto-deploy.
 
-**Explicitly out of this phase** (v2 / deferred):
-- Episode list / audio player (no episodes yet)
-- RSS integration (podcast host handles this)
-- Analytics beyond signup count (ship-first; CAPT-02 signup count via Systeme.io is enough for MVP signal)
-- Welcome-email sequence inside Systeme.io (list capture is v1; drip is a separate exercise)
-- OG image dedicated design pass (use Matt's locked portrait or a simple composition in Phase 2; bespoke OG art is post-launch)
+**Explicitly out of this phase** (belongs to the new Phase 3 — Listener Experience — or deferred):
+- Episode list surface / per-episode pages / embedded audio player on rewired.show — **Phase 3** (pulls Substack RSS into Hugo build once episodes exist)
+- Bespoke OG image design pass (v1 uses Matt's portrait or a simple composition; bespoke art is post-launch)
+- Analytics beyond Substack's built-in subscriber count (ship-first; signup count suffices for MVP signal)
+- Welcome-email sequence on Substack (subscribe is v1; drip is a separate exercise once episodes and content start flowing)
 
 </domain>
 
@@ -26,12 +25,12 @@ This phase takes Phase 1's locally-built static site and puts it on the public i
 
 - **D-01:** **Domain: `rewired.show`.** Matt purchased this domain today. It is ready for DNS configuration — no alternate domain candidates. Apex (`rewired.show`) is canonical; `www.rewired.show` redirects to apex.
 - **D-02:** **Hosting: GitHub Pages** — push-to-main auto-deploy, free, HTTPS via Let's Encrypt (GitHub's native integration). Repo is `mstine/rewired-site` or equivalent (to be confirmed during execution — Matt may prefer a specific repo name).
-- **D-03:** **Email capture backend: Systeme.io** — Matt's CRM, already in production across other RitualSync brand flows. No second ESP; no newsletter-service fragmentation.
+- **D-03:** **Email + publishing + audio backend: Substack.** Matt knows the platform (Feral Architecture, prior podcasts). Substack hosts the subscriber list, publishes posts → email newsletter, hosts podcast audio natively, and generates an RSS feed that syndicates to Apple Podcasts / Spotify. Replaces the earlier Systeme.io default — Matt is actively exiting Systeme.io (see `brand-website-own-the-stack` thread). Rewired gets its own Substack publication so subscribers are clean and portable. No deepening of any platform Matt is leaving.
 
-### Systeme.io Integration (D-04, D-05)
+### Substack Integration (D-04, D-05)
 
-- **D-04:** **Systeme.io form embedded via their HTML embed snippet, dropped into the existing `rewired-coming-soon__email-placeholder` div Phase 1 pre-built in `layouts/partials/sections/coming-soon.html`.** Matt generates the form inside Systeme.io (new list: "Rewired — Pre-launch"), copies the embed code, and either (a) pastes the embed directly into the Hugo partial, or (b) hooks it in via a site-config parameter in `hugo.toml` so copy lives in config not template. Executor's call based on whether the embed snippet is stable or has per-form identifiers that change.
-- **D-05:** **New dedicated Systeme.io list: "Rewired — Pre-launch"** (or similar naming). Captured emails go here, NOT into any existing RitualSync / TarotPulse / Falken's Labyrinth list — this satisfies CAPT-02 explicitly. Matt creates the list in Systeme.io during execution; executor documents the list name and list ID in SUMMARY.md.
+- **D-04:** **Substack's official embedded subscribe form (iframe variant) dropped into the existing `rewired-coming-soon__email-placeholder` div Phase 1 pre-built in `layouts/partials/sections/coming-soon.html`.** Matt creates the Rewired Substack publication during execution, copies the embed URL from the publication's Dashboard → Settings → Subscribe widget (or equivalent), and pastes the embed into the Hugo partial. The iframe comes with Substack's default styling — minor palette clash with the Void Purple section is accepted as a Phase 2 tradeoff; CSS overrides for the iframe wrapper can tune the surrounding container but cannot restyle the iframe contents (cross-origin). A future enhancement is a custom form that POSTs to Substack's subscribe endpoint for full brand control; out of Phase 2 scope.
+- **D-05:** **Substack publication name: "Rewired"** (URL: `rewired.substack.com`). Subscribers on this publication are exclusive to Rewired — no mixing with Feral Architecture or any other Substack publication. This satisfies CAPT-02 (dedicated Rewired list). Matt creates the publication during execution; executor documents the publication URL and subscribe-embed shape in SUMMARY.md.
 
 ### DNS & HTTPS (D-06, D-07)
 
@@ -88,10 +87,11 @@ This phase takes Phase 1's locally-built static site and puts it on the public i
 - `.planning/REQUIREMENTS.md` — Phase 2 reqs: CAPT-01..04, DEPL-01..05
 - `.planning/ROADMAP.md` — Phase 2 goal and exit criteria
 - `.planning/phases/01-build-static-site-content-portraits-palette/01-CONTEXT.md` — Phase 1 decisions (palette discipline D-11 still applies to favicon + OG image)
-- `.planning/phases/01-build-static-site-content-portraits-palette/01-02-SUMMARY.md` — Phase 1 handoff: `rewired-coming-soon__email-placeholder` div already exists in `layouts/partials/sections/coming-soon.html` with a `:focus-within` Ion Glow cyan ring primed for the Systeme.io form input. `layouts/_default/baseof.html` intentionally ships without OG/Twitter/canonical/favicon meta so Phase 2 owns SEO + deployment.
+- `.planning/phases/01-build-static-site-content-portraits-palette/01-02-SUMMARY.md` — Phase 1 handoff: `rewired-coming-soon__email-placeholder` div already exists in `layouts/partials/sections/coming-soon.html` with a `:focus-within` Ion Glow cyan ring primed for the subscribe form input. `layouts/_default/baseof.html` intentionally ships without OG/Twitter/canonical/favicon meta so Phase 2 owns SEO + deployment.
 
-### Systeme.io
-- No canonical doc on disk — Matt's Systeme.io account is the source of truth. Executor logs into Systeme.io, creates the "Rewired — Pre-launch" list, generates the form, copies embed code. Document list ID and form ID in SUMMARY.md.
+### Substack
+- No canonical doc on disk — Matt's Substack account is the source of truth. Executor (via Matt checkpoint) creates the "Rewired" publication at `rewired.substack.com`, copies the embedded subscribe form, pastes into the Hugo partial. Document the publication URL and subscribe-embed shape in SUMMARY.md.
+- Related context: `brand-website-own-the-stack` thread — Matt is exiting Systeme.io + Coach Vantage + Kartra. Substack does NOT become the sovereign stack later; it stays the publishing + subscribe layer for Rewired specifically, while Own-the-Stack proceeds separately for Matt's broader brand.
 
 ### GitHub Pages
 - GitHub Pages custom-domain docs: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site (for executor's reference during DNS setup)
@@ -101,9 +101,9 @@ This phase takes Phase 1's locally-built static site and puts it on the public i
 - `~/.psyche/swipe-files/podcasting-creative/2026-04-16-12-33-18-arc-on-color-palette-full.md` — ARCÆON palette. Favicon and OG image must stay inside this family.
 
 ### Phase 1 Wired Anchors
-- `/Users/falkensmage/RitualSync/rewired-site/layouts/partials/sections/coming-soon.html` — contains `.rewired-coming-soon__email-placeholder` (Phase 2 replaces the div content with the Systeme.io embed)
+- `/Users/falkensmage/RitualSync/rewired-site/layouts/partials/sections/coming-soon.html` — contains `.rewired-coming-soon__email-placeholder` (Phase 2 replaces the div content with the Substack subscribe embed)
 - `/Users/falkensmage/RitualSync/rewired-site/layouts/_default/baseof.html` — Phase 2 adds OG/Twitter/canonical/favicon meta here
-- `/Users/falkensmage/RitualSync/rewired-site/hugo.toml` — site config; Phase 2 may add `[params.systeme_io]` block for embed config if template-vs-config split is useful
+- `/Users/falkensmage/RitualSync/rewired-site/hugo.toml` — site config; Phase 2 may add `[params.substack]` block for the publication URL if template-vs-config split is useful
 
 </canonical_refs>
 
@@ -111,16 +111,17 @@ This phase takes Phase 1's locally-built static site and puts it on the public i
 ## Existing Code Insights
 
 ### Reusable Assets (from Phase 1)
-- `layouts/partials/sections/coming-soon.html` with `:focus-within` Ion Glow ring already primed — drop-in target for Systeme.io form embed
+- `layouts/partials/sections/coming-soon.html` with `:focus-within` Ion Glow ring already primed — drop-in target for the Substack subscribe form
 - `layouts/_default/baseof.html` with clean `<head>` — ready to accept OG/Twitter/canonical/favicon meta tags
 - `hugo.toml` baseURL is a placeholder — update to `https://rewired.show/` during execution
 
 ### Established Patterns
 - Push-to-main deploy pattern validated by `psyche-infographic` and `rewired-portrait-review` (already running on GitHub Pages — Matt has the pattern locked)
 - CNAME file pattern at repo root is standard GH Pages behavior
+- Matt has shipped prior podcasts on Substack — the publishing + audio + RSS pattern is known, not new
 
 ### Integration Points
-- Outward: Systeme.io (form embed), GitHub (repo + Actions + Pages), Namecheap / Matt's registrar for rewired.show DNS
+- Outward: Substack (subscribe embed, future post-launch Phase 3 RSS pull for episode pages), GitHub (repo + Actions + Pages), Namecheap / Matt's registrar for rewired.show DNS
 - Inward: Phase 1's partial + baseof are the only files Phase 2 modifies structurally; everything else is additive (.github/workflows/, CNAME, static/favicon.*, static/images/og/)
 
 </code_context>
@@ -128,18 +129,21 @@ This phase takes Phase 1's locally-built static site and puts it on the public i
 <specifics>
 ## Specific Ideas
 
-- **Test signup flow before announcing the URL publicly.** Matt submits his own email from the live site, verifies it lands in the "Rewired — Pre-launch" Systeme.io list, checks that success state renders without page reload (CAPT-03) and that a deliberate failure (e.g., empty submit) shows a recoverable error (CAPT-04).
+- **Test signup flow before announcing the URL publicly.** Matt submits his own email from the live site, verifies it lands as a subscriber on the Rewired Substack publication, checks that success state renders per Substack's embed behavior (CAPT-03) and that a deliberate failure (e.g., empty submit) is handled recoverably (CAPT-04).
 - **Link-preview smoke test across 3 surfaces:** iMessage, Slack, one of Matt's public-social surfaces (Threads or X). Paste the URL, watch the OG preview render. If any surface shows a broken preview, iterate.
 - **Don't announce the URL publicly in Phase 2.** Phase 2 exit is "shareable to Jaye Anne via DM" — not "tweeted." Public launch is a separate human-judgment moment after Jaye Anne confirms her portrait pick and Matt is happy with the copy.
+- **Hybrid architecture note:** rewired.show (Hugo) is the visual/brand front door; rewired.substack.com is the operational backbone (subscribers, publishing, audio, RSS). Phase 3 will pull Substack's RSS back into Hugo so rewired.show carries a full listener experience (episode pages with embedded players, show notes). Phase 2 doesn't need to solve this yet — just make sure the subscribe capture works.
 
 </specifics>
 
 <deferred>
 ## Deferred Ideas
 
-- **Bespoke OG image design pass** — v1 uses Matt's portrait or a quick ImageMagick composition; bespoke art is post-launch.
-- **Analytics beyond Systeme.io signup count** — Plausible or similar lives in a post-MVP phase if signal warrants.
-- **Welcome-email drip inside Systeme.io** — list capture is Phase 2 scope; the automation sequence is a separate exercise.
+- **Bespoke OG image design pass** — v1 uses Matt's portrait or a quick composition; bespoke art is post-launch.
+- **Analytics beyond Substack's built-in subscriber count** — Plausible or similar lives in a post-MVP phase if signal warrants.
+- **Welcome-email drip on Substack** — subscribe is Phase 2 scope; any automation sequence is a separate exercise, scoped once content is flowing.
+- **Custom-form-posting-to-Substack-endpoint** — unofficial but widely-used pattern for full brand control over the subscribe UI. Out of Phase 2; iframe embed is MVP.
+- **Phase 3 — Listener Experience** — pull Substack RSS into Hugo build, generate per-episode pages on rewired.show with embedded audio players, show notes in Card→Riff→Unresolved structure, episode list, latest-episode callout. Triggered by first episodes existing; not Phase 2 work.
 - **404 page with voice** — Hugo's default 404 is fine for MVP; a written 404 with Matt's register is a post-launch nice-to-have.
 - **Sitemap.xml + robots.txt** — Hugo generates a sitemap by default if configured; leave default. Robots.txt not blocking for launch.
 
