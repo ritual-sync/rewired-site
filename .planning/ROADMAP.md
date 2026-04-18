@@ -49,8 +49,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Apply code-side Phase 2 changes: production baseURL, OG/Twitter/canonical meta, favicon set, v1 OG image, CNAME, Substack subscribe iframe wired into coming-soon partial
-- [ ] 02-02-PLAN.md — Ship it live: GitHub Actions deploy workflow, create mstine/rewired-site repo + push, DNS records at registrar, enforce HTTPS, end-to-end smoke test across subscribe flow + link preview on 3 surfaces
+- [x] 02-01-PLAN.md — Apply code-side Phase 2 changes: production baseURL, OG/Twitter/canonical meta, favicon set, v1 OG image, CNAME, Substack subscribe iframe wired into coming-soon partial (completed 2026-04-18)
+- [x] 02-02-PLAN.md — Ship it live: GitHub Actions deploy workflow, create ritual-sync/rewired-site repo + push, DNS records at registrar, enforce HTTPS, end-to-end smoke test across subscribe flow + link preview on 3 surfaces (completed 2026-04-18)
 
 ---
 
