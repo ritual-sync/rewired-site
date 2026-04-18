@@ -1,5 +1,5 @@
 {{/* Coming Soon — no fake urgency, clear signal (CONT-03, D-10)
-     Phase 2 will replace the email-placeholder div with the Systeme.io form (CAPT-01) */}}
+     Phase 2 wires the Substack subscribe iframe (CAPT-01, CAPT-02, D-04, D-05) */}}
 <section class="rewired-section rewired-coming-soon-section section-depth">
   <div class="rewired-coming-soon">
     <h2 class="rewired-coming-soon__heading">{{ $.Params.comingSoonHeading | default "Coming Soon" }}</h2>
@@ -7,9 +7,9 @@
       <p class="rewired-coming-soon__body">{{ . }}</p>
     {{ end }}
 
-    {{/* Placeholder for Phase 2 email capture (CAPT-01..04, DEPL-*) — do NOT wire in Phase 1 */}}
-    <div class="rewired-coming-soon__email-placeholder" aria-label="Email signup (coming soon)">
-      Email signup wired in Phase 2.
+    {{/* Substack subscribe embed — publication: rewiredshow.substack.com (D-05, CAPT-02) */}}
+    <div class="rewired-coming-soon__email-placeholder" aria-label="Subscribe to Rewired on Substack" style="opacity: 1;">
+      <iframe src="https://rewiredshow.substack.com/embed" width="480" height="320" style="border: 1px solid #EEE; background: white" frameborder="0" scrolling="no"></iframe>
     </div>
   </div>
 </section>
