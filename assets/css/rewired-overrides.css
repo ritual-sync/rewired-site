@@ -319,3 +319,158 @@ a.rewired-subscribe-btn:active {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================
+   EPISODES — RSS-driven card grid (#3)
+   Pulled from the Substack feed at build time. Falls back to the Coming Soon
+   CTA (reusing .rewired-coming-soon styles above) when the feed is empty.
+   ============================================ */
+
+.rewired-episodes {
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.rewired-episodes__heading {
+  font-family: 'Cinzel Variable', Georgia, serif;
+  color: var(--rewired-heading);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  letter-spacing: 0.015em;
+  text-align: center;
+}
+
+.rewired-episodes__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: single column */
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.rewired-episode {
+  display: flex;
+  flex-direction: column;
+  background: var(--rewired-bg);
+  border: 1px solid color-mix(in srgb, var(--arcaeon-fusion-gold) 22%, transparent);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.rewired-episode:hover,
+.rewired-episode:focus-within {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--arcaeon-fusion-gold) 55%, transparent);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+}
+
+.rewired-episode__cover-link {
+  display: block;
+  line-height: 0;
+}
+
+.rewired-episode__cover {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: var(--rewired-bg-alt);
+}
+
+.rewired-episode__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: clamp(1.1rem, 2.5vw, 1.6rem);
+}
+
+.rewired-episode__date {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--rewired-text) 65%, transparent);
+  margin: 0;
+}
+
+.rewired-episode__title {
+  font-family: 'Cinzel Variable', Georgia, serif;
+  font-size: clamp(1.1875rem, 2.2vw, 1.4375rem);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.rewired-episode__title a {
+  color: var(--rewired-heading);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+
+.rewired-episode__title a:hover,
+.rewired-episode__title a:focus-visible {
+  color: var(--rewired-link-hover);
+}
+
+.rewired-episode__summary {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--rewired-text) 88%, transparent);
+  margin: 0;
+}
+
+.rewired-episode__audio {
+  width: 100%;
+  height: 40px;
+  margin-top: 0.25rem;
+}
+
+.rewired-episode__permalink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--rewired-text);
+  text-decoration-color: var(--arcaeon-fusion-gold);
+  text-underline-offset: 0.2em;
+  transition: color 120ms ease;
+}
+
+.rewired-episode__permalink:hover,
+.rewired-episode__permalink:focus-visible {
+  color: var(--rewired-link-hover);
+}
+
+.rewired-episodes__cta-wrapper {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  display: flex;
+  justify-content: center;
+}
+
+/* Closing benediction — the ratified Rewired sign-off, stamped under the sigil */
+.rewired-closing__benediction {
+  margin-top: clamp(1rem, 2.5vw, 1.75rem);
+  font-family: 'Cinzel Variable', Georgia, serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--rewired-heading) 90%, transparent);
+}
+
+@media (min-width: 768px) {
+  .rewired-episodes__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .rewired-episodes__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

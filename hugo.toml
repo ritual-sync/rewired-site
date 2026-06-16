@@ -9,6 +9,9 @@ theme = "arcaeon"
   showName = "Rewired"
   tagline = "We left the systems. We're finding what's alive."
   launchDate = "June 2026"
+  # Subscribe CTA target — UTM-tagged so Substack attributes clicks to the standalone site.
+  # noreferrer on the buttons strips the Referer header, so these tags are the attribution signal.
+  subscribeURL = "https://rewiredshow.substack.com/subscribe?utm_source=rewired.show&utm_medium=website&utm_campaign=subscribe-cta"
 
 [params.colors]
   # ARCÆON palette — Radiant Core subset primary for Rewired (D-11)

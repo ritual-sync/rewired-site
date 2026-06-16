@@ -1,0 +1,94 @@
+name: scheduled-launch-deploy
+
+# One-time rebuild + deploy timed to just after the Rewired episodes auto-publish
+# on Substack (Sun June 21, 2026, 08:00 America/Chicago). The Episodes section
+# pulls the Substack RSS feed at BUILD time, so the site must rebuild AFTER the
+# episodes go live for them to appear. This fires ~30 min later, self-guards to
+# the launch date, and disables itself after a successful deploy so it never
+# recurs. Manual trigger (workflow_dispatch) bypasses the date guard.
+
+on:
+  schedule:
+    # 13:30 UTC = 08:30 CDT (UTC-5) on June 21. Episodes publish at 08:00 CDT;
+    # the 30-min buffer absorbs GitHub Actions' scheduled-run delay (cron can
+    # fire several minutes late under load).
+    - cron: '30 13 21 6 *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  actions: write   # required to self-disable after the one-time run
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    outputs:
+      proceed: ${{ steps.check.outputs.proceed }}
+    steps:
+      - id: check
+        run: |
+          TODAY=$(date -u +%Y-%m-%d)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$TODAY" = "2026-06-21" ]; then
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+            echo "Proceeding (event=${{ github.event_name }}, UTC date=$TODAY)."
+          else
+            echo "proceed=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping: UTC date $TODAY is not the 2026-06-21 launch date."
+          fi
+
+  build:
+    needs: guard
+    if: needs.guard.outputs.proceed == 'true'
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.160.1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Build with Hugo (fresh fetch of the Substack feed)
+        run: hugo --minify --gc
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  disable:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disable this workflow so the one-time launch deploy never recurs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow disable scheduled-launch-deploy.yml --repo "${{ github.repository }}"

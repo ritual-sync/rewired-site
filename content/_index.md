@@ -14,6 +14,8 @@ hosts:
     name: "Jaye Anne Beringer"
     portraitAlt: "Jaye Anne Beringer — illustrated Feral Architecture plate in matched lighting"
     bio: "Embodied Alchemy healer, somatic cycle-breaker, tarotist, and the reason most of the hard questions get asked in the first place. Works with nervous systems that have known too much and bodies told they were too sensitive. Co-founded RitualSync with Matt, makers of <a href=\"https://mytarotpulse.com\">TarotPulse</a>."
+episodesHeading: "Episodes"
 comingSoonHeading: "Coming Soon"
-comingSoon: "First episodes drop June 2026. Leave your email so you don't miss it."
+comingSoon: "First episodes drop on the solstice — June 21, 2026. Drop your email and they'll land on their own."
+benediction: "Stay feral. Stay unfinished."
 ---

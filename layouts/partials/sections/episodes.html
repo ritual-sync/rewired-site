@@ -1,0 +1,124 @@
+{{/* Episodes — pulled from the Substack RSS feed at BUILD TIME via resources.GetRemote.
+     Pre-launch the feed has 0 items, so this section falls back to the Coming Soon
+     CTA. Once episodes publish, a site rebuild renders the grid. Substack cannot
+     push updates — schedule a periodic rebuild / deploy hook to keep this fresh.
+     Audio is embedded from each item's <enclosure> (podcast MP3). Substack does
+     not expose a clean per-episode VIDEO URL in RSS, so video is intentionally
+     not embedded here — the card links out to the full post for video. */}}
+
+{{ $feedURL := "https://rewiredshow.substack.com/feed" }}
+{{ $items := slice }}
+{{ $fallbackCover := "images/og/rewired-og.jpg" | relURL }}
+
+{{ with try (resources.GetRemote $feedURL) }}
+  {{ with .Err }}
+    {{ warnf "Rewired episodes: feed fetch failed: %s" . }}
+  {{ else with .Value }}
+    {{ $data := . | transform.Unmarshal }}
+    {{ with $data.channel }}
+      {{ $it := .item }}
+      {{ if $it }}
+        {{ if reflect.IsMap $it }}
+          {{ $items = slice $it }}
+        {{ else }}
+          {{ $items = $it }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<section id="episodes" class="rewired-section rewired-episodes-section section-depth">
+  <div class="rewired-episodes">
+    <h2 class="rewired-episodes__heading">{{ $.Params.episodesHeading | default "Episodes" }}</h2>
+
+    {{ if gt (len $items) 0 }}
+      <ul class="rewired-episodes__grid" role="list">
+        {{ range first 24 $items }}
+          {{/* Defensive accessors — Hugo's XML unmarshal may or may not prefix
+               attributes with "-"; `or` falls through to whichever key exists. */}}
+          {{ $title := .title }}
+          {{ $link := .link }}
+          {{/* Tag outbound clicks so Substack attributes them to the standalone site (#3 / "tag all the things") */}}
+          {{ $trackedLink := printf "%s?utm_source=rewired.show&utm_medium=website&utm_campaign=episode-card" $link }}
+          {{ $audio := "" }}
+          {{ with .enclosure }}
+            {{ $encUrl := or (index . "url") (index . "-url") }}
+            {{ $encType := or (index . "type") (index . "-type") "" }}
+            {{ if and $encUrl (strings.Contains (lower (string $encType)) "audio") }}
+              {{ $audio = $encUrl }}
+            {{ end }}
+          {{ end }}
+          {{ $cover := $fallbackCover }}
+          {{ with index . "itunes:image" }}
+            {{ $href := or (index . "href") (index . "-href") }}
+            {{ with $href }}{{ $cover = . }}{{ end }}
+          {{ end }}
+          {{ $date := "" }}
+          {{ with .pubDate }}
+            {{ $t := time.AsTime . }}
+            {{ if $t }}{{ $date = $t.Format "January 2, 2006" }}{{ end }}
+          {{ end }}
+          {{ $summary := "" }}
+          {{ with .description }}{{ $summary = . | plainify | strings.TrimSpace | truncate 180 }}{{ end }}
+
+          <li class="rewired-episode">
+            <a class="rewired-episode__cover-link" href="{{ $trackedLink }}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+              <img class="rewired-episode__cover" src="{{ $cover }}" alt="" loading="lazy" decoding="async" width="640" height="640">
+            </a>
+            <div class="rewired-episode__body">
+              {{ with $date }}<p class="rewired-episode__date">{{ . }}</p>{{ end }}
+              <h3 class="rewired-episode__title">
+                <a href="{{ $trackedLink }}" target="_blank" rel="noopener noreferrer">{{ $title }}</a>
+              </h3>
+              {{ with $summary }}<p class="rewired-episode__summary">{{ . }}</p>{{ end }}
+              {{ with $audio }}
+                <audio class="rewired-episode__audio" controls preload="none" src="{{ . }}">
+                  Your browser does not support the audio element.
+                  <a href="{{ $trackedLink }}" target="_blank" rel="noopener noreferrer">Listen on Substack</a>
+                </audio>
+              {{ end }}
+              <a class="rewired-episode__permalink" href="{{ $trackedLink }}" target="_blank" rel="noopener noreferrer">
+                Listen on Substack
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </li>
+        {{ end }}
+      </ul>
+
+      <div class="rewired-episodes__cta-wrapper">
+        <a class="rewired-cta rewired-subscribe-btn"
+           href="{{ site.Params.subscribeURL }}"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Subscribe to Rewired on Substack (opens in a new tab)">
+          Subscribe
+          <svg class="rewired-subscribe-btn__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+            <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+    {{ else }}
+      {{/* Pre-launch / empty feed — fall back to the Coming Soon signal. */}}
+      <div class="rewired-coming-soon">
+        {{ with $.Params.comingSoon }}
+          <p class="rewired-coming-soon__body">{{ . }}</p>
+        {{ end }}
+        <div class="rewired-coming-soon__cta-wrapper">
+          <a class="rewired-cta rewired-subscribe-btn"
+             href="{{ site.Params.subscribeURL }}"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Subscribe to Rewired on Substack (opens in a new tab)">
+            Subscribe
+            <svg class="rewired-subscribe-btn__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+              <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    {{ end }}
+  </div>
+</section>

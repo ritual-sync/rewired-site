@@ -12,5 +12,8 @@
          width="512" height="512"
          loading="lazy"
          decoding="async">
+    {{ with $.Params.benediction }}
+      <p class="rewired-closing__benediction">{{ . }}</p>
+    {{ end }}
   </div>
 </section>
