@@ -4,6 +4,7 @@ title = "Rewired"
 theme = "arcaeon"
 
 [params]
+  plausible = "rewired.show"
   author = "Matt Stine & Jaye Anne Beringer"
   description = "A podcast about what happens when people leave rigid belief systems and start finding something alive."
   showName = "Rewired"
