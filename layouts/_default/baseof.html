@@ -49,6 +49,11 @@
   {{/* Rewired overrides — warm-core palette aliases + section styles */}}
   {{ $rewiredCss := resources.Get "css/rewired-overrides.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $rewiredCss.RelPermalink }}">
+
+  {{/* Plausible analytics — privacy-first, UTM-aware (business-card attribution). Emits only when params.plausible is set. */}}
+  {{ with site.Params.plausible }}
+  <script defer data-domain="{{ . }}" src="https://plausible.io/js/script.js"></script>
+  {{ end }}
 </head>
 <body class="rewired-body">
   {{ block "main" . }}{{ end }}
