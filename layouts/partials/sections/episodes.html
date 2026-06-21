@@ -1,4 +1,10 @@
-{{/* Episodes — pulled from the Substack RSS feed at BUILD TIME via resources.GetRemote.
+{{/* Episodes — pulled from the Substack PODCAST RSS feed at BUILD TIME via resources.GetRemote.
+     We use the api.substack.com podcast-distribution feed (the same one Apple/Spotify
+     crawl), NOT the main publication feed at rewiredshow.substack.com/feed. The main
+     feed 403s GitHub Actions' datacenter IPs (Cloudflare bot heuristic), so builds
+     there always fell back to Coming Soon. The podcast feed is built for crawler
+     consumption — it serves datacenter IPs and the default Go user-agent — and it
+     carries exactly the audio episodes (no marketing posts).
      Pre-launch the feed has 0 items, so this section falls back to the Coming Soon
      CTA. Once episodes publish, a site rebuild renders the grid. Substack cannot
      push updates — schedule a periodic rebuild / deploy hook to keep this fresh.
@@ -6,7 +12,7 @@
      not expose a clean per-episode VIDEO URL in RSS, so video is intentionally
      not embedded here — the card links out to the full post for video. */}}
 
-{{ $feedURL := "https://rewiredshow.substack.com/feed" }}
+{{ $feedURL := "https://api.substack.com/feed/podcast/8721195.rss" }}
 {{ $items := slice }}
 {{ $fallbackCover := "images/og/rewired-og.jpg" | relURL }}
 
