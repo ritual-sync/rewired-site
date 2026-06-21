@@ -1,37 +1,41 @@
-{{/* Episodes — pulled from the Substack PODCAST RSS feed at BUILD TIME via resources.GetRemote.
-     We use the api.substack.com podcast-distribution feed (the same one Apple/Spotify
-     crawl), NOT the main publication feed at rewiredshow.substack.com/feed. The main
-     feed 403s GitHub Actions' datacenter IPs (Cloudflare bot heuristic), so builds
-     there always fell back to Coming Soon. The podcast feed is built for crawler
-     consumption — it serves datacenter IPs and the default Go user-agent — and it
-     carries exactly the audio episodes (no marketing posts).
-     Pre-launch the feed has 0 items, so this section falls back to the Coming Soon
-     CTA. Once episodes publish, a site rebuild renders the grid. Substack cannot
-     push updates — schedule a periodic rebuild / deploy hook to keep this fresh.
+{{/* Episodes — read from a VENDORED copy of the Substack podcast RSS feed at
+     assets/episodes.xml, parsed at BUILD TIME.
+
+     Why vendored and not fetched live: Substack hard-blocks GitHub Actions'
+     datacenter IP ranges with 403 Forbidden on EVERY endpoint — both the main
+     publication feed (rewiredshow.substack.com/feed) and the podcast
+     distribution feed (api.substack.com/feed/podcast/8721195.rss), regardless
+     of user-agent. So resources.GetRemote can never succeed from CI; the build
+     always fell back to Coming Soon even with episodes published. Reading a
+     committed feed file removes all build-time network dependency — the site
+     renders deterministically on every deploy.
+
+     To refresh when new episodes publish, run scripts/refresh-episodes.sh from a
+     non-blocked IP (e.g. a laptop) — it re-fetches the podcast feed into
+     assets/episodes.xml — then commit + push to trigger a redeploy.
+
+     The podcast feed carries exactly the audio episodes (no marketing posts).
      Audio is embedded from each item's <enclosure> (podcast MP3). Substack does
      not expose a clean per-episode VIDEO URL in RSS, so video is intentionally
      not embedded here — the card links out to the full post for video. */}}
 
-{{ $feedURL := "https://api.substack.com/feed/podcast/8721195.rss" }}
 {{ $items := slice }}
 {{ $fallbackCover := "images/og/rewired-og.jpg" | relURL }}
 
-{{ with try (resources.GetRemote $feedURL) }}
-  {{ with .Err }}
-    {{ warnf "Rewired episodes: feed fetch failed: %s" . }}
-  {{ else with .Value }}
-    {{ $data := . | transform.Unmarshal }}
-    {{ with $data.channel }}
-      {{ $it := .item }}
-      {{ if $it }}
-        {{ if reflect.IsMap $it }}
-          {{ $items = slice $it }}
-        {{ else }}
-          {{ $items = $it }}
-        {{ end }}
+{{ with resources.Get "episodes.xml" }}
+  {{ $data := .Content | transform.Unmarshal }}
+  {{ with $data.channel }}
+    {{ $it := .item }}
+    {{ if $it }}
+      {{ if reflect.IsMap $it }}
+        {{ $items = slice $it }}
+      {{ else }}
+        {{ $items = $it }}
       {{ end }}
     {{ end }}
   {{ end }}
+{{ else }}
+  {{ warnf "Rewired episodes: assets/episodes.xml not found — falling back to Coming Soon" }}
 {{ end }}
 
 <section id="episodes" class="rewired-section rewired-episodes-section section-depth">
