@@ -19,6 +19,12 @@ echo "Fetching $FEED_URL ..."
 tmp="$(mktemp)"
 curl -fsSL -A "Mozilla/5.0" "$FEED_URL" -o "$tmp"
 
+# Strip the volatile channel <lastBuildDate> — Substack stamps it fresh on every
+# fetch, so without this the vendored file differs on each run and the auto-refresh
+# deploy would commit + redeploy endlessly. Removing it means the file only changes
+# when actual episode content does. (portable: no in-place sed -i)
+sed 's|<lastBuildDate>[^<]*</lastBuildDate>||g' "$tmp" > "$tmp.norm" && mv "$tmp.norm" "$tmp"
+
 count="$(grep -o '<item>' "$tmp" | wc -l | tr -d ' ')"
 if [ "$count" -eq 0 ]; then
   echo "ERROR: feed returned 0 items — refusing to overwrite $OUT" >&2
