@@ -38,6 +38,20 @@
   {{ warnf "Rewired episodes: assets/episodes.xml not found — falling back to Coming Soon" }}
 {{ end }}
 
+{{/* Order newest-first by EPISODE NUMBER parsed from the title ("Episode 004: …").
+     Sorting by pubDate alone is nondeterministic here: ep1–3 were published at the
+     exact same timestamp, so their dates tie and the feed order is arbitrary. The
+     number in the title is the stable key. Assumes the "Episode NNN" title
+     convention — keep it on every release (including vault episodes) or that item
+     falls to epnum 0 and sorts last. */}}
+{{ $decorated := slice }}
+{{ range $items }}
+  {{ $num := 0 }}
+  {{ with findRE `[0-9]+` (string .title) 1 }}{{ $num = (index . 0) | int }}{{ end }}
+  {{ $decorated = $decorated | append (dict "epnum" $num "item" .) }}
+{{ end }}
+{{ $items = sort $decorated "epnum" "desc" }}
+
 <section id="episodes" class="rewired-section rewired-episodes-section section-depth">
   <div class="rewired-episodes">
     <h2 class="rewired-episodes__heading">{{ $.Params.episodesHeading | default "Episodes" }}</h2>
@@ -45,6 +59,7 @@
     {{ if gt (len $items) 0 }}
       <ul class="rewired-episodes__grid" role="list">
         {{ range first 24 $items }}
+          {{ with .item }}
           {{/* Defensive accessors — Hugo's XML unmarshal may or may not prefix
                attributes with "-"; `or` falls through to whichever key exists. */}}
           {{ $title := .title }}
@@ -98,6 +113,7 @@
               </a>
             </div>
           </li>
+          {{ end }}{{/* with .item */}}
         {{ end }}
       </ul>
 
