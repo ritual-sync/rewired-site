@@ -17,7 +17,12 @@ OUT="$REPO_ROOT/assets/episodes.xml"
 
 echo "Fetching $FEED_URL ..."
 tmp="$(mktemp)"
-curl -fsSL -A "Mozilla/5.0" "$FEED_URL" -o "$tmp"
+# Cache-bust: Substack edge-caches the feed URL, so a plain fetch can return a stale
+# copy (e.g. an episode's OLD cover after you've swapped it). A unique query param +
+# no-cache headers force a fresh feed. The response is normalized below (lastBuildDate
+# stripped), so the cache-buster doesn't make the output nondeterministic.
+curl -fsSL -A "Mozilla/5.0" -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' \
+  "${FEED_URL}?cb=$(date +%s)" -o "$tmp"
 
 # Strip the volatile channel <lastBuildDate> — Substack stamps it fresh on every
 # fetch, so without this the vendored file differs on each run and the auto-refresh
