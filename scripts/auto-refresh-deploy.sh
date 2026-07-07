@@ -22,6 +22,7 @@ set -euo pipefail
 
 REPO="/Users/falkensmage/RitualSync/rewired-site"
 FEED_FILE="assets/episodes.xml"
+STATIC_FILE="static/episodes.xml"   # published copy -> https://rewired.show/episodes.xml (proxy feed for falkensmage.com)
 SENTINEL="$HOME/Library/Logs/rewired-episode-refresh.SENTINEL.md"
 STAMP="$(date '+%Y-%m-%d %H:%M:%S %z')"
 
@@ -59,7 +60,7 @@ fi
 ./scripts/refresh-episodes.sh || fail "fetch" "refresh-episodes.sh returned non-zero (feed blocked/empty?)"
 
 # No change -> nothing to deploy. Clear any stale sentinel and finish.
-if git diff --quiet -- "$FEED_FILE"; then
+if git diff --quiet -- "$FEED_FILE" "$STATIC_FILE"; then
   echo "[$STAMP] no feed change — site already current. Done."
   rm -f "$SENTINEL"
   exit 0
@@ -68,8 +69,8 @@ fi
 latest="$(grep -o '<title>[^<]*' "$FEED_FILE" | sed 's/<title>//' | sed -n '2p')"
 echo "[$STAMP] feed changed — newest item: ${latest:-unknown}. Committing + pushing."
 
-git add "$FEED_FILE" || fail "add" "git add $FEED_FILE"
-git commit -m "chore(episodes): auto-refresh vendored feed (${latest:-new episode})" -- "$FEED_FILE" \
+git add "$FEED_FILE" "$STATIC_FILE" || fail "add" "git add feed files"
+git commit -m "chore(episodes): auto-refresh vendored feed (${latest:-new episode})" -- "$FEED_FILE" "$STATIC_FILE" \
   || fail "commit" "git commit"
 
 # Push; if rejected because origin moved, replay our single commit on top once.

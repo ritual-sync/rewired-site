@@ -27,5 +27,13 @@ if [ "$count" -eq 0 ]; then
 fi
 
 mv "$tmp" "$OUT"
-echo "Wrote $OUT ($count episodes)."
-echo "Next: git add assets/episodes.xml && git commit && git push"
+
+# Also publish a copy under static/, which Hugo copies verbatim to the built site.
+# This exposes the feed at https://rewired.show/episodes.xml — a non-blocked
+# (GitHub Pages / Cloudflare) URL that OTHER sites (falkensmage.com) can fetch at
+# build time, since Substack itself 403s CI datacenter IPs on its own endpoints.
+cp "$OUT" "$REPO_ROOT/static/episodes.xml"
+
+echo "Wrote $OUT + static/episodes.xml ($count episodes)."
+echo "  static copy serves at https://rewired.show/episodes.xml (proxy feed for falkensmage.com)"
+echo "Next: git add assets/episodes.xml static/episodes.xml && git commit && git push"
