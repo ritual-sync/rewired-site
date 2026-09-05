@@ -1,0 +1,19 @@
+name: Test LaunchAgent installer
+
+on:
+  push:
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run scripts/test-launchagent-install.sh
+        run: scripts/test-launchagent-install.sh
