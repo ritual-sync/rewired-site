@@ -17,10 +17,13 @@
 # vendored file — so it can't sweep up unrelated working-tree changes.
 #
 # Paired launchd job: ~/Library/LaunchAgents/net.ritualsync.rewired-episode-refresh.plist
+# That plist is GENERATED, not committed — scripts/install-launchagent.sh is its
+# only source of truth. Run that script to install/repair the agent on any
+# machine (including after this checkout moves); see its header for details.
 
 set -euo pipefail
 
-REPO="/Users/falkensmage/RitualSync/rewired-site"
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 FEED_FILE="assets/episodes.xml"
 STATIC_FILE="static/episodes.xml"   # published copy -> https://rewired.show/episodes.xml (proxy feed for falkensmage.com)
 SENTINEL="$HOME/Library/Logs/rewired-episode-refresh.SENTINEL.md"
