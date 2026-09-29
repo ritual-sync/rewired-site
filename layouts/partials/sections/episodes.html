@@ -47,7 +47,14 @@
 {{ $decorated := slice }}
 {{ range $items }}
   {{ $num := 0 }}
-  {{ with findRE `[0-9]+` (string .title) 1 }}{{ $num = (index . 0) | int }}{{ end }}
+  {{/* Hugo's `int` casts via strconv.ParseInt with base 0, so a zero-padded
+       match like "008" reads as octal and errors on the digit 8/9 (broke every
+       build from Episode 008 onward). Strip leading zeros before casting. */}}
+  {{ with findRE `[0-9]+` (string .title) 1 }}
+    {{ $numStr := strings.TrimLeft "0" (index . 0) }}
+    {{ if eq $numStr "" }}{{ $numStr = "0" }}{{ end }}
+    {{ $num = $numStr | int }}
+  {{ end }}
   {{ $decorated = $decorated | append (dict "epnum" $num "item" .) }}
 {{ end }}
 {{ $items = sort $decorated "epnum" "desc" }}
