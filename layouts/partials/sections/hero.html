@@ -31,5 +31,18 @@
     {{ with $.Params.heroLens }}
       <p class="rewired-hero__lens">{{ . }}</p>
     {{ end }}
+
+    <div class="rewired-hero__platforms">
+      <a class="rewired-hero__platform-link" href="https://open.spotify.com/show/033CfL5f9scqVjOibTK0f5"
+         target="_blank" rel="noopener noreferrer" aria-label="Listen on Spotify">
+        <img src="{{ "images/badges/spotify-badge-blk-grn.svg" | relURL }}"
+             alt="Listen on Spotify" width="165" height="40" loading="lazy" decoding="async">
+      </a>
+      <a class="rewired-hero__platform-link" href="https://podcasts.apple.com/us/podcast/rewired/id1896945601"
+         target="_blank" rel="noopener noreferrer" aria-label="Listen on Apple Podcasts">
+        <img src="{{ "images/badges/apple-podcasts-mono-white.svg" | relURL }}"
+             alt="Listen on Apple Podcasts" width="114" height="26" loading="lazy" decoding="async">
+      </a>
+    </div>
   </div>
 </section>
