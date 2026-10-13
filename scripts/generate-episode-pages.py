@@ -107,6 +107,14 @@ def transform_notes_html(html: str, youtube_id: str | None) -> str:
         raw = paragraphs[i].strip()
         plain = unescape(TAG_RE.sub("", raw)).strip()
 
+        # Drop the show-level "Listen: Spotify · Apple Podcasts" paragraph —
+        # superseded by the real per-episode platform links rendered above
+        # the notes (episode-detail.html), which point at this exact
+        # episode, not just the show.
+        if plain.startswith("Listen:"):
+            i += 1
+            continue
+
         if plain in NOTE_HEADERS:
             out.append(f"<h2>{plain}</h2>")
             in_chapters = plain == "Chapters"
