@@ -500,3 +500,137 @@ a.rewired-subscribe-btn:active {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ============================================
+   EPISODE DETAIL — per-episode permalink page (Phase 3, EPS-02)
+   ============================================ */
+
+.rewired-episode-detail {
+  max-width: 42rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+.rewired-episode-detail__cover {
+  width: 100%;
+  max-width: 24rem;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 14px;
+  margin: 0 auto;
+  border: 1px solid color-mix(in srgb, var(--arcaeon-fusion-gold) 22%, transparent);
+}
+
+.rewired-episode-detail__header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rewired-episode-detail__date {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--rewired-text) 65%, transparent);
+  margin: 0;
+}
+
+.rewired-episode-detail__title {
+  font-family: 'Cinzel Variable', Georgia, serif;
+  color: var(--rewired-heading);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.rewired-episode-detail__summary {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--rewired-text) 88%, transparent);
+  margin: 0;
+}
+
+.rewired-episode-detail__audio {
+  width: 100%;
+  height: 40px;
+}
+
+.rewired-episode-detail__substack-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  align-self: center;
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--rewired-text);
+  text-decoration-color: var(--arcaeon-fusion-gold);
+  text-underline-offset: 0.2em;
+  transition: color 120ms ease;
+}
+
+.rewired-episode-detail__substack-link:hover,
+.rewired-episode-detail__substack-link:focus-visible {
+  color: var(--rewired-link-hover);
+}
+
+/* Show notes — raw HTML from the Substack feed's <description>. Scoped
+   typography since this is the one place on the site rendering arbitrary
+   (if Substack-authored, trusted) HTML rather than hand-written markup. */
+.rewired-episode-detail__notes {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--rewired-text) 92%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--arcaeon-fusion-gold) 18%, transparent);
+  padding-top: clamp(1.25rem, 3vw, 2rem);
+}
+
+.rewired-episode-detail__notes p {
+  margin: 0 0 1rem;
+}
+
+.rewired-episode-detail__notes strong {
+  color: var(--rewired-heading);
+}
+
+.rewired-episode-detail__notes em {
+  color: color-mix(in srgb, var(--rewired-text) 92%, transparent);
+}
+
+.rewired-episode-detail__notes a {
+  color: var(--arcaeon-fusion-gold);
+  text-underline-offset: 0.2em;
+}
+
+.rewired-episode-detail__notes a:hover,
+.rewired-episode-detail__notes a:focus-visible {
+  color: var(--rewired-link-hover);
+}
+
+.rewired-episode-detail__cta-wrapper {
+  margin-top: clamp(1rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rewired-episode-detail__back {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 0.9375rem;
+  color: color-mix(in srgb, var(--rewired-text) 75%, transparent);
+  text-decoration: none;
+}
+
+.rewired-episode-detail__back:hover,
+.rewired-episode-detail__back:focus-visible {
+  color: var(--rewired-link-hover);
+}

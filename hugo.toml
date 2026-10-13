@@ -29,3 +29,10 @@ theme = "arcaeon"
   [caches.getresource]
     dir = ":cacheDir/:project"
     maxAge = "1h"
+
+# Per-episode pages mirror Substack's own slug exactly, flat at the site
+# root (03-CONTEXT.md D-04) — e.g. /episode-004-animism-all-the-way-down/,
+# not /episodes/episode-004-.../. The /episodes/ list page itself is
+# unaffected (that's the section's own _index.md, not a regular page).
+[permalinks]
+  episodes = "/:slug/"

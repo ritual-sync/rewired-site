@@ -71,8 +71,18 @@
                attributes with "-"; `or` falls through to whichever key exists. */}}
           {{ $title := .title }}
           {{ $link := .link }}
-          {{/* Tag outbound clicks so Substack attributes them to the standalone site (#3 / "tag all the things") */}}
+          {{/* Phase 3 / D-03 (03-CONTEXT.md): link to the local per-episode page
+               when one has been generated (scripts/generate-episode-pages.py),
+               falling back to the outbound Substack link if it hasn't run yet
+               for a brand-new episode. Slug matches Substack's own exactly. */}}
+          {{ $slug := path.Base $link }}
+          {{ $localPage := site.GetPage (printf "/episodes/%s" $slug) }}
           {{ $trackedLink := printf "%s?utm_source=rewired.show&utm_medium=website&utm_campaign=episode-card" $link }}
+          {{ $isLocal := false }}
+          {{ with $localPage }}
+            {{ $trackedLink = .Permalink }}
+            {{ $isLocal = true }}
+          {{ end }}
           {{ $audio := "" }}
           {{ with .enclosure }}
             {{ $encUrl := or (index . "url") (index . "-url") }}
@@ -97,23 +107,23 @@
           {{ with .description }}{{ $summary = . | plainify | strings.TrimSpace | truncate 180 }}{{ end }}
 
           <li class="rewired-episode">
-            <a class="rewired-episode__cover-link" href="{{ $trackedLink }}" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+            <a class="rewired-episode__cover-link" href="{{ $trackedLink }}"{{ if not $isLocal }} target="_blank" rel="noopener noreferrer"{{ end }} tabindex="-1" aria-hidden="true">
               <img class="rewired-episode__cover" src="{{ $cover }}" alt="" loading="lazy" decoding="async" width="640" height="640">
             </a>
             <div class="rewired-episode__body">
               {{ with $date }}<p class="rewired-episode__date">{{ . }}</p>{{ end }}
               <h3 class="rewired-episode__title">
-                <a href="{{ $trackedLink }}" target="_blank" rel="noopener noreferrer">{{ $title }}</a>
+                <a href="{{ $trackedLink }}"{{ if not $isLocal }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ $title }}</a>
               </h3>
               {{ with $summary }}<p class="rewired-episode__summary">{{ . }}</p>{{ end }}
               {{ with $audio }}
                 <audio class="rewired-episode__audio" controls preload="none" src="{{ . }}">
                   Your browser does not support the audio element.
-                  <a href="{{ $trackedLink }}" target="_blank" rel="noopener noreferrer">Listen on Substack</a>
+                  <a href="{{ $trackedLink }}"{{ if not $isLocal }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ if $isLocal }}Show notes{{ else }}Listen on Substack{{ end }}</a>
                 </audio>
               {{ end }}
-              <a class="rewired-episode__permalink" href="{{ $trackedLink }}" target="_blank" rel="noopener noreferrer">
-                Listen on Substack
+              <a class="rewired-episode__permalink" href="{{ $trackedLink }}"{{ if not $isLocal }} target="_blank" rel="noopener noreferrer"{{ end }}>
+                {{ if $isLocal }}Show notes{{ else }}Listen on Substack{{ end }}
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
                   <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>

@@ -1,0 +1,31 @@
+{{ define "main" }}
+<main class="rewired-main">
+  <section class="rewired-section rewired-episodes-section section-depth">
+    <div class="rewired-episodes">
+      <h2 class="rewired-episodes__heading">Episodes</h2>
+      <ul class="rewired-episodes__grid" role="list">
+        {{ range sort .Pages "Params.episodeNumber" "desc" }}
+        <li class="rewired-episode">
+          <a class="rewired-episode__cover-link" href="{{ .Permalink }}" tabindex="-1" aria-hidden="true">
+            {{ with .Params.cover }}
+              <img class="rewired-episode__cover" src="{{ . }}" alt="" loading="lazy" decoding="async" width="640" height="640">
+            {{ end }}
+          </a>
+          <div class="rewired-episode__body">
+            {{ with .Date }}<p class="rewired-episode__date">{{ .Format "January 2, 2006" }}</p>{{ end }}
+            <h3 class="rewired-episode__title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+            {{ with .Params.summary }}<p class="rewired-episode__summary">{{ . }}</p>{{ end }}
+            <a class="rewired-episode__permalink" href="{{ .Permalink }}">
+              Show notes
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+  </section>
+</main>
+{{ end }}

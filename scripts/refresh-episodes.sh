@@ -47,4 +47,10 @@ cp "$OUT" "$REPO_ROOT/static/episodes.xml"
 
 echo "Wrote $OUT + static/episodes.xml ($count episodes)."
 echo "  static copy serves at https://rewired.show/episodes.xml (proxy feed for falkensmage.com)"
-echo "Next: git add assets/episodes.xml static/episodes.xml && git commit && git push"
+
+# Regenerate the per-episode permalink pages (EPS-02, Phase 3) from the
+# feed we just wrote — same vendor-and-commit shape as the feed itself.
+echo "Regenerating per-episode pages ..."
+python3 "$REPO_ROOT/scripts/generate-episode-pages.py"
+
+echo "Next: git add assets/episodes.xml static/episodes.xml content/episodes/ && git commit && git push"
