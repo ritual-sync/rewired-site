@@ -106,9 +106,22 @@
           {{ $summary := "" }}
           {{ with .description }}{{ $summary = . | plainify | strings.TrimSpace | truncate 180 }}{{ end }}
 
+          {{/* scripts/fetch-episode-covers.py vendors the same itunes:image
+               locally under this exact path once a per-episode page exists
+               for the slug — resources.Get returns nil/empty for a slug not
+               fetched yet, and responsive-cover.html falls back to $cover
+               (the full-res hotlink) in that case. */}}
+          {{ $coverLocalCandidate := printf "images/episodes/%s.jpg" $slug }}
+
           <li class="rewired-episode">
             <a class="rewired-episode__cover-link" href="{{ $trackedLink }}"{{ if not $isLocal }} target="_blank" rel="noopener noreferrer"{{ end }} tabindex="-1" aria-hidden="true">
-              <img class="rewired-episode__cover" src="{{ $cover }}" alt="{{ printf "Cover art for %s" $title }}" loading="lazy" decoding="async" width="640" height="640">
+              {{ partial "responsive-cover.html" (dict
+                "coverLocal" $coverLocalCandidate
+                "cover" $cover
+                "alt" (printf "Cover art for %s" $title)
+                "class" "rewired-episode__cover"
+                "width" 640
+              ) }}
             </a>
             <div class="rewired-episode__body">
               {{ with $date }}<p class="rewired-episode__date">{{ . }}</p>{{ end }}

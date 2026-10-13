@@ -10,8 +10,15 @@
 
 <section class="rewired-section rewired-episode-detail-section section-void">
   <article class="rewired-episode-detail">
-    {{ with $p.cover }}
-      <img class="rewired-episode-detail__cover" src="{{ . }}" alt="{{ printf "Cover art for %s" $.Title }}" loading="eager" decoding="async" width="640" height="640">
+    {{ if or $p.coverLocal $p.cover }}
+      {{ partial "responsive-cover.html" (dict
+        "coverLocal" $p.coverLocal
+        "cover" $p.cover
+        "alt" (printf "Cover art for %s" .Title)
+        "class" "rewired-episode-detail__cover"
+        "width" 400
+        "loading" "eager"
+      ) }}
     {{ end }}
 
     <div class="rewired-episode-detail__header">

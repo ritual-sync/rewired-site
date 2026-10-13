@@ -699,3 +699,38 @@ a.rewired-subscribe-btn:active {
 .rewired-episode-detail__back:focus-visible {
   color: var(--rewired-link-hover);
 }
+
+/* ============================================
+   404 PAGE
+   ============================================ */
+
+.rewired-404 {
+  max-width: 32rem;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: clamp(2rem, 6vw, 4rem) 0;
+}
+
+.rewired-404__mark {
+  border-radius: 12px;
+}
+
+.rewired-404__title {
+  font-family: 'Cinzel Variable', Georgia, serif;
+  color: var(--rewired-heading);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.rewired-404__body {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 1.0625rem;
+  color: color-mix(in srgb, var(--rewired-text) 88%, transparent);
+  margin: 0;
+}

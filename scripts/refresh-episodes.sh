@@ -48,9 +48,18 @@ cp "$OUT" "$REPO_ROOT/static/episodes.xml"
 echo "Wrote $OUT + static/episodes.xml ($count episodes)."
 echo "  static copy serves at https://rewired.show/episodes.xml (proxy feed for falkensmage.com)"
 
+# Vendor each new episode's cover art locally so Hugo can resize it at build
+# time instead of hotlinking Substack's 3000x3000 original (page-weight/LCP
+# fix). Runs BEFORE page generation so a brand-new episode's page picks up
+# its local, resizable cover on this same pass, not the next one. Skips any
+# slug already fetched — cheap no-op on a run with no new episodes. Re-run
+# with --force only if an episode's art actually changes.
+echo "Fetching any new episode cover art ..."
+python3 "$REPO_ROOT/scripts/fetch-episode-covers.py"
+
 # Regenerate the per-episode permalink pages (EPS-02, Phase 3) from the
 # feed we just wrote — same vendor-and-commit shape as the feed itself.
 echo "Regenerating per-episode pages ..."
 python3 "$REPO_ROOT/scripts/generate-episode-pages.py"
 
-echo "Next: git add assets/episodes.xml static/episodes.xml content/episodes/ && git commit && git push"
+echo "Next: git add assets/episodes.xml static/episodes.xml content/episodes/ assets/images/episodes/ && git commit && git push"

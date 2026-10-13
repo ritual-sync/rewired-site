@@ -11,6 +11,7 @@ episodeNumber: 1
 episodeType: full
 date: '2026-06-21T13:00:00+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/201930068/14286440ba1148037a70353e35447669.jpg
+coverLocal: images/episodes/episode-001-what-kind-of-smoke-is.jpg
 audio: https://api.substack.com/feed/podcast/201930068/4c3699b862abefc7e092636003f7476d.mp3
 audioType: audio/mpeg
 durationSeconds: 4881

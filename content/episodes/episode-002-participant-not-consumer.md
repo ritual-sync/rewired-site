@@ -11,6 +11,7 @@ episodeNumber: 2
 episodeType: full
 date: '2026-06-21T13:00:00+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/201930981/915426838d4de1c87c5d581e972d7e70.jpg
+coverLocal: images/episodes/episode-002-participant-not-consumer.jpg
 audio: https://api.substack.com/feed/podcast/201930981/27715ff6c756fe72d3a0779b777d6d70.mp3
 audioType: audio/mpeg
 durationSeconds: 4729

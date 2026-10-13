@@ -11,6 +11,7 @@ episodeNumber: 4
 episodeType: full
 date: '2026-07-05T21:45:00+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/203431665/8bc7b06678ff0cc7e6bd4ccb4544aa0f.jpg
+coverLocal: images/episodes/episode-004-animism-all-the-way-down.jpg
 audio: https://api.substack.com/feed/podcast/203431665/4b7a89f487ce03b44855960c319ef0a8.mp3
 audioType: audio/mpeg
 durationSeconds: 5821

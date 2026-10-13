@@ -1,0 +1,33 @@
+{{/* Responsive episode cover art. Hotlinking Substack's original (3000x3000,
+     ~300KB) for a 384-640px display slot was pure waste — this resizes a
+     LOCALLY VENDORED copy (assets/images/episodes/<slug>.jpg, fetched by
+     scripts/fetch-episode-covers.py) via Hugo's build-time image pipeline
+     (no network needed at build time — the whole reason it's vendored
+     first, same reasoning as the RSS feed itself). Falls back to the
+     original hotlinked URL only for an episode whose cover hasn't been
+     fetched into assets/ yet.
+
+     Params (pass a dict): coverLocal, cover (remote fallback), alt, class,
+     width (1x target; 2x is generated automatically), loading (optional,
+     default "lazy"). */}}
+
+{{ $p := . }}
+{{ $w1x := $p.width }}
+{{ $w2x := mul $p.width 2 }}
+{{ $loading := $p.loading | default "lazy" }}
+
+{{ $local := "" }}
+{{ with $p.coverLocal }}{{ $local = resources.Get . }}{{ end }}
+
+{{ if $local }}
+  {{ $img1x := $local.Resize (printf "%dx webp q80" $w1x) }}
+  {{ $img2x := $local.Resize (printf "%dx webp q80" $w2x) }}
+  <img class="{{ $p.class }}" src="{{ $img1x.RelPermalink }}"
+       srcset="{{ $img1x.RelPermalink }} 1x, {{ $img2x.RelPermalink }} 2x"
+       alt="{{ $p.alt }}" loading="{{ $loading }}" decoding="async"
+       width="{{ $w1x }}" height="{{ $w1x }}">
+{{ else }}
+  <img class="{{ $p.class }}" src="{{ $p.cover }}"
+       alt="{{ $p.alt }}" loading="{{ $loading }}" decoding="async"
+       width="{{ $w1x }}" height="{{ $w1x }}">
+{{ end }}

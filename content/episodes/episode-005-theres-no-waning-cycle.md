@@ -11,6 +11,7 @@ episodeNumber: 5
 episodeType: full
 date: '2026-07-19T21:45:00+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/203434928/a895f28de56631df8eb835bc6e5586f5.jpg
+coverLocal: images/episodes/episode-005-theres-no-waning-cycle.jpg
 audio: https://api.substack.com/feed/podcast/203434928/6ce8d56581205a2571e2f7323981824e.mp3
 audioType: audio/mpeg
 durationSeconds: 4288

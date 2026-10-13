@@ -11,6 +11,7 @@ episodeNumber: 10
 episodeType: full
 date: '2026-09-29T15:20:51+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/217915134/2d612b5c587584d93edc6d7cc84a65e9.jpg
+coverLocal: images/episodes/episode-010-fighting-for-the-three.jpg
 audio: https://api.substack.com/feed/podcast/217915134/4ea60ac41a6c984966abdc6ed12b8998.mp3
 audioType: audio/mpeg
 durationSeconds: 4612

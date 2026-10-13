@@ -1,0 +1,21 @@
+{{ define "main" }}
+<main class="rewired-main">
+  <section class="rewired-section rewired-404-section section-void">
+    <div class="rewired-404">
+      <img class="rewired-404__mark"
+           src="{{ "images/logos/rewired-mark.jpg" | relURL }}"
+           alt="Rewired — a stylized gold letterform R with a flame held inside the bowl and roots extending from the stem"
+           width="160" height="160"
+           loading="eager" decoding="async">
+      <h1 class="rewired-404__title">This page didn't make it through deconstruction.</h1>
+      <p class="rewired-404__body">Whatever you were looking for isn't here. The episodes are.</p>
+      <a class="rewired-cta rewired-subscribe-btn" href="{{ "/" | relURL }}">
+        Back to Rewired
+        <svg class="rewired-subscribe-btn__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+          <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+</main>
+{{ end }}

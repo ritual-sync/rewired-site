@@ -11,6 +11,7 @@ episodeNumber: 9
 episodeType: full
 date: '2026-09-13T21:45:00+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/205943744/d4fdb42974826bb47376dbcfa83337c9.jpg
+coverLocal: images/episodes/episode-009-from-the-vault-you-cant.jpg
 audio: https://api.substack.com/feed/podcast/205943744/ecadeac895798d9c970d936d4d0e8730.mp3
 audioType: audio/mpeg
 durationSeconds: 6344

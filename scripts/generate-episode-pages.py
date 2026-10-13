@@ -47,6 +47,7 @@ FEED_PATH = REPO_ROOT / "assets" / "episodes.xml"
 OUT_DIR = REPO_ROOT / "content" / "episodes"
 YOUTUBE_IDS_PATH = REPO_ROOT / "data" / "youtube-episode-ids.json"
 PLATFORM_LINKS_PATH = REPO_ROOT / "data" / "platform-episode-links.json"
+COVERS_DIR = REPO_ROOT / "assets" / "images" / "episodes"
 
 ITUNES_NS = "http://www.itunes.com/dtds/podcast-1.0.dtd"
 NS = {"itunes": ITUNES_NS}
@@ -250,6 +251,10 @@ def parse_item(item: ET.Element, youtube_ids: dict[str, str], platform_links: di
         "episodeType": itunes_episode_type or "full",
         "date": dt.isoformat(),
         "cover": cover,
+        # Local, Hugo-resizable asset (scripts/fetch-episode-covers.py) —
+        # templates prefer this and fall back to the remote `cover` URL
+        # (full-res, un-resized) only when it hasn't been fetched yet.
+        "coverLocal": f"images/episodes/{slug}.jpg" if (COVERS_DIR / f"{slug}.jpg").exists() else None,
         "audio": audio_url,
         "audioType": audio_type,
         "durationSeconds": duration_seconds,
