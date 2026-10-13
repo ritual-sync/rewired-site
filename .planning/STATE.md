@@ -1,3 +1,17 @@
+---
+gsd_state_version: 1.0
+status: unknown
+stopped_at: Phase 3 context gathered
+last_updated: "2026-10-13T21:04:04.357Z"
+state_head: 173499ceea3f297ad28060650bb40307e335693b
+progress:
+  total_phases: 3
+  completed_phases: 0
+  total_plans: 4
+  completed_plans: 4
+  percent: 0
+---
+
 # STATE: Rewired Site
 
 ## Project Reference
@@ -45,3 +59,9 @@ All Phase 2 requirements closed: CAPT-01..04, DEPL-01..05. Live URL: https://rew
 - Substack embed UX (new-tab multi-screen, not inline). Functional pass, but a custom form POSTing directly to Substack is a Phase 3 candidate if the new-tab friction costs signups.
 - Node.js 20 deprecation on deploy workflow actions — bump before 2026-06-02.
 - Cash infusion conversation entangled via `podcast-with-jaye-anne` thread.
+
+## Session
+
+**Last session:** 2026-10-13T21:04:04.344Z
+**Stopped at:** Phase 3 context gathered
+**Resume file:** .planning/phases/03-listener-experience-episode-surface-pulled-from-substack-rss/03-CONTEXT.md
