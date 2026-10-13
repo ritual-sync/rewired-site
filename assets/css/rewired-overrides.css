@@ -562,6 +562,13 @@ a.rewired-subscribe-btn:active {
   height: 40px;
 }
 
+.rewired-episode-detail__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+}
+
 .rewired-episode-detail__substack-link {
   display: inline-flex;
   align-items: center;
@@ -595,6 +602,46 @@ a.rewired-subscribe-btn:active {
 
 .rewired-episode-detail__notes p {
   margin: 0 0 1rem;
+}
+
+.rewired-episode-detail__notes h2 {
+  font-family: 'Cinzel Variable', Georgia, serif;
+  color: var(--rewired-heading);
+  font-size: clamp(1.125rem, 2.4vw, 1.375rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 2rem 0 0.875rem;
+}
+
+.rewired-episode-detail__notes h2:first-child {
+  margin-top: 0;
+}
+
+.rewired-episode-detail__notes ul,
+.rewired-episode-detail__notes ol {
+  margin: 0 0 1rem;
+  padding-left: 1.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.rewired-episode-detail__notes ul {
+  list-style: disc;
+}
+
+.rewired-episode-detail__notes ol {
+  list-style: decimal;
+}
+
+.rewired-episode-detail__notes li::marker {
+  color: var(--arcaeon-fusion-gold);
+}
+
+.rewired-episode-detail__notes ol a {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .rewired-episode-detail__notes strong {

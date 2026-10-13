@@ -10,3 +10,6 @@ hugo_stats.json
 # Editor
 .idea/
 .vscode/
+
+# Python
+__pycache__/

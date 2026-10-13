@@ -1,0 +1,14 @@
+{
+  "_comment": "Substack slug -> YouTube video ID, for the 'Watch on YouTube' link and timestamp-linked chapters on each episode page. No deterministic way to derive this (YouTube assigns IDs at upload time with no reference back to the Substack slug) -- hand-maintained, add a new entry when a new episode uploads to YouTube. NOTE: publishing-pipeline/scripts/youtube/apply_title_backfill.mts and apply_tags_backfill.mts each carry their own independent copy of this same video-ID list (keyed by video ID -> title, not slug -> ID) -- not unified with this file in this pass, so a new episode needs the ID added in both places until that's reconciled.",
+  "episode-001-what-kind-of-smoke-is": "jxjCdHaJkuQ",
+  "episode-002-participant-not-consumer": "BPZmaD_LEmU",
+  "episode-003-shadow-capitalism": "GcrCtHJfeVg",
+  "episode-004-animism-all-the-way-down": "v8jQy6aFl6k",
+  "episode-005-theres-no-waning-cycle": "YZH7cogJz9E",
+  "episode-006-the-tension-is-the-point": "WY1K7XsFKak",
+  "episode-007-the-most-repressed-archetype": "GomwM6XyKxI",
+  "episode-008-when-do-we-bare-our-teeth": "T_eNvlg3APg",
+  "episode-009-from-the-vault-you-cant": "qePVpTxXhYo",
+  "episode-010-fighting-for-the-three": "862Xamz65I4",
+  "episode-011-a-race-car-in-the-red": "pCX0cLgo134"
+}

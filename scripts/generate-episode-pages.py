@@ -13,16 +13,25 @@ the committed content pages natively (permalinks, sitemap, canonical meta —
 all free from Hugo's normal content pipeline, no custom page-generation
 plumbing needed in templates).
 
-Show notes (the <description> HTML) are stored as a raw-HTML frontmatter
-param (`notesHTML`) and rendered with `safeHTML` in layouts/episodes/single.html,
-rather than passed through Hugo's Markdown/Goldmark pipeline — it's already
-HTML from Substack, not Markdown, and this avoids touching the project's
-default (safe, no raw-HTML-passthrough) Goldmark config.
+Show notes (the <description> HTML) come out of Substack as a flat run of
+sibling <p> tags — including hand-typed "* " bullets and bare one-line
+section headers ("In this episode", "Lines that landed", "Referenced",
+"What we left unresolved", "Chapters") rather than real <ul>/<h2> markup.
+`transform_notes_html()` below turns that into actual lists and headings,
+and turns "Chapters" timestamp lines into links that jump to that moment
+on the episode's YouTube video (data/youtube-episode-ids.json), when one
+exists for the episode. The result is stored as a raw-HTML frontmatter
+param (`notesHTML`) and rendered with `safeHTML` in
+layouts/episodes/single.html, rather than passed through Hugo's
+Markdown/Goldmark pipeline — it's HTML, not Markdown, and this avoids
+touching the project's default (safe, no raw-HTML-passthrough) Goldmark
+config.
 
 Usage: python3 scripts/generate-episode-pages.py [--dry-run]
 """
 from __future__ import annotations
 
+import json
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -36,12 +45,96 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FEED_PATH = REPO_ROOT / "assets" / "episodes.xml"
 OUT_DIR = REPO_ROOT / "content" / "episodes"
+YOUTUBE_IDS_PATH = REPO_ROOT / "data" / "youtube-episode-ids.json"
 
 ITUNES_NS = "http://www.itunes.com/dtds/podcast-1.0.dtd"
 NS = {"itunes": ITUNES_NS}
 
 TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
+PARAGRAPH_RE = re.compile(r"<p[^>]*>(.*?)</p>", re.S)
+CHAPTER_RE = re.compile(r"^(\d{1,3}(?::\d{2}){1,2})\s+—\s+(.+)$")
+
+# The fixed, small vocabulary of bare-paragraph section headers Substack's
+# show-note template uses. Matched on exact plain-text content — anything
+# outside this set stays a normal paragraph, never misfires into a heading.
+NOTE_HEADERS = {
+    "In this episode",
+    "Lines that landed",
+    "Referenced",
+    "What we left unresolved",
+    "Chapters",
+}
+
+# Trailing Substack-specific boilerplate ("This is a public episode...")
+# that sits outside any <p> tag after the last real paragraph — dropped
+# entirely since rewired.show already has its own "Listen on Substack" link.
+TRAILING_BOILERPLATE_RE = re.compile(r"This is a public episode\..*$", re.S)
+
+
+def load_youtube_ids() -> dict[str, str]:
+    if not YOUTUBE_IDS_PATH.exists():
+        return {}
+    data = json.loads(YOUTUBE_IDS_PATH.read_text(encoding="utf-8"))
+    return {k: v for k, v in data.items() if not k.startswith("_")}
+
+
+def parse_timestamp(ts: str) -> int:
+    parts = [int(p) for p in ts.split(":")]
+    seconds = 0
+    for p in parts:
+        seconds = seconds * 60 + p
+    return seconds
+
+
+def transform_notes_html(html: str, youtube_id: str | None) -> str:
+    html = TRAILING_BOILERPLATE_RE.sub("", html)
+    paragraphs = PARAGRAPH_RE.findall(html)
+
+    out: list[str] = []
+    in_chapters = False
+    i = 0
+    while i < len(paragraphs):
+        raw = paragraphs[i].strip()
+        plain = unescape(TAG_RE.sub("", raw)).strip()
+
+        if plain in NOTE_HEADERS:
+            out.append(f"<h2>{plain}</h2>")
+            in_chapters = plain == "Chapters"
+            i += 1
+            continue
+
+        if raw.startswith("* "):
+            items = []
+            while i < len(paragraphs) and paragraphs[i].strip().startswith("* "):
+                items.append(paragraphs[i].strip()[2:].strip())
+                i += 1
+            out.append("<ul>" + "".join(f"<li>{it}</li>" for it in items) + "</ul>")
+            continue
+
+        if in_chapters:
+            items = []
+            while i < len(paragraphs):
+                m = CHAPTER_RE.match(paragraphs[i].strip())
+                if not m:
+                    break
+                ts, label = m.group(1), m.group(2)
+                if youtube_id:
+                    seconds = parse_timestamp(ts)
+                    link = f"https://youtu.be/{youtube_id}?t={seconds}"
+                    items.append(f'<li><a href="{link}" target="_blank" rel="noopener noreferrer">{ts}</a> — {label}</li>')
+                else:
+                    items.append(f"<li>{ts} — {label}</li>")
+                i += 1
+            in_chapters = False
+            if items:
+                out.append("<ol>" + "".join(items) + "</ol>")
+                continue
+
+        out.append(f"<p>{raw}</p>")
+        i += 1
+
+    return "".join(out)
 
 
 def plainify(html: str, limit: int = 180) -> str:
@@ -70,12 +163,13 @@ def slug_from_link(link: str) -> str:
     return link.rstrip("/").rsplit("/", 1)[-1]
 
 
-def parse_item(item: ET.Element) -> dict | None:
+def parse_item(item: ET.Element, youtube_ids: dict[str, str]) -> dict | None:
     title = (item.findtext("title") or "").strip()
     link = (item.findtext("link") or "").strip()
     if not link:
         return None
     slug = slug_from_link(link)
+    youtube_id = youtube_ids.get(slug)
 
     description = item.findtext("description") or ""
 
@@ -104,6 +198,7 @@ def parse_item(item: ET.Element) -> dict | None:
         "title": title,
         "slug": slug,
         "substackURL": link,
+        "youtubeURL": f"https://youtu.be/{youtube_id}" if youtube_id else None,
         "episodeNumber": episode_number(title, itunes_episode),
         "episodeType": itunes_episode_type or "full",
         "date": dt.isoformat(),
@@ -113,7 +208,7 @@ def parse_item(item: ET.Element) -> dict | None:
         "durationSeconds": int(itunes_duration) if (itunes_duration or "").isdigit() else None,
         "explicit": (itunes_explicit or "").strip().lower() == "yes",
         "summary": plainify(description, 180),
-        "notesHTML": description,
+        "notesHTML": transform_notes_html(description, youtube_id),
     }
 
 
@@ -152,10 +247,12 @@ def main() -> int:
     if not dry_run:
         OUT_DIR.mkdir(parents=True, exist_ok=True)
 
+    youtube_ids = load_youtube_ids()
+
     written: list[Path] = []
     skipped = 0
     for item in items:
-        ep = parse_item(item)
+        ep = parse_item(item, youtube_ids)
         if ep is None:
             skipped += 1
             continue

@@ -31,15 +31,26 @@
       </audio>
     {{ end }}
 
-    {{ with $p.substackURL }}
-      {{ $tracked := printf "%s?utm_source=rewired.show&utm_medium=website&utm_campaign=episode-page" . }}
-      <a class="rewired-episode-detail__substack-link" href="{{ $tracked }}" target="_blank" rel="noopener noreferrer">
-        Listen on Substack
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
-          <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    {{ end }}
+    <div class="rewired-episode-detail__links">
+      {{ with $p.substackURL }}
+        {{ $tracked := printf "%s?utm_source=rewired.show&utm_medium=website&utm_campaign=episode-page" . }}
+        <a class="rewired-episode-detail__substack-link" href="{{ $tracked }}" target="_blank" rel="noopener noreferrer">
+          Listen on Substack
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+            <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {{ end }}
+      {{ with $p.youtubeURL }}
+        {{ $tracked := printf "%s?utm_source=rewired.show&utm_medium=website&utm_campaign=episode-page" . }}
+        <a class="rewired-episode-detail__substack-link" href="{{ $tracked }}" target="_blank" rel="noopener noreferrer">
+          Watch on YouTube
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+            <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {{ end }}
+    </div>
 
     {{ with $p.notesHTML }}
       <div class="rewired-episode-detail__notes">
