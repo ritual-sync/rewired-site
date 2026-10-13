@@ -2,7 +2,10 @@
 title: 'Episode 6: The Tension Is the Point — The Empress, AI''s Shadow & Why Binaries Won''t Go Away'
 slug: episode-006-the-tension-is-the-point
 substackURL: https://rewiredshow.substack.com/p/episode-006-the-tension-is-the-point
+youtubeId: WY1K7XsFKak
 youtubeURL: https://youtu.be/WY1K7XsFKak
+appleURL: https://podcasts.apple.com/us/podcast/episode-6-the-tension-is-the-point-the-empress-ais/id1896945601?i=1000779581467&uo=4
+spotifyURL: https://open.spotify.com/episode/6Zaru0970Km2wPFKADJ9W0
 episodeNumber: 6
 episodeType: full
 date: '2026-08-02T21:45:00+00:00'

@@ -2,7 +2,10 @@
 title: 'Episode 4: Animism All the Way Down — AI, Technology as Magic & the Purity Trap'
 slug: episode-004-animism-all-the-way-down
 substackURL: https://rewiredshow.substack.com/p/episode-004-animism-all-the-way-down
+youtubeId: v8jQy6aFl6k
 youtubeURL: https://youtu.be/v8jQy6aFl6k
+appleURL: https://podcasts.apple.com/us/podcast/episode-4-animism-all-the-way-down-ai-technology-as/id1896945601?i=1000775568318&uo=4
+spotifyURL: https://open.spotify.com/episode/3NUcCS5VJzZdirFMfXuxy2
 episodeNumber: 4
 episodeType: full
 date: '2026-07-05T21:45:00+00:00'

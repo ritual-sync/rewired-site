@@ -2,7 +2,10 @@
 title: 'Episode 11: A Race Car in the Red — Burnout, the Protestant Work Ethic & Why Logic Can''t Save You'
 slug: episode-011-a-race-car-in-the-red
 substackURL: https://rewiredshow.substack.com/p/episode-011-a-race-car-in-the-red
+youtubeId: pCX0cLgo134
 youtubeURL: https://youtu.be/pCX0cLgo134
+appleURL: https://podcasts.apple.com/us/podcast/episode-11-a-race-car-in-the-red-burnout/id1896945601?i=1000792839758&uo=4
+spotifyURL: https://open.spotify.com/episode/7Fw7PEH1Hro0dVscCyopqX
 episodeNumber: 11
 episodeType: full
 date: '2026-09-30T19:36:41+00:00'

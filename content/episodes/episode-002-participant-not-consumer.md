@@ -2,7 +2,10 @@
 title: 'Episode 2: Participant, Not Consumer — Cultural Appropriation, Tarot & Why There''s No Clean Line'
 slug: episode-002-participant-not-consumer
 substackURL: https://rewiredshow.substack.com/p/episode-002-participant-not-consumer
+youtubeId: BPZmaD_LEmU
 youtubeURL: https://youtu.be/BPZmaD_LEmU
+appleURL: https://podcasts.apple.com/us/podcast/episode-2-participant-not-consumer-cultural-appropriation/id1896945601?i=1000773609382&uo=4
+spotifyURL: https://open.spotify.com/episode/3PuXPwNvG0vaVjRufwRlBm
 episodeNumber: 2
 episodeType: full
 date: '2026-06-21T13:00:00+00:00'

@@ -46,6 +46,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 FEED_PATH = REPO_ROOT / "assets" / "episodes.xml"
 OUT_DIR = REPO_ROOT / "content" / "episodes"
 YOUTUBE_IDS_PATH = REPO_ROOT / "data" / "youtube-episode-ids.json"
+PLATFORM_LINKS_PATH = REPO_ROOT / "data" / "platform-episode-links.json"
 
 ITUNES_NS = "http://www.itunes.com/dtds/podcast-1.0.dtd"
 NS = {"itunes": ITUNES_NS}
@@ -77,6 +78,14 @@ def load_youtube_ids() -> dict[str, str]:
         return {}
     data = json.loads(YOUTUBE_IDS_PATH.read_text(encoding="utf-8"))
     return {k: v for k, v in data.items() if not k.startswith("_")}
+
+
+def load_platform_links() -> dict[str, dict[str, str]]:
+    # scripts/fetch-platform-links.mts writes this — Apple Podcasts (public
+    # lookup API) + Spotify (Web API) per-episode deep links, keyed by slug.
+    if not PLATFORM_LINKS_PATH.exists():
+        return {}
+    return json.loads(PLATFORM_LINKS_PATH.read_text(encoding="utf-8"))
 
 
 def parse_timestamp(ts: str) -> int:
@@ -163,13 +172,14 @@ def slug_from_link(link: str) -> str:
     return link.rstrip("/").rsplit("/", 1)[-1]
 
 
-def parse_item(item: ET.Element, youtube_ids: dict[str, str]) -> dict | None:
+def parse_item(item: ET.Element, youtube_ids: dict[str, str], platform_links: dict[str, dict[str, str]]) -> dict | None:
     title = (item.findtext("title") or "").strip()
     link = (item.findtext("link") or "").strip()
     if not link:
         return None
     slug = slug_from_link(link)
     youtube_id = youtube_ids.get(slug)
+    links = platform_links.get(slug, {})
 
     description = item.findtext("description") or ""
 
@@ -198,7 +208,10 @@ def parse_item(item: ET.Element, youtube_ids: dict[str, str]) -> dict | None:
         "title": title,
         "slug": slug,
         "substackURL": link,
+        "youtubeId": youtube_id,
         "youtubeURL": f"https://youtu.be/{youtube_id}" if youtube_id else None,
+        "appleURL": links.get("appleURL"),
+        "spotifyURL": links.get("spotifyURL"),
         "episodeNumber": episode_number(title, itunes_episode),
         "episodeType": itunes_episode_type or "full",
         "date": dt.isoformat(),
@@ -248,11 +261,12 @@ def main() -> int:
         OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     youtube_ids = load_youtube_ids()
+    platform_links = load_platform_links()
 
     written: list[Path] = []
     skipped = 0
     for item in items:
-        ep = parse_item(item, youtube_ids)
+        ep = parse_item(item, youtube_ids, platform_links)
         if ep is None:
             skipped += 1
             continue

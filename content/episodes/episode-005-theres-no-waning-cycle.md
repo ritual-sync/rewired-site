@@ -2,7 +2,10 @@
 title: 'Episode 5: There''s No Waning Cycle — Burnout, Astrology & Why Technology Never Lets You Rest'
 slug: episode-005-theres-no-waning-cycle
 substackURL: https://rewiredshow.substack.com/p/episode-005-theres-no-waning-cycle
+youtubeId: YZH7cogJz9E
 youtubeURL: https://youtu.be/YZH7cogJz9E
+appleURL: https://podcasts.apple.com/us/podcast/episode-5-theres-no-waning-cycle-burnout-astrology/id1896945601?i=1000777471310&uo=4
+spotifyURL: https://open.spotify.com/episode/0TMkl4wLySKm3i8YfCABOM
 episodeNumber: 5
 episodeType: full
 date: '2026-07-19T21:45:00+00:00'

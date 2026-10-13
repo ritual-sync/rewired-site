@@ -2,7 +2,10 @@
 title: 'Episode 3: Shadow Capitalism — AI as Amplifier, Scarcity Games & Where Resource Ends and Being Begins'
 slug: episode-003-shadow-capitalism
 substackURL: https://rewiredshow.substack.com/p/episode-003-shadow-capitalism
+youtubeId: GcrCtHJfeVg
 youtubeURL: https://youtu.be/GcrCtHJfeVg
+appleURL: https://podcasts.apple.com/us/podcast/episode-3-shadow-capitalism-ai-as-amplifier-scarcity/id1896945601?i=1000773609520&uo=4
+spotifyURL: https://open.spotify.com/episode/0fhwTtWdknKyZWBDEGINsv
 episodeNumber: 3
 episodeType: full
 date: '2026-06-21T13:00:00+00:00'

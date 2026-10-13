@@ -24,18 +24,35 @@
       {{ end }}
     </div>
 
-    {{ with $p.audio }}
-      <audio class="rewired-episode-detail__audio" controls preload="none" src="{{ . }}">
-        Your browser does not support the audio element.
-        <a href="{{ $p.substackURL }}" target="_blank" rel="noopener noreferrer">Listen on Substack</a>
-      </audio>
+    {{ if $p.youtubeId }}
+      <div class="rewired-episode-detail__video">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/{{ $p.youtubeId }}"
+          title="{{ .Title }}"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      </div>
+    {{ else }}
+      {{ with $p.audio }}
+        <audio class="rewired-episode-detail__audio" controls preload="none" src="{{ . }}">
+          Your browser does not support the audio element.
+          <a href="{{ $p.substackURL }}" target="_blank" rel="noopener noreferrer">Watch on Substack</a>
+        </audio>
+      {{ end }}
     {{ end }}
 
+    {{/* Link row — every platform this episode is actually confirmed to be
+         on. data/youtube-episode-ids.json and data/platform-episode-links.json
+         (scripts/fetch-platform-links.mts) are hand-maintained/periodically
+         re-fetched; a link is simply omitted for an episode not yet in them,
+         never a dead/guessed URL (03-CONTEXT.md D-01 spirit applied here too). */}}
     <div class="rewired-episode-detail__links">
       {{ with $p.substackURL }}
         {{ $tracked := printf "%s?utm_source=rewired.show&utm_medium=website&utm_campaign=episode-page" . }}
         <a class="rewired-episode-detail__substack-link" href="{{ $tracked }}" target="_blank" rel="noopener noreferrer">
-          Listen on Substack
+          Watch on Substack
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
             <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -45,6 +62,22 @@
         {{ $tracked := printf "%s?utm_source=rewired.show&utm_medium=website&utm_campaign=episode-page" . }}
         <a class="rewired-episode-detail__substack-link" href="{{ $tracked }}" target="_blank" rel="noopener noreferrer">
           Watch on YouTube
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+            <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {{ end }}
+      {{ with $p.spotifyURL }}
+        <a class="rewired-episode-detail__substack-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+          Listen on Spotify
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+            <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {{ end }}
+      {{ with $p.appleURL }}
+        <a class="rewired-episode-detail__substack-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+          Listen on Apple Podcasts
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
             <path d="M4 12L12 4M12 4H5M12 4V11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>

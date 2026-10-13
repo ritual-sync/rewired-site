@@ -2,7 +2,10 @@
 title: 'Episode 10: Fighting for the Three — Moral Vampires, Impossible Ethics & the Myth of Good Guys'
 slug: episode-010-fighting-for-the-three
 substackURL: https://rewiredshow.substack.com/p/episode-010-fighting-for-the-three
+youtubeId: 862Xamz65I4
 youtubeURL: https://youtu.be/862Xamz65I4
+appleURL: https://podcasts.apple.com/us/podcast/episode-10-fighting-for-the-three-moral-vampires/id1896945601?i=1000792839894&uo=4
+spotifyURL: https://open.spotify.com/episode/1hUlrvXHPYJUAH0GXdvWVh
 episodeNumber: 10
 episodeType: full
 date: '2026-09-29T15:20:51+00:00'

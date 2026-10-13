@@ -2,7 +2,10 @@
 title: 'Episode 9: You Can''t Cut the Magnet — Divine Feminine, Subconscious Reprogramming & the Origin of Rewired'
 slug: episode-009-from-the-vault-you-cant
 substackURL: https://rewiredshow.substack.com/p/episode-009-from-the-vault-you-cant
+youtubeId: qePVpTxXhYo
 youtubeURL: https://youtu.be/qePVpTxXhYo
+appleURL: https://podcasts.apple.com/us/podcast/episode-9-you-cant-cut-the-magnet-divine-feminine/id1896945601?i=1000789388303&uo=4
+spotifyURL: https://open.spotify.com/episode/1ITE5d8hBZO6j8XqCguB1H
 episodeNumber: 9
 episodeType: full
 date: '2026-09-13T21:45:00+00:00'

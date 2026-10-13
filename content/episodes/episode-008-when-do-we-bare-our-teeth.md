@@ -2,7 +2,10 @@
 title: 'Episode 8: When Do We Bare Our Teeth? — AI Purity Culture, the BITE Model & Why Regulation Beats Boycotts'
 slug: episode-008-when-do-we-bare-our-teeth
 substackURL: https://rewiredshow.substack.com/p/episode-008-when-do-we-bare-our-teeth
+youtubeId: T_eNvlg3APg
 youtubeURL: https://youtu.be/T_eNvlg3APg
+appleURL: https://podcasts.apple.com/us/podcast/episode-8-when-do-we-bare-our-teeth-ai-purity-culture/id1896945601?i=1000786870175&uo=4
+spotifyURL: https://open.spotify.com/episode/4THd1AmZAOPrGhVhAgWRIb
 episodeNumber: 8
 episodeType: full
 date: '2026-08-30T21:45:00+00:00'

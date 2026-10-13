@@ -2,7 +2,10 @@
 title: 'Episode 7: The Most Repressed Archetype — The Magician, Creative Fear & Funding Your Own Dream'
 slug: episode-007-the-most-repressed-archetype
 substackURL: https://rewiredshow.substack.com/p/episode-007-the-most-repressed-archetype
+youtubeId: GomwM6XyKxI
 youtubeURL: https://youtu.be/GomwM6XyKxI
+appleURL: https://podcasts.apple.com/us/podcast/episode-7-the-most-repressed-archetype-the/id1896945601?i=1000783702782&uo=4
+spotifyURL: https://open.spotify.com/episode/4FgHBkwrU3Me5P48IlnmBF
 episodeNumber: 7
 episodeType: full
 date: '2026-08-16T21:45:00+00:00'

@@ -2,7 +2,10 @@
 title: 'Episode 1: What Kind of Smoke Is It? — Religious Trauma, Biblical Inerrancy & Leaving Evangelical Christianity for Witchcraft'
 slug: episode-001-what-kind-of-smoke-is
 substackURL: https://rewiredshow.substack.com/p/episode-001-what-kind-of-smoke-is
+youtubeId: jxjCdHaJkuQ
 youtubeURL: https://youtu.be/jxjCdHaJkuQ
+appleURL: https://podcasts.apple.com/us/podcast/episode-1-what-kind-of-smoke-is-it-religious-trauma/id1896945601?i=1000773609406&uo=4
+spotifyURL: https://open.spotify.com/episode/71h2zvdv6YtpXeGq8BkBMM
 episodeNumber: 1
 episodeType: full
 date: '2026-06-21T13:00:00+00:00'
