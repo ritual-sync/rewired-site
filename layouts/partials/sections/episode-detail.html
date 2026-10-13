@@ -11,7 +11,7 @@
 <section class="rewired-section rewired-episode-detail-section section-void">
   <article class="rewired-episode-detail">
     {{ with $p.cover }}
-      <img class="rewired-episode-detail__cover" src="{{ . }}" alt="" loading="eager" decoding="async" width="640" height="640">
+      <img class="rewired-episode-detail__cover" src="{{ . }}" alt="{{ printf "Cover art for %s" $.Title }}" loading="eager" decoding="async" width="640" height="640">
     {{ end }}
 
     <div class="rewired-episode-detail__header">

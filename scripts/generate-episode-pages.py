@@ -162,6 +162,29 @@ def plainify(html: str, limit: int = 180) -> str:
     return text[:limit].rsplit(" ", 1)[0].rstrip(",;:.-—")
 
 
+def short_title(title: str) -> str:
+    # "Episode N: Hook — Keyword A, Keyword B & Keyword C" -> "Episode N: Hook".
+    # Mirrors the search_engine_title / title split already applied on the
+    # Substack side (publishing-pipeline/scripts/substack/update-search-engine-titles.mts)
+    # — derived here, not hand-maintained, so it can never drift from the title.
+    return title.split(" — ", 1)[0].strip()
+
+
+def iso8601_duration(seconds: int | None) -> str | None:
+    if not seconds:
+        return None
+    h, rem = divmod(seconds, 3600)
+    m, s = divmod(rem, 60)
+    parts = "PT"
+    if h:
+        parts += f"{h}H"
+    if m:
+        parts += f"{m}M"
+    if s or not (h or m):
+        parts += f"{s}S"
+    return parts
+
+
 def episode_number(title: str, itunes_episode: str | None) -> int:
     if itunes_episode:
         try:
@@ -212,8 +235,11 @@ def parse_item(item: ET.Element, youtube_ids: dict[str, str], platform_links: di
     else:
         dt = datetime.now(timezone.utc)
 
+    duration_seconds = int(itunes_duration) if (itunes_duration or "").isdigit() else None
+
     return {
         "title": title,
+        "shortTitle": short_title(title),
         "slug": slug,
         "substackURL": link,
         "youtubeId": youtube_id,
@@ -226,9 +252,10 @@ def parse_item(item: ET.Element, youtube_ids: dict[str, str], platform_links: di
         "cover": cover,
         "audio": audio_url,
         "audioType": audio_type,
-        "durationSeconds": int(itunes_duration) if (itunes_duration or "").isdigit() else None,
+        "durationSeconds": duration_seconds,
+        "durationISO": iso8601_duration(duration_seconds),
         "explicit": (itunes_explicit or "").strip().lower() == "yes",
-        "summary": plainify(description, 180),
+        "summary": plainify(description, 155),
         "notesHTML": transform_notes_html(description, youtube_id),
     }
 

@@ -3,34 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+  {{/* Page <title>: episode pages use the short "Episode N: Hook" form
+       (everything before the first " — "), not the full keyword-stuffed
+       title — Google truncates around 60 chars, and the keyword string
+       after the dash is already covered by the meta description + H1 +
+       JSON-LD name. Mirrors the search_engine_title / title split already
+       applied on the Substack side this session. */}}
+  {{ $isEpisode := eq .Type "episodes" }}
+  {{ $isEpisodePage := and $isEpisode (not .IsSection) }}
+  {{ $titleText := site.Title }}
+  {{ if $isEpisodePage }}
+    {{ $titleText = .Params.shortTitle | default .Title }}
+  {{ else if not .IsHome }}
+    {{ $titleText = .Title }}
+  {{ end }}
+  <title>{{ if .IsHome }}{{ $titleText }}{{ else }}{{ $titleText }} | {{ site.Title }}{{ end }}</title>
 
   {{/* Canonical + meta description + Open Graph + Twitter Card (D-08, DEPL-03).
        Per-page override for episode pages (03-CONTEXT.md D-02): each
        episode page is self-canonical with its own title/description/cover,
-       not the homepage's generic tagline + dual-portrait OG image. */}}
-  {{ $isEpisode := eq .Type "episodes" }}
+       not the homepage's generic tagline + dual-portrait OG image.
+
+       metaDesc (search-engine <meta name=description>) and ogDesc (social
+       share teaser) are allowed to differ on the homepage: Google wants the
+       fuller, keyword-complete description; a share card wants the punchy
+       one-line tagline. Episode pages use the same summary for both —
+       there's only one natural description per episode. */}}
   {{ $pageTitle := site.Title }}
-  {{ $pageDesc := site.Params.tagline }}
+  {{ $metaDesc := site.Params.description }}
+  {{ $ogDesc := site.Params.tagline }}
   {{ $ogImage := "images/og/rewired-og.jpg" | absURL }}
   {{ $pageURL := "" | absURL }}
   {{ $imageAlt := printf "Rewired — %s" site.Params.tagline }}
 
-  {{ if and $isEpisode (not .IsSection) }}
-    {{ $pageTitle = .Title }}
-    {{ with .Params.summary }}{{ $pageDesc = . }}{{ end }}
+  {{ if $isEpisodePage }}
+    {{ $pageTitle = $titleText }}
+    {{ with .Params.summary }}{{ $metaDesc = . }}{{ $ogDesc = . }}{{ end }}
     {{ with .Params.cover }}{{ $ogImage = . }}{{ end }}
     {{ $pageURL = .Permalink }}
     {{ $imageAlt = .Title }}
+  {{ else if not .IsHome }}
+    {{ $pageTitle = .Title }}
+    {{ $pageURL = .Permalink }}
   {{ end }}
 
-  <meta name="description" content="{{ $pageDesc }}">
+  <meta name="description" content="{{ $metaDesc }}">
   <link rel="canonical" href="{{ $pageURL }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.Title }} — podcast feed" href="{{ "episodes.xml" | absURL }}">
 
-  <meta property="og:type" content="{{ if $isEpisode }}article{{ else }}website{{ end }}">
+  <meta property="og:type" content="{{ if $isEpisodePage }}article{{ else }}website{{ end }}">
   <meta property="og:site_name" content="{{ site.Title }}">
   <meta property="og:title" content="{{ $pageTitle }}">
-  <meta property="og:description" content="{{ $pageDesc }}">
+  <meta property="og:description" content="{{ $ogDesc }}">
   <meta property="og:url" content="{{ $pageURL }}">
   <meta property="og:image" content="{{ $ogImage }}">
   <meta property="og:image:width" content="1200">
@@ -39,9 +63,11 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ $pageTitle }}">
-  <meta name="twitter:description" content="{{ $pageDesc }}">
+  <meta name="twitter:description" content="{{ $ogDesc }}">
   <meta name="twitter:image" content="{{ $ogImage }}">
   <meta name="twitter:image:alt" content="{{ $imageAlt }}">
+
+  {{ partial "seo-jsonld.html" . }}
 
   {{/* Favicon set (D-09, DEPL-04) — generated from the Rewired R mark */}}
   <link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon.png" | absURL }}">

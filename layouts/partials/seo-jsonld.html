@@ -1,0 +1,40 @@
+{{/* JSON-LD structured data — schema.org/PodcastSeries on the homepage,
+     schema.org/PodcastEpisode on each episode page. Built via `jsonify` so
+     Hugo handles all string escaping; never hand-assembled as a string.
+     See https://developers.google.com/search/docs/appearance/structured-data/podcast */}}
+
+{{ $feedURL := "episodes.xml" | absURL }}
+
+{{ if .IsHome }}
+  {{ $data := dict
+    "@context" "https://schema.org"
+    "@type" "PodcastSeries"
+    "name" site.Title
+    "url" (.Permalink)
+    "description" site.Params.description
+    "image" ("images/og/rewired-og.jpg" | absURL)
+    "webFeed" $feedURL
+  }}
+  <script type="application/ld+json">{{ $data | jsonify | safeJS }}</script>
+{{ else if and (eq .Type "episodes") (not .IsSection) }}
+  {{ $p := .Params }}
+  {{ $episode := dict
+    "@context" "https://schema.org"
+    "@type" "PodcastEpisode"
+    "name" .Title
+    "url" .Permalink
+    "datePublished" (.Date.Format "2006-01-02")
+    "description" $p.summary
+    "partOfSeries" (dict
+      "@type" "PodcastSeries"
+      "name" site.Title
+      "url" (site.Home.Permalink)
+    )
+  }}
+  {{ with $p.cover }}{{ $episode = merge $episode (dict "image" .) }}{{ end }}
+  {{ with $p.audio }}
+    {{ $episode = merge $episode (dict "associatedMedia" (dict "@type" "MediaObject" "contentUrl" .)) }}
+  {{ end }}
+  {{ with $p.durationISO }}{{ $episode = merge $episode (dict "duration" .) }}{{ end }}
+  <script type="application/ld+json">{{ $episode | jsonify | safeJS }}</script>
+{{ end }}

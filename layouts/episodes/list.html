@@ -2,13 +2,14 @@
 <main class="rewired-main">
   <section class="rewired-section rewired-episodes-section section-depth">
     <div class="rewired-episodes">
-      <h2 class="rewired-episodes__heading">Episodes</h2>
+      <h1 class="rewired-episodes__heading">{{ .Title }}</h1>
       <ul class="rewired-episodes__grid" role="list">
         {{ range sort .Pages "Params.episodeNumber" "desc" }}
+        {{ $page := . }}
         <li class="rewired-episode">
           <a class="rewired-episode__cover-link" href="{{ .Permalink }}" tabindex="-1" aria-hidden="true">
             {{ with .Params.cover }}
-              <img class="rewired-episode__cover" src="{{ . }}" alt="" loading="lazy" decoding="async" width="640" height="640">
+              <img class="rewired-episode__cover" src="{{ . }}" alt="{{ printf "Cover art for %s" $page.Title }}" loading="lazy" decoding="async" width="640" height="640">
             {{ end }}
           </a>
           <div class="rewired-episode__body">

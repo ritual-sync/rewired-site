@@ -108,7 +108,7 @@
 
           <li class="rewired-episode">
             <a class="rewired-episode__cover-link" href="{{ $trackedLink }}"{{ if not $isLocal }} target="_blank" rel="noopener noreferrer"{{ end }} tabindex="-1" aria-hidden="true">
-              <img class="rewired-episode__cover" src="{{ $cover }}" alt="" loading="lazy" decoding="async" width="640" height="640">
+              <img class="rewired-episode__cover" src="{{ $cover }}" alt="{{ printf "Cover art for %s" $title }}" loading="lazy" decoding="async" width="640" height="640">
             </a>
             <div class="rewired-episode__body">
               {{ with $date }}<p class="rewired-episode__date">{{ . }}</p>{{ end }}
