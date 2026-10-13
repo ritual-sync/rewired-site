@@ -42,13 +42,15 @@
 
 ## v2 Requirements
 
-Deferred — will be considered after first episodes exist or after an observed MVP signal.
+First episodes now exist (11 published as of 2026-10-13). This list was superseded by ROADMAP.md's fuller Phase 3 scope (EPS-01..05) — reconciled here 2026-10-13.
 
 ### Episodes
 
-- **EPS-01**: Episode list surface with show notes and embedded player
-- **EPS-02**: Per-episode permalink pages
-- **EPS-03**: Podcast feed (RSS) link in nav / footer
+- [x] **EPS-01**: Episode list surface with show notes and embedded player — `layouts/partials/sections/episodes.html` (found already built during Phase 3 discuss-phase scout, undocumented until now)
+- [x] **EPS-02**: Per-episode permalink pages — built 2026-10-13, `content/episodes/*.md` + `layouts/episodes/*.html`, see `03-SUMMARY.md`
+- [x] **EPS-03**: RSS pull at build time (vendored, not live-fetched — Substack 403s CI) — `scripts/refresh-episodes.sh` (found already built, same as EPS-01)
+- [x] **EPS-04**: Embedded audio player on episode pages — native `<audio>`, both on the homepage grid and the new per-episode pages
+- [ ] **EPS-05**: Latest-episode callout on the landing page — not yet done, not yet requested
 
 ### Discovery
 

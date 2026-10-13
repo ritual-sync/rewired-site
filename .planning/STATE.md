@@ -19,7 +19,7 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-04-18)
 
 **Core value:** A visitor lands, immediately gets the lens of the show, sees the two hosts, and drops their email so they don't miss the launch.
-**Current focus:** Phase 2 complete — site live at https://rewired.show/. MVP shipped. Next: Phase 3 (Listener Experience) once first episodes exist.
+**Current focus:** Phase 3 (Listener Experience) in progress. EPS-01/EPS-03/EPS-04 (episode list, RSS pull, embedded player) and EPS-02 (per-episode permalink pages) are done. EPS-05 (latest-episode homepage callout) is the one open item.
 
 ## Current Phase
 
@@ -29,6 +29,12 @@ See: `.planning/PROJECT.md` (updated 2026-04-18)
 - [x] Plan 02-02 — deploy (GitHub Actions, repo, DNS, HTTPS, smoke test)
 
 All Phase 2 requirements closed: CAPT-01..04, DEPL-01..05. Live URL: https://rewired.show/.
+
+**Phase 3: Listener Experience — episode surface pulled from Substack RSS** — in progress
+
+- [x] EPS-01 (episode list), EPS-03 (RSS pull at build time), EPS-04 (embedded audio player) — found already built during 2026-10-13 discuss-phase scout; no prior record of this work existed in STATE.md/ROADMAP.md/PROJECT.md. See `03-CONTEXT.md` for the drift note.
+- [x] EPS-02 (per-episode permalink pages) — built 2026-10-13, see `.planning/phases/03-listener-experience-episode-surface-pulled-from-substack-rss/03-SUMMARY.md`
+- [ ] EPS-05 (latest-episode homepage callout) — not yet done, not yet requested
 
 ## Recent Activity
 
@@ -40,6 +46,9 @@ All Phase 2 requirements closed: CAPT-01..04, DEPL-01..05. Live URL: https://rew
 - 2026-04-18 — Plan 02-01 executed. Production baseURL (`https://rewired.show/`), OG + Twitter + canonical meta in baseof.html, ARCÆON favicon set (svg + native ICO + 180×180 apple-touch), v1 dual-portrait OG image (1200×630 JPEG, 34.7 KB), CNAME, Substack iframe wired into coming-soon.html. Publication: **rewiredshow.substack.com** (bare `rewired` was taken). Jaye Anne invited but not yet confirmed as collaborator. Commits: 97daa80, ba25586, 65f3fe0, 3ba294c, 5950c45. See `02-01-SUMMARY.md`.
 - 2026-04-18 — Plan 02-02 executed. Repo created at **ritual-sync/rewired-site** (public). GitHub Actions workflow (Hugo 0.160.1 via peaceiris/actions-hugo@v3, native Pages chain). DNS: 4 apex A records + www CNAME → `ritual-sync.github.io`. Let's Encrypt cert issued; Enforce HTTPS on via UI. Site live at **https://rewired.show/**, www 301s to apex, http 301s to https. Smoke tests: subscribe success (new-tab flow — host page stays on apex), subscribe failure, Substack subscriber landing, OG previews on iMessage + Slack + Threads/X all ✓. Commit: 88e1e75. See `02-02-SUMMARY.md`.
 - 2026-04-18 — **Phase 2 post-plan polish** (outside the formal GSD flow). Branded Substack subscribe button replacing the cross-origin iframe; 3-round Gemini logo generation via the Feral Architecture template (R sigil + broken-circle-healing ring locked as primary + secondary marks); logos placed on the site (hero + closing section, 12px rounded corners matching portraits); favicon + apple-touch + OG image all swapped from Phase-1 placeholders to the new R mark; portraits reflowed side-by-side at every width (supersedes D-06 "stacked mobile"); host bios iterated to v3 (integration-forward Matt, source-sourced Jaye Anne from embodiedalchemyhealing.com, live `tarotpulse.com` → `mytarotpulse.com` URL bug fixed); new OG composition pipeline at `scripts/compose-og.py` (Pillow + fontTools — supersedes rsvg-convert, which silently drops file:// images and falls back to system fonts). Commits: 1062feb, aa232fc, 93dfc7b, 1570adf, aed3f3c, 4cf2ab4, 35735e9. See `02-ADDENDUM.md` for full narrative.
+- 2026-??-?? — **Phase 3 EPS-01/EPS-03/EPS-04 built outside the formal GSD flow, undated and unrecorded until discovered during this phase's discuss-phase scout (2026-10-13).** `layouts/partials/sections/episodes.html` (homepage episode grid, RSS-parsed, embedded native audio player) and `scripts/refresh-episodes.sh` (vendor-and-commit RSS refresh — Substack 403s CI) already existed with zero trace in STATE.md/ROADMAP.md/PROJECT.md. Not corrected retroactively; noted here and in `03-CONTEXT.md` so it isn't rediscovered as a surprise again.
+- 2026-10-13 — Phase 3 discuss-phase run. Found the above drift. Scoped this pass to **EPS-02 (per-episode permalink pages)** — the real remaining SEO gap (rewired.show had exactly one indexable URL for the whole show). User deferred all three implementation gray areas (content depth, homepage linking, slug scheme) to Claude's judgment. See `03-CONTEXT.md` / `03-DISCUSSION-LOG.md`.
+- 2026-10-13 — EPS-02 built directly (discuss-phase → implementation, skipping the full research/plan/UI-spec/execute/verify subagent pipeline — a Hugo template addition is loud-failure/local/leaf per Design Principle 12, not worth the ceremony). `scripts/generate-episode-pages.py` generates `content/episodes/<substack-slug>.md` per episode from the vendored feed; `layouts/episodes/{single,list}.html` + `layouts/partials/sections/episode-detail.html` render them; `baseof.html` gained per-page OG/canonical meta; homepage cards now link locally (Substack kept as secondary link); flat permalinks mirror Substack's own slug (`hugo.toml`). Wired into the existing `refresh-episodes.sh`/`auto-refresh-deploy.sh` automation so new episodes get pages automatically. `hugo --minify` verified clean, all 11 episodes confirmed in sitemap.xml with correct per-page OG tags. Commit: d3337ab, pushed to main. See `03-SUMMARY.md`.
 
 ## Assets & References
 
