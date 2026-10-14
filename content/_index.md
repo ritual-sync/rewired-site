@@ -1,7 +1,7 @@
 ---
 title: "Rewired"
 showName: "Rewired"
-heroLens: "We left the systems. We're finding what's alive."
+heroLens: "We left the religion we were raised in. We're finding what's alive on the other side."
 lensHeading: "The Lens"
 lensParagraph: "Every episode starts with a tarot card, nobody picks the topic in advance, and we're not allowed to resolve it by the end. That's the whole format. Matt spent 25 years working his way from street evangelism to witchcraft while building software for a living; Jaye Anne spent six days a week in homeschool church before her own exit. Wherever the card points — religious trauma, cultural appropriation, Jungian shadow work, what a nervous system actually has to unlearn — that's the episode. Nothing gets tied up with a bow, because nothing in real deconstruction does either."
 hostsHeading: "Hosts"
