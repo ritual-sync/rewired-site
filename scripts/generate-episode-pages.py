@@ -19,8 +19,10 @@ section headers ("In this episode", "Lines that landed", "Referenced",
 "What we left unresolved", "Chapters") rather than real <ul>/<h2> markup.
 `transform_notes_html()` below turns that into actual lists and headings,
 and turns "Chapters" timestamp lines into links that jump to that moment
-on the episode's YouTube video (data/youtube-episode-ids.json), when one
-exists for the episode. The result is stored as a raw-HTML frontmatter
+on the episode's YouTube video (data/youtube-episode-ids.json) and/or
+Spotify episode (data/platform-episode-links.json), whichever exist for
+the episode. Apple Podcasts has no public per-moment deep-link parameter,
+so it's intentionally not offered here. The result is stored as a raw-HTML frontmatter
 param (`notesHTML`) and rendered with `safeHTML` in
 layouts/episodes/single.html, rather than passed through Hugo's
 Markdown/Goldmark pipeline — it's HTML, not Markdown, and this avoids
@@ -97,7 +99,7 @@ def parse_timestamp(ts: str) -> int:
     return seconds
 
 
-def transform_notes_html(html: str, youtube_id: str | None) -> str:
+def transform_notes_html(html: str, youtube_id: str | None, spotify_url: str | None) -> str:
     html = TRAILING_BOILERPLATE_RE.sub("", html)
     paragraphs = PARAGRAPH_RE.findall(html)
 
@@ -137,10 +139,25 @@ def transform_notes_html(html: str, youtube_id: str | None) -> str:
                 if not m:
                     break
                 ts, label = m.group(1), m.group(2)
+                # Per-chapter deep links. YouTube's `?t=<seconds>` and
+                # Spotify's `?t=<seconds>` are both real, documented
+                # mechanisms (verified 2026-10-14) — Apple Podcasts has no
+                # equivalent public parameter for jumping to an arbitrary
+                # moment in a third-party link, so it's deliberately not
+                # offered here rather than shipping a link that lies.
+                links_html = []
                 if youtube_id:
                     seconds = parse_timestamp(ts)
                     link = f"https://youtu.be/{youtube_id}?t={seconds}"
-                    items.append(f'<li><a href="{link}" target="_blank" rel="noopener noreferrer">{ts}</a> — {label}</li>')
+                    links_html.append(f'<a href="{link}" target="_blank" rel="noopener noreferrer">{ts}</a>')
+                if spotify_url:
+                    seconds = parse_timestamp(ts)
+                    link = f"{spotify_url}?t={seconds}"
+                    label_text = "Spotify" if links_html else ts
+                    css_class = ' class="rewired-episode-detail__notes-chapter-alt"' if links_html else ""
+                    links_html.append(f'<a href="{link}" target="_blank" rel="noopener noreferrer"{css_class}>{label_text}</a>')
+                if links_html:
+                    items.append(f'<li>{" · ".join(links_html)} — {label}</li>')
                 else:
                     items.append(f"<li>{ts} — {label}</li>")
                 i += 1
@@ -261,7 +278,7 @@ def parse_item(item: ET.Element, youtube_ids: dict[str, str], platform_links: di
         "durationISO": iso8601_duration(duration_seconds),
         "explicit": (itunes_explicit or "").strip().lower() == "yes",
         "summary": plainify(description, 155),
-        "notesHTML": transform_notes_html(description, youtube_id),
+        "notesHTML": transform_notes_html(description, youtube_id, links.get("spotifyURL")),
     }
 
 

@@ -662,6 +662,19 @@ a.rewired-subscribe-btn:active {
   white-space: nowrap;
 }
 
+/* Secondary per-chapter deep link (Spotify, alongside the primary YouTube
+   timestamp) — same nowrap behavior, lighter weight so it doesn't compete
+   with the primary link for attention. */
+.rewired-episode-detail__notes ol a.rewired-episode-detail__notes-chapter-alt {
+  font-weight: 500;
+  color: color-mix(in srgb, var(--rewired-text) 70%, transparent);
+}
+
+.rewired-episode-detail__notes ol a.rewired-episode-detail__notes-chapter-alt:hover,
+.rewired-episode-detail__notes ol a.rewired-episode-detail__notes-chapter-alt:focus-visible {
+  color: var(--rewired-link-hover);
+}
+
 .rewired-episode-detail__notes strong {
   color: var(--rewired-heading);
 }
