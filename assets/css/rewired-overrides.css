@@ -701,6 +701,174 @@ a.rewired-subscribe-btn:active {
 }
 
 /* ============================================
+   LATEST EPISODE — hero callout (Phase 3, EPS-05)
+   Mobile-first single column (media stacked above body); desktop promotes
+   to a two-column layout so the newest episode reads as a hero beat
+   immediately after the masthead, not as card #1 in the grid below.
+   ============================================ */
+
+.rewired-latest-episode {
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+.rewired-latest-episode__eyebrow {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--arcaeon-ignition-orange);
+  text-align: center;
+  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.rewired-latest-episode__layout {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.rewired-latest-episode__media {
+  width: 100%;
+}
+
+.rewired-latest-episode__video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--rewired-bg-alt);
+  border: 1px solid color-mix(in srgb, var(--arcaeon-fusion-gold) 22%, transparent);
+}
+
+.rewired-latest-episode__video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.rewired-latest-episode__cover-link {
+  display: block;
+  line-height: 0;
+}
+
+.rewired-latest-episode__cover {
+  width: 100%;
+  max-width: 28rem;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 14px;
+  margin: 0 auto;
+  border: 1px solid color-mix(in srgb, var(--arcaeon-fusion-gold) 22%, transparent);
+}
+
+.rewired-latest-episode__body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rewired-latest-episode__date {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--rewired-text) 65%, transparent);
+  margin: 0;
+}
+
+.rewired-latest-episode__title {
+  font-family: 'Cinzel Variable', Georgia, serif;
+  font-size: clamp(1.5rem, 3.4vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.rewired-latest-episode__title a {
+  color: var(--rewired-heading);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+
+.rewired-latest-episode__title a:hover,
+.rewired-latest-episode__title a:focus-visible {
+  color: var(--rewired-link-hover);
+}
+
+.rewired-latest-episode__summary {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 48rem;
+  color: color-mix(in srgb, var(--rewired-text) 88%, transparent);
+  margin: 0;
+}
+
+.rewired-latest-episode__cta-row {
+  margin-top: 0.25rem;
+}
+
+.rewired-latest-episode__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.rewired-latest-episode__platform-link {
+  font-family: 'Space Grotesk Variable', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--rewired-text) 75%, transparent);
+  text-decoration-color: var(--arcaeon-fusion-gold);
+  text-underline-offset: 0.2em;
+  transition: color 120ms ease;
+}
+
+.rewired-latest-episode__platform-link:hover,
+.rewired-latest-episode__platform-link:focus-visible {
+  color: var(--rewired-link-hover);
+}
+
+@media (min-width: 1024px) {
+  .rewired-latest-episode__layout {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .rewired-latest-episode__media {
+    flex: 1 1 52%;
+  }
+
+  .rewired-latest-episode__cover {
+    max-width: none;
+  }
+
+  .rewired-latest-episode__body {
+    flex: 1 1 48%;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .rewired-latest-episode__summary {
+    max-width: none;
+  }
+
+  .rewired-latest-episode__links {
+    justify-content: flex-start;
+  }
+}
+
+/* ============================================
    404 PAGE
    ============================================ */
 

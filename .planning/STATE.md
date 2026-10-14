@@ -19,7 +19,7 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-04-18)
 
 **Core value:** A visitor lands, immediately gets the lens of the show, sees the two hosts, and drops their email so they don't miss the launch.
-**Current focus:** Phase 3 (Listener Experience) in progress. EPS-01/EPS-03/EPS-04 (episode list, RSS pull, embedded player) and EPS-02 (per-episode permalink pages) are done. EPS-05 (latest-episode homepage callout) is the one open item.
+**Current focus:** Phase 3 (Listener Experience) complete. EPS-01..05 all done.
 
 ## Current Phase
 
@@ -30,11 +30,11 @@ See: `.planning/PROJECT.md` (updated 2026-04-18)
 
 All Phase 2 requirements closed: CAPT-01..04, DEPL-01..05. Live URL: https://rewired.show/.
 
-**Phase 3: Listener Experience — episode surface pulled from Substack RSS** — in progress
+**Phase 3: Listener Experience — episode surface pulled from Substack RSS** — complete
 
 - [x] EPS-01 (episode list), EPS-03 (RSS pull at build time), EPS-04 (embedded audio player) — found already built during 2026-10-13 discuss-phase scout; no prior record of this work existed in STATE.md/ROADMAP.md/PROJECT.md. See `03-CONTEXT.md` for the drift note.
 - [x] EPS-02 (per-episode permalink pages) — built 2026-10-13, see `.planning/phases/03-listener-experience-episode-surface-pulled-from-substack-rss/03-SUMMARY.md`
-- [ ] EPS-05 (latest-episode homepage callout) — not yet done, not yet requested
+- [x] EPS-05 (latest-episode homepage callout) — built 2026-10-14, `layouts/partials/sections/latest-episode.html`, hero-weight section between the masthead and the lens, picks the newest `content/episodes/*` page by publish date (not episode number, so an out-of-sequence bonus episode still wins correctly)
 
 ## Recent Activity
 
@@ -49,6 +49,7 @@ All Phase 2 requirements closed: CAPT-01..04, DEPL-01..05. Live URL: https://rew
 - 2026-??-?? — **Phase 3 EPS-01/EPS-03/EPS-04 built outside the formal GSD flow, undated and unrecorded until discovered during this phase's discuss-phase scout (2026-10-13).** `layouts/partials/sections/episodes.html` (homepage episode grid, RSS-parsed, embedded native audio player) and `scripts/refresh-episodes.sh` (vendor-and-commit RSS refresh — Substack 403s CI) already existed with zero trace in STATE.md/ROADMAP.md/PROJECT.md. Not corrected retroactively; noted here and in `03-CONTEXT.md` so it isn't rediscovered as a surprise again.
 - 2026-10-13 — Phase 3 discuss-phase run. Found the above drift. Scoped this pass to **EPS-02 (per-episode permalink pages)** — the real remaining SEO gap (rewired.show had exactly one indexable URL for the whole show). User deferred all three implementation gray areas (content depth, homepage linking, slug scheme) to Claude's judgment. See `03-CONTEXT.md` / `03-DISCUSSION-LOG.md`.
 - 2026-10-13 — EPS-02 built directly (discuss-phase → implementation, skipping the full research/plan/UI-spec/execute/verify subagent pipeline — a Hugo template addition is loud-failure/local/leaf per Design Principle 12, not worth the ceremony). `scripts/generate-episode-pages.py` generates `content/episodes/<substack-slug>.md` per episode from the vendored feed; `layouts/episodes/{single,list}.html` + `layouts/partials/sections/episode-detail.html` render them; `baseof.html` gained per-page OG/canonical meta; homepage cards now link locally (Substack kept as secondary link); flat permalinks mirror Substack's own slug (`hugo.toml`). Wired into the existing `refresh-episodes.sh`/`auto-refresh-deploy.sh` automation so new episodes get pages automatically. `hugo --minify` verified clean, all 11 episodes confirmed in sitemap.xml with correct per-page OG tags. Commit: d3337ab, pushed to main. See `03-SUMMARY.md`.
+- 2026-10-14 — EPS-05 built directly, same DP-12 reasoning as EPS-02 (template addition, loud/local/leaf). New `layouts/partials/sections/latest-episode.html` reuses EPS-02's per-episode frontmatter (youtubeId, cover/coverLocal, summary, platform URLs) to render a hero-weight "New Episode" callout — video embed (or cover art fallback), title linking to the episode's own permalink, CTA, and all four platform links — placed between the masthead and the lens, mobile single-column promoting to a two-column layout at desktop. "Latest" resolved by `.Date` (publish date) rather than `episodeNumber`, since a bonus episode can be the most recent thing published without fitting the numbering sequence. `hugo --minify` verified clean; rendered output confirmed against the live feed (correctly surfaces Episode 11, the newest *published* episode — eps 12-15 are scheduled, not yet in the vendored RSS feed, so they don't appear yet, which is correct). Phase 3 (EPS-01..05) is now fully closed.
 
 ## Assets & References
 

@@ -50,7 +50,7 @@ First episodes now exist (11 published as of 2026-10-13). This list was supersed
 - [x] **EPS-02**: Per-episode permalink pages — built 2026-10-13, `content/episodes/*.md` + `layouts/episodes/*.html`, see `03-SUMMARY.md`
 - [x] **EPS-03**: RSS pull at build time (vendored, not live-fetched — Substack 403s CI) — `scripts/refresh-episodes.sh` (found already built, same as EPS-01)
 - [x] **EPS-04**: Embedded audio player on episode pages — native `<audio>`, both on the homepage grid and the new per-episode pages
-- [ ] **EPS-05**: Latest-episode callout on the landing page — not yet done, not yet requested
+- [x] **EPS-05**: Latest-episode callout on the landing page — built 2026-10-14, `layouts/partials/sections/latest-episode.html`, hero section between the masthead and the lens, picks newest `content/episodes/*` page by `.Date`
 
 ### Discovery
 
