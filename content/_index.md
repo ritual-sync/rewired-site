@@ -3,7 +3,7 @@ title: "Rewired"
 showName: "Rewired"
 heroLens: "We left the systems. We're finding what's alive."
 lensHeading: "The Lens"
-lensParagraph: "Rewired is a conversation between two people who left the systems they were raised in and kept going. Evangelical deconstruction, embodied practice, tarot, Jungian work, the slow repatterning of a nervous system that was never wrong — just aimed somewhere false. It's not a recovery story. It's what happens after you stop trying to get back to who you were and start finding out what you actually are."
+lensParagraph: "Every episode starts with a tarot card, nobody picks the topic in advance, and we're not allowed to resolve it by the end. That's the whole format. Matt spent 25 years working his way from street evangelism to witchcraft while building software for a living; Jaye Anne spent six days a week in homeschool church before her own exit. Wherever the card points — religious trauma, cultural appropriation, Jungian shadow work, what a nervous system actually has to unlearn — that's the episode. Nothing gets tied up with a bow, because nothing in real deconstruction does either."
 hostsHeading: "Hosts"
 hosts:
   matt:
