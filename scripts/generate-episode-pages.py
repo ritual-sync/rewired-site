@@ -145,19 +145,23 @@ def transform_notes_html(html: str, youtube_id: str | None, spotify_url: str | N
                 # equivalent public parameter for jumping to an arbitrary
                 # moment in a third-party link, so it's deliberately not
                 # offered here rather than shipping a link that lies.
-                links_html = []
+                #
+                # The timestamp itself stays plain text (not a link) so
+                # both platforms get equal, explicit billing — a bare
+                # number with no platform name doesn't tell a visitor
+                # it's clickable, let alone where it goes.
+                seconds = parse_timestamp(ts)
+                platform_links = []
                 if youtube_id:
-                    seconds = parse_timestamp(ts)
                     link = f"https://youtu.be/{youtube_id}?t={seconds}"
-                    links_html.append(f'<a href="{link}" target="_blank" rel="noopener noreferrer">{ts}</a>')
+                    platform_links.append(f'<a href="{link}" target="_blank" rel="noopener noreferrer">YouTube</a>')
                 if spotify_url:
-                    seconds = parse_timestamp(ts)
                     link = f"{spotify_url}?t={seconds}"
-                    label_text = "Spotify" if links_html else ts
-                    css_class = ' class="rewired-episode-detail__notes-chapter-alt"' if links_html else ""
-                    links_html.append(f'<a href="{link}" target="_blank" rel="noopener noreferrer"{css_class}>{label_text}</a>')
-                if links_html:
-                    items.append(f'<li>{" · ".join(links_html)} — {label}</li>')
+                    platform_links.append(f'<a href="{link}" target="_blank" rel="noopener noreferrer">Spotify</a>')
+                if platform_links:
+                    ts_markup = f'<span class="rewired-episode-detail__notes-chapter-ts">{ts}</span>'
+                    links_markup = f' <span class="rewired-episode-detail__notes-chapter-links">({" · ".join(platform_links)})</span>'
+                    items.append(f'<li>{ts_markup}{links_markup} — {label}</li>')
                 else:
                     items.append(f"<li>{ts} — {label}</li>")
                 i += 1
