@@ -195,6 +195,29 @@ html, body { overflow-x: hidden; }
   color: var(--rewired-text);
 }
 
+/* Jupiter sigil at the foot of The Lens — decorative, unexplained.
+   Sleeping (faint ember) until charged at the dawn Jupiter hour, 2026-11-12 06:30–07:22 CST;
+   the activation commit on branch sigil/activate-jupiter-2026-11-12 removes .rewired-sigil--sleeping. */
+.rewired-sigil {
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  width: clamp(96px, 22vw, 140px);
+}
+
+.rewired-sigil svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--arcaeon-fusion-gold);
+  --sigil-stroke-width: 2.4;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 6px rgba(255, 179, 71, 0.55));
+}
+
+.rewired-sigil--sleeping svg {
+  opacity: 0.2;
+  filter: none;
+}
+
 /* ============================================
    HOSTS (CONT-02)
    ============================================ */
