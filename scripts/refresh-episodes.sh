@@ -15,6 +15,21 @@ FEED_URL="https://api.substack.com/feed/podcast/8721195.rss"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT="$REPO_ROOT/assets/episodes.xml"
 
+# Pick a python that can import yaml (generate-episode-pages.py needs PyYAML).
+# launchd runs this with PATH=/usr/bin:/bin:..., where python3 is the system
+# 3.9 with no PyYAML — that silently broke every scheduled page regeneration
+# from 10/13 (when the yaml import landed) until 10/26. The pyenv shim works
+# without shell init, so prefer it; REWIRED_PYTHON overrides. Checked up front
+# so a missing module fails BEFORE the feed is overwritten, not halfway through.
+PYTHON=""
+for cand in ${REWIRED_PYTHON:-} "$HOME/.pyenv/shims/python3" python3; do
+  if "$cand" -c 'import yaml' >/dev/null 2>&1; then PYTHON="$cand"; break; fi
+done
+if [ -z "$PYTHON" ]; then
+  echo "ERROR: no python3 with PyYAML found (tried: ${REWIRED_PYTHON:-} ~/.pyenv/shims/python3 python3) — set REWIRED_PYTHON" >&2
+  exit 1
+fi
+
 echo "Fetching $FEED_URL ..."
 tmp="$(mktemp)"
 # Cache-bust: Substack edge-caches the feed URL, so a plain fetch can return a stale
@@ -55,11 +70,11 @@ echo "  static copy serves at https://rewired.show/episodes.xml (proxy feed for 
 # slug already fetched — cheap no-op on a run with no new episodes. Re-run
 # with --force only if an episode's art actually changes.
 echo "Fetching any new episode cover art ..."
-python3 "$REPO_ROOT/scripts/fetch-episode-covers.py"
+"$PYTHON" "$REPO_ROOT/scripts/fetch-episode-covers.py"
 
 # Regenerate the per-episode permalink pages (EPS-02, Phase 3) from the
 # feed we just wrote — same vendor-and-commit shape as the feed itself.
 echo "Regenerating per-episode pages ..."
-python3 "$REPO_ROOT/scripts/generate-episode-pages.py"
+"$PYTHON" "$REPO_ROOT/scripts/generate-episode-pages.py"
 
 echo "Next: git add assets/episodes.xml static/episodes.xml content/episodes/ assets/images/episodes/ && git commit && git push"
