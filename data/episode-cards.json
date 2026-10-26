@@ -1,0 +1,39 @@
+{
+  "_comment": "Tarot card photo captions per episode slug, rendered under the card on each episode page. scripts/fetch-episode-cards.py fills these from each Substack post's captioned figure and never overwrites an existing caption. ep1-3's Substack figures have no caption, so theirs are hand-entered here from the episode records in ~/.psyche/podcast/episodes/.",
+  "episode-001-what-kind-of-smoke-is": {
+    "caption": "Card, pulled in retrospect: Fumus / Smoke — The Wild Unknown Alchemy (Kim Krans)."
+  },
+  "episode-002-participant-not-consumer": {
+    "caption": "Card: The Hanged Man — Neon Tarot."
+  },
+  "episode-003-shadow-capitalism": {
+    "caption": "Card: King of Pentacles (“the King of Guap, the Zaddy”) — Gen Z Tarot."
+  },
+  "episode-004-animism-all-the-way-down": {
+    "caption": "Card: Five of Wands, reversed — the Eldritch Overload deck (Weird Works), a tech-magic deck."
+  },
+  "episode-005-theres-no-waning-cycle": {
+    "caption": "Card: Ten of Swords (Magic Pantry) + Five of Wands (Crow deck)."
+  },
+  "episode-006-the-tension-is-the-point": {
+    "caption": "Card: The Empress — The Gay Marseille Tarot (The Word Witch)."
+  },
+  "episode-007-the-most-repressed-archetype": {
+    "caption": "Card: The Magician — Deviant Moon Tarot (Patrick Valenza)."
+  },
+  "episode-008-when-do-we-bare-our-teeth": {
+    "caption": "Card: Strength — Symdala Tarot (Jennifer Cooper Steidley). Pulled as a jumper."
+  },
+  "episode-009-from-the-vault-you-cant": {
+    "caption": "Card pulled: Star Mother — “How can you mother yourself?” — from the Work Your Light Oracle (Rebecca Campbell)."
+  },
+  "episode-010-fighting-for-the-three": {
+    "caption": "Card: Knight of Swords — Tarot of the Vampires (Charles Harrington, illustrated by Craig Maher)."
+  },
+  "episode-011-a-race-car-in-the-red": {
+    "caption": "Card: Queen of Blues (Queen of Cups) — Rhythm and Soul Tarot (Stacy Williams-Ng), illustrated after Bessie Smith."
+  },
+  "episode-012-with-each-death-i-become": {
+    "caption": "Card: Death — The Ghetto Tarot, Alice Smeets"
+  }
+}

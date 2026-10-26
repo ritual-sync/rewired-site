@@ -12,6 +12,9 @@ episodeType: full
 date: '2026-09-30T19:36:41+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/217982398/068f7283729a6466abd06dcc731a9f87.jpg
 coverLocal: images/episodes/episode-011-a-race-car-in-the-red.jpg
+cardLocal: images/cards/episode-011-a-race-car-in-the-red.jpg
+cardAlt: 'Card: Queen of Blues (Queen of Cups) — Rhythm and Soul Tarot (Stacy Williams-Ng), illustrated after Bessie Smith.'
+cardCaption: null
 audio: https://api.substack.com/feed/podcast/217982398/d2654fffe9f86993819e2308f6d758ca.mp3
 audioType: audio/mpeg
 durationSeconds: 5094

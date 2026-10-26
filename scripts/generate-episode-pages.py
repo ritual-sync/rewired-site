@@ -50,11 +50,14 @@ OUT_DIR = REPO_ROOT / "content" / "episodes"
 YOUTUBE_IDS_PATH = REPO_ROOT / "data" / "youtube-episode-ids.json"
 PLATFORM_LINKS_PATH = REPO_ROOT / "data" / "platform-episode-links.json"
 COVERS_DIR = REPO_ROOT / "assets" / "images" / "episodes"
+CARDS_DIR = REPO_ROOT / "assets" / "images" / "cards"
+CARDS_PATH = REPO_ROOT / "data" / "episode-cards.json"
 
 ITUNES_NS = "http://www.itunes.com/dtds/podcast-1.0.dtd"
 NS = {"itunes": ITUNES_NS}
 
 TAG_RE = re.compile(r"<[^>]+>")
+CARD_PARAGRAPH_RE = re.compile(r"<p>(?:<[^>]+>)*\*?Card\b", re.I)
 WS_RE = re.compile(r"\s+")
 PARAGRAPH_RE = re.compile(r"<p[^>]*>(.*?)</p>", re.S)
 CHAPTER_RE = re.compile(r"^(\d{1,3}(?::\d{2}){1,2})\s+—\s+(.+)$")
@@ -89,6 +92,15 @@ def load_platform_links() -> dict[str, dict[str, str]]:
     if not PLATFORM_LINKS_PATH.exists():
         return {}
     return json.loads(PLATFORM_LINKS_PATH.read_text(encoding="utf-8"))
+
+
+def load_card_captions() -> dict[str, str]:
+    # scripts/fetch-episode-cards.py writes this — the tarot card photo's
+    # caption per slug (ep1-3 hand-entered; their Substack figures have none).
+    if not CARDS_PATH.exists():
+        return {}
+    data = json.loads(CARDS_PATH.read_text(encoding="utf-8"))
+    return {k: v.get("caption") for k, v in data.items() if not k.startswith("_")}
 
 
 def parse_timestamp(ts: str) -> int:
@@ -225,7 +237,8 @@ def slug_from_link(link: str) -> str:
     return link.rstrip("/").rsplit("/", 1)[-1]
 
 
-def parse_item(item: ET.Element, youtube_ids: dict[str, str], platform_links: dict[str, dict[str, str]]) -> dict | None:
+def parse_item(item: ET.Element, youtube_ids: dict[str, str], platform_links: dict[str, dict[str, str]],
+               card_captions: dict[str, str]) -> dict | None:
     title = (item.findtext("title") or "").strip()
     link = (item.findtext("link") or "").strip()
     if not link:
@@ -276,6 +289,13 @@ def parse_item(item: ET.Element, youtube_ids: dict[str, str], platform_links: di
         # templates prefer this and fall back to the remote `cover` URL
         # (full-res, un-resized) only when it hasn't been fetched yet.
         "coverLocal": f"images/episodes/{slug}.jpg" if (COVERS_DIR / f"{slug}.jpg").exists() else None,
+        # Tarot card photo (scripts/fetch-episode-cards.py) — the feed strips
+        # images, so it's vendored from the Substack post body instead.
+        "cardLocal": f"images/cards/{slug}.jpg" if (CARDS_DIR / f"{slug}.jpg").exists() else None,
+        "cardAlt": card_captions.get(slug),
+        # Shown under the photo only when the notes don't already carry their
+        # own "Card: ..." paragraph (ep11+ do) — otherwise it reads twice.
+        "cardCaption": None if CARD_PARAGRAPH_RE.search(description) else card_captions.get(slug),
         "audio": audio_url,
         "audioType": audio_type,
         "durationSeconds": duration_seconds,
@@ -323,11 +343,12 @@ def main() -> int:
 
     youtube_ids = load_youtube_ids()
     platform_links = load_platform_links()
+    card_captions = load_card_captions()
 
     written: list[Path] = []
     skipped = 0
     for item in items:
-        ep = parse_item(item, youtube_ids, platform_links)
+        ep = parse_item(item, youtube_ids, platform_links, card_captions)
         if ep is None:
             skipped += 1
             continue

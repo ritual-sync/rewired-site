@@ -92,9 +92,34 @@
       {{ end }}
     </div>
 
+    {{/* Tarot card photo (scripts/fetch-episode-cards.py — the feed strips
+         images, so it's vendored from the Substack post body). Placed after
+         the notes' opening paragraph, which in every episode is the one that
+         introduces the card — the same spot Substack's post puts it. */}}
+    {{ $card := "" }}
+    {{ with $p.cardLocal }}
+      {{ with resources.Get . }}
+        {{ $img1x := .Resize "360x webp q80" }}
+        {{ $img2x := .Resize "720x webp q80" }}
+        {{ $alt := $p.cardAlt | default "the tarot card pulled for this episode" }}
+        {{ $card = printf `<figure class="rewired-episode-detail__card"><img src="%s" srcset="%s 1x, %s 2x" alt="Photo of %s" width="%d" height="%d" loading="lazy" decoding="async">%s</figure>`
+          $img1x.RelPermalink $img1x.RelPermalink $img2x.RelPermalink
+          (replaceRE `^Card[^:]*:\s*` "" $alt | htmlEscape) $img1x.Width $img1x.Height
+          (cond (ne ($p.cardCaption | default "") "") (printf `<figcaption>%s</figcaption>` ($p.cardCaption | htmlEscape)) "") }}
+      {{ end }}
+    {{ end }}
+
     {{ with $p.notesHTML }}
+      {{ $notes := . }}
+      {{ if $card }}
+        {{ if in $notes "</p>" }}
+          {{ $notes = replaceRE `</p>` (printf "</p>%s" $card) $notes 1 }}
+        {{ else }}
+          {{ $notes = printf "%s%s" $card $notes }}
+        {{ end }}
+      {{ end }}
       <div class="rewired-episode-detail__notes">
-        {{ . | safeHTML }}
+        {{ $notes | safeHTML }}
       </div>
     {{ end }}
 

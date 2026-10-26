@@ -72,9 +72,15 @@ echo "  static copy serves at https://rewired.show/episodes.xml (proxy feed for 
 echo "Fetching any new episode cover art ..."
 "$PYTHON" "$REPO_ROOT/scripts/fetch-episode-covers.py"
 
+# Vendor each new episode's tarot card photo + caption from the Substack post
+# body (the feed strips images). Same skip-if-present shape as covers, and
+# also before page generation so a new episode's page gets its card this pass.
+echo "Fetching any new episode card photos ..."
+"$PYTHON" "$REPO_ROOT/scripts/fetch-episode-cards.py"
+
 # Regenerate the per-episode permalink pages (EPS-02, Phase 3) from the
 # feed we just wrote — same vendor-and-commit shape as the feed itself.
 echo "Regenerating per-episode pages ..."
 "$PYTHON" "$REPO_ROOT/scripts/generate-episode-pages.py"
 
-echo "Next: git add assets/episodes.xml static/episodes.xml content/episodes/ assets/images/episodes/ && git commit && git push"
+echo "Next: git add assets/episodes.xml static/episodes.xml content/episodes/ assets/images/episodes/ assets/images/cards/ data/episode-cards.json && git commit && git push"

@@ -12,6 +12,9 @@ episodeType: full
 date: '2026-08-02T21:45:00+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/203437997/29667f3dbf89849a768138adb992b195.jpg
 coverLocal: images/episodes/episode-006-the-tension-is-the-point.jpg
+cardLocal: images/cards/episode-006-the-tension-is-the-point.jpg
+cardAlt: 'Card: The Empress — The Gay Marseille Tarot (The Word Witch).'
+cardCaption: 'Card: The Empress — The Gay Marseille Tarot (The Word Witch).'
 audio: https://api.substack.com/feed/podcast/203437997/774765a2d169a30472d615a603197e4f.mp3
 audioType: audio/mpeg
 durationSeconds: 4281

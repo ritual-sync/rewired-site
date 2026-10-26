@@ -12,6 +12,9 @@ episodeType: full
 date: '2026-10-25T20:55:34+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/217996917/71114ada2974e97898bc61af747ccb75.jpg
 coverLocal: images/episodes/episode-012-with-each-death-i-become.jpg
+cardLocal: images/cards/episode-012-with-each-death-i-become.jpg
+cardAlt: 'Card: Death — The Ghetto Tarot, Alice Smeets'
+cardCaption: null
 audio: https://api.substack.com/feed/podcast/217996917/c65335b33f91c869c9926faa0d0ad6af.mp3
 audioType: audio/mpeg
 durationSeconds: 5422

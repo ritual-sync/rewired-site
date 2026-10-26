@@ -713,6 +713,31 @@ a.rewired-subscribe-btn:active {
   color: var(--rewired-heading);
 }
 
+/* Tarot card photo — portrait phone shots at varying aspect ratios, so no
+   forced aspect-ratio (unlike the square cover); width/height attrs from the
+   resized image reserve the space. */
+.rewired-episode-detail__card {
+  margin: 1.75rem auto 2rem;
+  max-width: min(100%, 22.5rem);
+  text-align: center;
+}
+
+.rewired-episode-detail__card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--arcaeon-fusion-gold) 22%, transparent);
+}
+
+.rewired-episode-detail__card figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-style: italic;
+  color: color-mix(in srgb, var(--rewired-text) 65%, transparent);
+}
+
 .rewired-episode-detail__notes em {
   color: color-mix(in srgb, var(--rewired-text) 92%, transparent);
 }

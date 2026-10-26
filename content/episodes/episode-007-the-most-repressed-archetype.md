@@ -12,6 +12,9 @@ episodeType: full
 date: '2026-08-16T21:45:00+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/205677386/baecf6b2d6f2ae1d396e9c56c27449ba.jpg
 coverLocal: images/episodes/episode-007-the-most-repressed-archetype.jpg
+cardLocal: images/cards/episode-007-the-most-repressed-archetype.jpg
+cardAlt: 'Card: The Magician — Deviant Moon Tarot (Patrick Valenza).'
+cardCaption: 'Card: The Magician — Deviant Moon Tarot (Patrick Valenza).'
 audio: https://api.substack.com/feed/podcast/205677386/53eb71faa4d2d1b77d6b281384e9a2e9.mp3
 audioType: audio/mpeg
 durationSeconds: 4323

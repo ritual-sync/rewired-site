@@ -12,6 +12,9 @@ episodeType: full
 date: '2026-06-21T13:00:00+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/201931149/96c7e881a5d788a456e9444e4ab86764.jpg
 coverLocal: images/episodes/episode-003-shadow-capitalism.jpg
+cardLocal: images/cards/episode-003-shadow-capitalism.jpg
+cardAlt: 'Card: King of Pentacles (“the King of Guap, the Zaddy”) — Gen Z Tarot.'
+cardCaption: 'Card: King of Pentacles (“the King of Guap, the Zaddy”) — Gen Z Tarot.'
 audio: https://api.substack.com/feed/podcast/201931149/999381574b0ba7a2507bd80da4f0ffb5.mp3
 audioType: audio/mpeg
 durationSeconds: 4803

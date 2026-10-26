@@ -12,6 +12,9 @@ episodeType: full
 date: '2026-08-30T21:45:00+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/205771908/b286b240870b986e0b2cab3f0ee9dc99.jpg
 coverLocal: images/episodes/episode-008-when-do-we-bare-our-teeth.jpg
+cardLocal: images/cards/episode-008-when-do-we-bare-our-teeth.jpg
+cardAlt: 'Card: Strength — Symdala Tarot (Jennifer Cooper Steidley). Pulled as a jumper.'
+cardCaption: 'Card: Strength — Symdala Tarot (Jennifer Cooper Steidley). Pulled as a jumper.'
 audio: https://api.substack.com/feed/podcast/205771908/6fa9dbb9aed407521ca37a320c392edd.mp3
 audioType: audio/mpeg
 durationSeconds: 5120
