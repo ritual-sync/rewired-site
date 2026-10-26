@@ -57,7 +57,7 @@ ITUNES_NS = "http://www.itunes.com/dtds/podcast-1.0.dtd"
 NS = {"itunes": ITUNES_NS}
 
 TAG_RE = re.compile(r"<[^>]+>")
-CARD_PARAGRAPH_RE = re.compile(r"<p>(?:<[^>]+>)*\*?Card\b", re.I)
+CARD_PARAGRAPH_RE = re.compile(r"<p>((?:<[^>]+>)*\*?Card\b.*?)</p>", re.I | re.S)
 WS_RE = re.compile(r"\s+")
 PARAGRAPH_RE = re.compile(r"<p[^>]*>(.*?)</p>", re.S)
 CHAPTER_RE = re.compile(r"^(\d{1,3}(?::\d{2}){1,2})\s+—\s+(.+)$")
@@ -272,6 +272,17 @@ def parse_item(item: ET.Element, youtube_ids: dict[str, str], platform_links: di
 
     duration_seconds = int(itunes_duration) if (itunes_duration or "").isdigit() else None
 
+    # From ep11 the show notes carry their own "Card: ..." line. Lift it out
+    # of the notes and use it as the photo's caption, so every page shows the
+    # caption the same way (under the photo) and it never reads twice. It's
+    # the fuller attribution, so it wins over the Substack figure caption.
+    notes_html = transform_notes_html(description, youtube_id, links.get("spotifyURL"))
+    card_caption = card_captions.get(slug)
+    card_para = CARD_PARAGRAPH_RE.search(notes_html)
+    if card_para:
+        card_caption = WS_RE.sub(" ", unescape(TAG_RE.sub("", card_para.group(1)))).strip()
+        notes_html = notes_html[:card_para.start()] + notes_html[card_para.end():]
+
     return {
         "title": title,
         "shortTitle": short_title(title),
@@ -293,16 +304,14 @@ def parse_item(item: ET.Element, youtube_ids: dict[str, str], platform_links: di
         # images, so it's vendored from the Substack post body instead.
         "cardLocal": f"images/cards/{slug}.jpg" if (CARDS_DIR / f"{slug}.jpg").exists() else None,
         "cardAlt": card_captions.get(slug),
-        # Shown under the photo only when the notes don't already carry their
-        # own "Card: ..." paragraph (ep11+ do) — otherwise it reads twice.
-        "cardCaption": None if CARD_PARAGRAPH_RE.search(description) else card_captions.get(slug),
+        "cardCaption": card_caption,
         "audio": audio_url,
         "audioType": audio_type,
         "durationSeconds": duration_seconds,
         "durationISO": iso8601_duration(duration_seconds),
         "explicit": (itunes_explicit or "").strip().lower() == "yes",
         "summary": plainify(description, 155),
-        "notesHTML": transform_notes_html(description, youtube_id, links.get("spotifyURL")),
+        "notesHTML": notes_html,
     }
 
 
