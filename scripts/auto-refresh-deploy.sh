@@ -80,7 +80,10 @@ if [ -z "$(git status --porcelain -- "$FEED_FILE" "$STATIC_FILE" "$EPISODE_PAGES
   exit 0
 fi
 
-latest="$(grep -o '<title>[^<]*' "$FEED_FILE" | sed 's/<title>//' | sed -n '2p')"
+# Substack wraps titles in CDATA (<title><![CDATA[…]]>), which the old
+# '<title>[^<]*' pattern stopped at, so every deploy logged "unknown". Handles
+# both forms; line 1 is the channel title, line 2 the newest episode.
+latest="$(grep -oE '<title>(<!\[CDATA\[)?[^]<]*' "$FEED_FILE" | sed -E 's/^<title>(<!\[CDATA\[)?//' | sed -n '2p')"
 echo "[$STAMP] feed changed — newest item: ${latest:-unknown}. Committing + pushing."
 
 git add "$FEED_FILE" "$STATIC_FILE" "$EPISODE_PAGES_DIR" "$EPISODE_COVERS_DIR" "$EPISODE_CARDS_DIR" "$EPISODE_CARDS_DATA" "$YOUTUBE_IDS" || fail "add" "git add feed + episode page + cover files"
