@@ -30,6 +30,7 @@ EPISODE_PAGES_DIR="content/episodes"  # per-episode permalink pages (EPS-02), re
 EPISODE_COVERS_DIR="assets/images/episodes"  # vendored cover art, fetched by refresh-episodes.sh
 EPISODE_CARDS_DIR="assets/images/cards"      # vendored tarot card photos, fetched by refresh-episodes.sh
 EPISODE_CARDS_DATA="data/episode-cards.json"  # card captions, written alongside them
+YOUTUBE_IDS="data/youtube-episode-ids.json"   # slug -> videoId, written by publishing-pipeline's hourly YouTube reconcile
 SENTINEL="$HOME/Library/Logs/rewired-episode-refresh.SENTINEL.md"
 STAMP="$(date '+%Y-%m-%d %H:%M:%S %z')"
 
@@ -46,7 +47,7 @@ fail() {
     echo
     echo "Manual recovery:"
     echo "    cd $REPO && ./scripts/refresh-episodes.sh && \\"
-    echo "      git add $FEED_FILE $STATIC_FILE $EPISODE_PAGES_DIR $EPISODE_COVERS_DIR $EPISODE_CARDS_DIR $EPISODE_CARDS_DATA && \\"
+    echo "      git add $FEED_FILE $STATIC_FILE $EPISODE_PAGES_DIR $EPISODE_COVERS_DIR $EPISODE_CARDS_DIR $EPISODE_CARDS_DATA $YOUTUBE_IDS && \\"
     echo "      git commit -m 'chore(episodes): refresh feed' && git push"
   } > "$SENTINEL"
   echo "[$STAMP] FAILED at ${1:-unknown}: ${2:-none} (sentinel: $SENTINEL)" >&2
@@ -73,7 +74,7 @@ fi
 # deterministic from the feed) — only commit it when it actually changed too.
 # `git status --porcelain`, not `git diff --quiet`: diff ignores untracked files,
 # so a card photo or cover fetched on a run with no feed change would never ship.
-if [ -z "$(git status --porcelain -- "$FEED_FILE" "$STATIC_FILE" "$EPISODE_PAGES_DIR" "$EPISODE_COVERS_DIR" "$EPISODE_CARDS_DIR" "$EPISODE_CARDS_DATA")" ]; then
+if [ -z "$(git status --porcelain -- "$FEED_FILE" "$STATIC_FILE" "$EPISODE_PAGES_DIR" "$EPISODE_COVERS_DIR" "$EPISODE_CARDS_DIR" "$EPISODE_CARDS_DATA" "$YOUTUBE_IDS")" ]; then
   echo "[$STAMP] no feed change — site already current. Done."
   rm -f "$SENTINEL"
   exit 0
@@ -82,8 +83,8 @@ fi
 latest="$(grep -o '<title>[^<]*' "$FEED_FILE" | sed 's/<title>//' | sed -n '2p')"
 echo "[$STAMP] feed changed — newest item: ${latest:-unknown}. Committing + pushing."
 
-git add "$FEED_FILE" "$STATIC_FILE" "$EPISODE_PAGES_DIR" "$EPISODE_COVERS_DIR" "$EPISODE_CARDS_DIR" "$EPISODE_CARDS_DATA" || fail "add" "git add feed + episode page + cover files"
-git commit -m "chore(episodes): auto-refresh vendored feed + episode pages (${latest:-new episode})" -- "$FEED_FILE" "$STATIC_FILE" "$EPISODE_PAGES_DIR" "$EPISODE_COVERS_DIR" "$EPISODE_CARDS_DIR" "$EPISODE_CARDS_DATA" \
+git add "$FEED_FILE" "$STATIC_FILE" "$EPISODE_PAGES_DIR" "$EPISODE_COVERS_DIR" "$EPISODE_CARDS_DIR" "$EPISODE_CARDS_DATA" "$YOUTUBE_IDS" || fail "add" "git add feed + episode page + cover files"
+git commit -m "chore(episodes): auto-refresh vendored feed + episode pages (${latest:-new episode})" -- "$FEED_FILE" "$STATIC_FILE" "$EPISODE_PAGES_DIR" "$EPISODE_COVERS_DIR" "$EPISODE_CARDS_DIR" "$EPISODE_CARDS_DATA" "$YOUTUBE_IDS" \
   || fail "commit" "git commit"
 
 # Push; if rejected because origin moved, replay our single commit on top once.
