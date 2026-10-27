@@ -9,7 +9,7 @@ appleURL: https://podcasts.apple.com/us/podcast/episode-7-the-most-repressed-arc
 spotifyURL: https://open.spotify.com/episode/4FgHBkwrU3Me5P48IlnmBF
 episodeNumber: 7
 episodeType: full
-date: '2026-08-16T21:45:00+00:00'
+date: '2026-08-16T21:45:32+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/205677386/baecf6b2d6f2ae1d396e9c56c27449ba.jpg
 coverLocal: images/episodes/episode-007-the-most-repressed-archetype.jpg
 cardLocal: images/cards/episode-007-the-most-repressed-archetype.jpg

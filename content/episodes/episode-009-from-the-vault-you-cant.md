@@ -9,7 +9,7 @@ appleURL: https://podcasts.apple.com/us/podcast/episode-9-you-cant-cut-the-magne
 spotifyURL: https://open.spotify.com/episode/1ITE5d8hBZO6j8XqCguB1H
 episodeNumber: 9
 episodeType: full
-date: '2026-09-13T21:45:00+00:00'
+date: '2026-09-13T21:45:22+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/205943744/d4fdb42974826bb47376dbcfa83337c9.jpg
 coverLocal: images/episodes/episode-009-from-the-vault-you-cant.jpg
 cardLocal: images/cards/episode-009-from-the-vault-you-cant.jpg

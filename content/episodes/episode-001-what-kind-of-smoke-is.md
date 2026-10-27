@@ -9,7 +9,7 @@ appleURL: https://podcasts.apple.com/us/podcast/episode-1-what-kind-of-smoke-is-
 spotifyURL: https://open.spotify.com/episode/71h2zvdv6YtpXeGq8BkBMM
 episodeNumber: 1
 episodeType: full
-date: '2026-06-21T13:00:00+00:00'
+date: '2026-06-21T13:03:14+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/201930068/14286440ba1148037a70353e35447669.jpg
 coverLocal: images/episodes/episode-001-what-kind-of-smoke-is.jpg
 cardLocal: images/cards/episode-001-what-kind-of-smoke-is.jpg

@@ -9,7 +9,7 @@ appleURL: https://podcasts.apple.com/us/podcast/episode-4-animism-all-the-way-do
 spotifyURL: https://open.spotify.com/episode/3NUcCS5VJzZdirFMfXuxy2
 episodeNumber: 4
 episodeType: full
-date: '2026-07-05T21:45:00+00:00'
+date: '2026-07-05T21:46:09+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/203431665/8bc7b06678ff0cc7e6bd4ccb4544aa0f.jpg
 coverLocal: images/episodes/episode-004-animism-all-the-way-down.jpg
 cardLocal: images/cards/episode-004-animism-all-the-way-down.jpg

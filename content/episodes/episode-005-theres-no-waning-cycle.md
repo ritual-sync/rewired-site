@@ -9,7 +9,7 @@ appleURL: https://podcasts.apple.com/us/podcast/episode-5-theres-no-waning-cycle
 spotifyURL: https://open.spotify.com/episode/0TMkl4wLySKm3i8YfCABOM
 episodeNumber: 5
 episodeType: full
-date: '2026-07-19T21:45:00+00:00'
+date: '2026-07-19T21:45:01+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/203434928/a895f28de56631df8eb835bc6e5586f5.jpg
 coverLocal: images/episodes/episode-005-theres-no-waning-cycle.jpg
 cardLocal: images/cards/episode-005-theres-no-waning-cycle.jpg

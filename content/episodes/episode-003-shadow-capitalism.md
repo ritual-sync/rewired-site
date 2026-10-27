@@ -9,7 +9,7 @@ appleURL: https://podcasts.apple.com/us/podcast/episode-3-shadow-capitalism-ai-a
 spotifyURL: https://open.spotify.com/episode/0fhwTtWdknKyZWBDEGINsv
 episodeNumber: 3
 episodeType: full
-date: '2026-06-21T13:00:00+00:00'
+date: '2026-06-21T13:03:08+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/201931149/96c7e881a5d788a456e9444e4ab86764.jpg
 coverLocal: images/episodes/episode-003-shadow-capitalism.jpg
 cardLocal: images/cards/episode-003-shadow-capitalism.jpg

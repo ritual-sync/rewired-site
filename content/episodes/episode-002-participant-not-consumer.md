@@ -9,7 +9,7 @@ appleURL: https://podcasts.apple.com/us/podcast/episode-2-participant-not-consum
 spotifyURL: https://open.spotify.com/episode/3PuXPwNvG0vaVjRufwRlBm
 episodeNumber: 2
 episodeType: full
-date: '2026-06-21T13:00:00+00:00'
+date: '2026-06-21T13:03:14+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/201930981/915426838d4de1c87c5d581e972d7e70.jpg
 coverLocal: images/episodes/episode-002-participant-not-consumer.jpg
 cardLocal: images/cards/episode-002-participant-not-consumer.jpg

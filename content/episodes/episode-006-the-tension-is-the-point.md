@@ -9,7 +9,7 @@ appleURL: https://podcasts.apple.com/us/podcast/episode-6-the-tension-is-the-poi
 spotifyURL: https://open.spotify.com/episode/6Zaru0970Km2wPFKADJ9W0
 episodeNumber: 6
 episodeType: full
-date: '2026-08-02T21:45:00+00:00'
+date: '2026-08-02T21:45:13+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/203437997/29667f3dbf89849a768138adb992b195.jpg
 coverLocal: images/episodes/episode-006-the-tension-is-the-point.jpg
 cardLocal: images/cards/episode-006-the-tension-is-the-point.jpg

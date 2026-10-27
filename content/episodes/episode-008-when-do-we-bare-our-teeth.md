@@ -9,7 +9,7 @@ appleURL: https://podcasts.apple.com/us/podcast/episode-8-when-do-we-bare-our-te
 spotifyURL: https://open.spotify.com/episode/4THd1AmZAOPrGhVhAgWRIb
 episodeNumber: 8
 episodeType: full
-date: '2026-08-30T21:45:00+00:00'
+date: '2026-08-30T21:45:06+00:00'
 cover: https://substackcdn.com/feed/podcast/8721195/post/205771908/b286b240870b986e0b2cab3f0ee9dc99.jpg
 coverLocal: images/episodes/episode-008-when-do-we-bare-our-teeth.jpg
 cardLocal: images/cards/episode-008-when-do-we-bare-our-teeth.jpg
