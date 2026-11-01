@@ -12,6 +12,10 @@
 // scope). Joined by exact episode title (verified 1:1 identical to the
 // Substack feed's <title>, not fuzzy-matched).
 //
+// Runs on every refresh (scripts/refresh-episodes.sh), before page generation.
+// It was a by-hand step until 2026-11-01 and was never re-run after ep12, so
+// the bonus page shipped with YouTube chapter links and no Spotify ones.
+//
 // Usage: npx tsx scripts/fetch-platform-links.mts
 
 import fs from "node:fs";
@@ -93,10 +97,14 @@ async function main() {
 
   const [appleByGuid, spotifyByTitle] = await Promise.all([fetchApple(), fetchSpotify()]);
 
-  const out: Record<string, { appleURL?: string; spotifyURL?: string }> = {};
+  // Merge over what is already known, never replace it: the Spotify join is by exact
+  // title, so a retitled post would otherwise drop a link that worked. A link only
+  // goes away by hand.
+  const out: Record<string, { appleURL?: string; spotifyURL?: string }> =
+    fs.existsSync(OUT_PATH) ? JSON.parse(fs.readFileSync(OUT_PATH, "utf-8")) : {};
   for (const item of feedItems) {
-    const appleURL = appleByGuid.get(item.guid);
-    const spotifyURL = spotifyByTitle.get(item.title);
+    const appleURL = appleByGuid.get(item.guid) ?? out[item.slug]?.appleURL;
+    const spotifyURL = spotifyByTitle.get(item.title) ?? out[item.slug]?.spotifyURL;
     out[item.slug] = {
       ...(appleURL ? { appleURL } : {}),
       ...(spotifyURL ? { spotifyURL } : {}),

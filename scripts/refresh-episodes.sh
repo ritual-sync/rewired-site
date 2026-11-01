@@ -78,9 +78,47 @@ echo "Fetching any new episode cover art ..."
 echo "Fetching any new episode card photos ..."
 "$PYTHON" "$REPO_ROOT/scripts/fetch-episode-cards.py"
 
+# Per-episode Spotify + Apple deep links (data/platform-episode-links.json),
+# before page generation so chapter timestamps link to Spotify on this pass.
+# A new episode reaches Spotify via this same RSS feed, so it usually appears a
+# run or two after the drop; the merge never drops a link it already had.
+#
+# A failure here does NOT stop the refresh: a dead Spotify token must not keep
+# a new episode off the site. It writes its own sentinel instead, which a clean
+# run clears. Node is located explicitly for the same launchd-PATH reason as
+# python above (launchd's PATH has no /opt/homebrew/bin).
+LINKS_SENTINEL="$HOME/Library/Logs/rewired-platform-links.SENTINEL.md"
+NPX=""
+for cand in ${REWIRED_NPX:-} /opt/homebrew/bin/npx /usr/local/bin/npx npx; do
+  if command -v "$cand" >/dev/null 2>&1; then NPX="$(command -v "$cand")"; break; fi
+done
+echo "Fetching Spotify + Apple episode links ..."
+if [ -z "$NPX" ]; then
+  links_out="no npx found (tried: ${REWIRED_NPX:-} /opt/homebrew/bin/npx /usr/local/bin/npx npx) — set REWIRED_NPX"
+  links_rc=127
+else
+  # `&& … || …`, not a bare assignment: under set -e a failing $(…) assignment exits.
+  links_out="$(PATH="$(dirname "$NPX"):$PATH" "$NPX" --yes tsx "$REPO_ROOT/scripts/fetch-platform-links.mts" 2>&1)" \
+    && links_rc=0 || links_rc=$?
+fi
+if [ "$links_rc" -eq 0 ]; then
+  rm -f "$LINKS_SENTINEL"
+else
+  {
+    echo "# Rewired platform links FAILED (exit $links_rc) — $(date '+%Y-%m-%d %H:%M:%S %z')"
+    echo
+    echo "Pages still deployed, without new Spotify/Apple chapter links. A later clean run clears this."
+    echo
+    echo '```'
+    echo "$links_out" | tail -30
+    echo '```'
+  } > "$LINKS_SENTINEL"
+  echo "WARNING: platform links failed (exit $links_rc) — see $LINKS_SENTINEL" >&2
+fi
+
 # Regenerate the per-episode permalink pages (EPS-02, Phase 3) from the
 # feed we just wrote — same vendor-and-commit shape as the feed itself.
 echo "Regenerating per-episode pages ..."
 "$PYTHON" "$REPO_ROOT/scripts/generate-episode-pages.py"
 
-echo "Next: git add assets/episodes.xml static/episodes.xml content/episodes/ assets/images/episodes/ assets/images/cards/ data/episode-cards.json && git commit && git push"
+echo "Next: git add assets/episodes.xml static/episodes.xml content/episodes/ assets/images/episodes/ assets/images/cards/ data/episode-cards.json data/platform-episode-links.json && git commit && git push"
