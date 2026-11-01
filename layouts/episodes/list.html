@@ -4,7 +4,15 @@
     <div class="rewired-episodes">
       <h1 class="rewired-episodes__heading">{{ .Title }}</h1>
       <ul class="rewired-episodes__grid" role="list">
-        {{ range sort .Pages "Params.episodeNumber" "desc" }}
+        {{/* Newest first by UTC publish day, episodeNumber as the tiebreaker (ep1–3
+             went out as one batch, seconds apart). episodeNumber alone sank the bonus — 0, no number — to
+             the bottom. Same key as partials/sections/episodes.html. */}}
+        {{ $decorated := slice }}
+        {{ range .Pages }}
+          {{ $decorated = $decorated | append (dict "key" (printf "%s-%06d" (.Date.UTC.Format "20060102") (int (.Params.episodeNumber | default 0))) "page" .) }}
+        {{ end }}
+        {{ range sort $decorated "key" "desc" }}
+        {{ with .page }}
         {{ $page := . }}
         <li class="rewired-episode">
           <a class="rewired-episode__cover-link" href="{{ .Permalink }}" tabindex="-1" aria-hidden="true">
@@ -30,6 +38,7 @@
             </a>
           </div>
         </li>
+        {{ end }}
         {{ end }}
       </ul>
     </div>
