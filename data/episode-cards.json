@@ -1,5 +1,8 @@
 {
   "_comment": "Tarot card photo captions per episode slug, rendered under the card on each episode page. scripts/fetch-episode-cards.py fills these from each Substack post's captioned figure and never overwrites an existing caption. ep1-3's Substack figures have no caption, so theirs are hand-entered here from the episode records in ~/.psyche/podcast/episodes/.",
+  "bonus-episode-the-only-dogma-i-like": {
+    "caption": "Card: Ace of Cups — Todd Alcott's Horror Tarot."
+  },
   "episode-001-what-kind-of-smoke-is": {
     "caption": "Card, pulled in retrospect: Fumus / Smoke — The Wild Unknown Alchemy (Kim Krans)."
   },
