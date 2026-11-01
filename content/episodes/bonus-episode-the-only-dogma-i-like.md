@@ -10,7 +10,7 @@ spotifyURL: https://open.spotify.com/episode/0jcr3uIu4xfneloNfi6VIu
 episodeNumber: 0
 episodeType: bonus
 date: '2026-10-31T23:39:36+00:00'
-cover: https://substackcdn.com/feed/podcast/8721195/post/218827142/b9f8054ddffec07b7f98917101ba593f.jpg
+cover: https://substackcdn.com/feed/podcast/8721195/post/218827142/e2dd721e45fe9aab5e56ce9c68f6962f.jpg
 coverLocal: images/episodes/bonus-episode-the-only-dogma-i-like.jpg
 cardLocal: images/cards/bonus-episode-the-only-dogma-i-like.jpg
 cardAlt: 'Card: Ace of Cups — Todd Alcott''s Horror Tarot.'
