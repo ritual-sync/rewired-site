@@ -5,7 +5,7 @@ slug: episode-013-caught-in-the-current
 substackURL: https://rewiredshow.substack.com/p/episode-013-caught-in-the-current
 youtubeId: FXJ1ebifedw
 youtubeURL: https://youtu.be/FXJ1ebifedw
-appleURL: null
+appleURL: https://podcasts.apple.com/us/podcast/episode-13-caught-in-the-current-the-queen-of/id1896945601?i=1000800622091&uo=4
 spotifyURL: https://open.spotify.com/episode/5NZzjMLZMVnohacJ4TAKII
 episodeNumber: 13
 episodeType: full
